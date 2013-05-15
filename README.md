@@ -1,0 +1,4 @@
+VersionFinder
+=============
+
+CMS VersionFinder script
