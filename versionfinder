@@ -6,7 +6,7 @@
 #Format is function;Display Name;Minimum Version;Current Version
 #Do note that there can not be spaces in the ID strings.
 scans=""
-scans="$scans drupal7;Drupal7;7;7.24"
+scans="$scans drupal7;Drupal7;7;7.25"
 scans="$scans drupal6;Drupal6;6;6.29"
 scans="$scans e107;e107;1;1.0.4"
 scans="$scans joomla15;Joomla_1.5;1.5;1.5.999" # EOL; No longer offered on site
