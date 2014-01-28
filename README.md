@@ -27,6 +27,16 @@ Scan server for known CMS versions and report what is found
 		Print current list of program versions
 ```
 
+Quick installation
+=============
+
+You can quickly install the latest version of version finder using wget:
+
+```
+mkdir -p /root/bin/
+wget https://raw.github.com/JamesDooley/VersionFinder/master/versionfinder -O /root/bin/versionfinder
+chmod 700 /root/bin/versionfinder
+```
 
 Note about EOL packages
 =============
