@@ -25,7 +25,7 @@ scans="$scans redmine2_4;Redmine_2.4;2.4;2.4.2"
 # vBull has 3.8 and 5.0 lines, due to closed source I am not able to create signatures
 scans="$scans vbulletin4;vBulletin_4;4.2;4.2.2"
 scans="$scans wordpress;WordPress;3.8;3.8.1"
-scans="$scans xcart;X-Cart;4.6;4.6.1"
+scans="$scans xcart;X-Cart;5.0;5.0.10"
 scans="$scans xoops;XOOPS;2.5;2.5.6"
 scans="$scans zencart;ZenCart;1.5;1.5.1"
 
