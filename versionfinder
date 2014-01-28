@@ -525,7 +525,7 @@ function xcart {
 			printresult $2 "$insver" "$loc"
 		elif [[ -e $loc/sql/xlite_data.yaml ]]; then
 			insver=$(grep "name: version" $loc/sql/xlite_data.yaml | cut -d "'" -f2)
-			printresult $2 "$insver" "
+			printresult $2 "$insver" "$loc"
 		fi
 	done
 }
