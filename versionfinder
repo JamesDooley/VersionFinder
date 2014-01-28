@@ -476,7 +476,7 @@ function drupal7 {
 	idfiles=$(find  $1 -name authorize.php | xargs grep -l "Drupal" | sed 's:[^/]*$::')
 	for loc in ${idfiles}; do
 		if [[ -e $loc/includes/bootstrap.inc ]]; then
-			insver=$(grep "VERSION" $loc/includes/bootstrap.inc | cut -d "'" -f4)
+			insver=$(grep "VERSION" $loc/includes/bootstrap.inc | cut -d "'" -f4|head -1)
 			printresult $2 "$insver" "$loc"
 		fi
 	done
