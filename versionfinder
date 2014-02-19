@@ -29,6 +29,8 @@ scans="$scans xcart;X-Cart;5.0;5.0.10"
 scans="$scans xoops;XOOPS;2.5;2.5.6"
 scans="$scans zencart;ZenCart;1.5;1.5.1"
 
+
+excludes=
 function getcpanelusers {
 	cpanelusers=$(/bin/ls -A1 /var/cpanel/users/)
 	echo "$cpanelusers"
@@ -123,6 +125,7 @@ function init {
 		else
 			cpanelusers=$specificuser
 		fi
+		  
 		output=""
 		accounts=$(echo "$cpanelusers" | wc -w)
 		curacct=0
@@ -130,6 +133,7 @@ function init {
 			curacct=$(( $curacct + 1 ))
 			echo -e "\r\e[0;32m===[$curacct / $accounts] Scanning $user===\e[0m\c" >&2
 			homedir=$(getcpaneldir $user)
+			excludes="-type d -wholename '$homedir/mail*' -prune -o"
 			if [[ -d "$homedir" ]]; then
 				for scan in ${scans}; do
 					scanfunc=$(echo "$scan" | cut -d ";" -f1)
@@ -305,7 +309,7 @@ function printsigs {
 function wordpress {
 	#$1 directory to scan
 	#$2 scan string
-	idfiles=$(find  $1 -name wp-config.php | sed 's:[^/]*$::')
+	idfiles=$(find $1 -path "$1/mail/*" -prune -o  -name wp-config.php -print | sed 's:[^/]*$::')
 	for loc in ${idfiles}; do
 		if [[ -e "$loc/wp-includes/version.php" ]]; then
 			insver=$(grep "wp_version =" $loc/wp-includes/version.php | cut -d "'" -f2)
@@ -315,7 +319,7 @@ function wordpress {
 }
 
 function joomla15 {
-	idfiles=$(find  $1 -name joomla.php | xargs grep -l "Joomla.Legacy" | sed "s/includes\/joomla\.php//")
+	idfiles=$(find $1 -path "$1/mail/*" -prune -o  -name joomla.php -print | xargs grep -l "Joomla.Legacy" | sed "s/includes\/joomla\.php//")
 	for loc in ${idfiles}; do
 		if [[ -e "$loc/CHANGELOG.php" ]]; then
 			insver=$(grep "Stable Release" $loc/CHANGELOG.php | head -1 | awk '{print $2}')
@@ -325,7 +329,7 @@ function joomla15 {
 }
 
 function joomla17 {
-	idfiles=$(find  $1 -name web.config.txt | sed 's:[^/]*$::')
+	idfiles=$(find $1 -path "$1/mail/*" -prune -o  -name web.config.txt -print | sed 's:[^/]*$::')
 	for loc in ${idfiles}; do
 		if [[ -e $loc/includes/version.php ]]; then
 			insver=$(grep "RELEASE =" $loc/includes/version.php | cut -d "'" -f2)"."$(grep "DEV_LEVEL =" $loc/includes/version.php | cut -d "'" -f2)
@@ -335,7 +339,7 @@ function joomla17 {
 }
 
 function joomla25 {
-	idfiles=$(find  $1 -name web.config.txt | sed 's:[^/]*$::')
+	idfiles=$(find $1 -path "$1/mail/*" -prune -o  -name web.config.txt -print| sed 's:[^/]*$::')
 	for loc in ${idfiles}; do
 		if [[ ! -e $loc/includes/version.php ]]; then
 			if [[ -e $loc/libraries/cms/version/version.php ]]; then
@@ -349,7 +353,7 @@ function joomla25 {
 }
 
 function joomla32 {
-	idfiles=$(find  $1 -name web.config.txt | sed 's:[^/]*$::')
+	idfiles=$(find $1 -path "$1/mail/*" -prune -o  -name web.config.txt -print| sed 's:[^/]*$::')
 	for loc in ${idfiles}; do
 		if [[ ! -e $loc/includes/version.php ]]; then
 			if [[ -e $loc/libraries/cms/version/version.php ]]; then
@@ -363,7 +367,7 @@ function joomla32 {
 }
 
 function oscommerce2 {
-	idfiles=$(find  $1 -name "filenames.php" | xargs grep -l "osCommerce, Open Source E-Commerce Solutions"  | sed 's/includes\/filenames\.php//')
+	idfiles=$(find $1 -path "$1/mail/*" -prune -o  -name "filenames.php"  -print| xargs grep -l "osCommerce, Open Source E-Commerce Solutions"  | sed 's/includes\/filenames\.php//')
 	for loc in ${idfiles}; do
 		if [[ -e $loc/includes/version.php ]]; then
 			insver=$(cat $loc/includes/version.php | head -1)
@@ -373,7 +377,7 @@ function oscommerce2 {
 }
 
 function xoops {
-	idfiles=$(find  $1 -name xoops.css | sed 's:[^/]*$::')
+	idfiles=$(find $1 -path "$1/mail/*" -prune -o  -name xoops.css -print | sed 's:[^/]*$::')
 	for loc in ${idfiles}; do
 		if [[ -e $loc/includes/version.php ]]; then
 			insver=$(grep "XOOPS_VERSION" $loc/includes/version.php | head -1 | cut -d "'" -f4 | awk '{print $2}')
@@ -383,7 +387,7 @@ function xoops {
 }
 
 function e107 {
-	idfiles=$(find  $1 -name e107_config.php | sed 's:[^/]*$::')
+	idfiles=$(find $1 -path "$1/mail/*" -prune -o  -name e107_config.php -print | sed 's:[^/]*$::')
 	for loc in ${idfiles}; do
 		if [[ -e $loc/admin/ver.php ]]; then
 			insver=$(grep "e107_version" $loc/admin/ver.php | head -1 | cut -d '"' -f2)
@@ -393,7 +397,7 @@ function e107 {
 }
 
 function mambo {
-	idfiles=$(find  $1 -name mambofunc.php | sed 's/includes\/mambofunc\.php//')
+	idfiles=$(find $1 -path "$1/mail/*" -prune -o  -name mambofunc.php -print | sed 's/includes\/mambofunc\.php//')
 	for loc in ${idfiles}; do
 		if [[ -e $loc/includes/version.php ]]; then
 			insver=$(grep "RELEASE =" $loc/includes/version.php | cut -d "'" -f2)"."$(grep "DEV_LEVEL =" $loc/includes/version.php | cut -d "'" -f2)
@@ -403,7 +407,7 @@ function mambo {
 }
 
 function mediawiki {
-	idfiles=$(find  $1 -name DefaultSettings.php | xargs grep -il "mediawiki" | sed "s/includes\/DefaultSettings\.php//")
+	idfiles=$(find $1 -path "$1/mail/*" -prune -o  -name DefaultSettings.php -print | xargs grep -il "mediawiki" | sed "s/includes\/DefaultSettings\.php//")
 	for loc in ${idfiles}; do
 		if [[ -e $loc/includes/DefaultSettings.php ]]; then
 			insver=$(grep "wgVersion" $loc/includes/DefaultSettings.php | cut -d "'" -f2)
@@ -413,7 +417,7 @@ function mediawiki {
 }
 
 function piwigo {
-	idfiles=$(find  $1 -name identification.php | xargs grep -l "Piwigo" | sed 's:[^/]*$::')
+	idfiles=$(find $1 -path "$1/mail/*" -prune -o  -name identification.php -print | xargs grep -l "Piwigo" | sed 's:[^/]*$::')
 	for loc in ${idfiles}; do
 		if [[ -e $loc/include/constants.php ]]; then
 			insver=$(grep "PHPWG_VERSION" $loc/include/constants.php | cut -d "'" -f4)
@@ -423,7 +427,7 @@ function piwigo {
 }
 
 function phpbb3 {
-	idfiles=$(find  $1 -name bbcode.php | xargs grep -l "phpBB3" | sed "s/includes\/bbcode\.php//")
+	idfiles=$(find $1 -path "$1/mail/*" -prune -o  -name bbcode.php -print | xargs grep -l "phpBB3" | sed "s/includes\/bbcode\.php//")
 	for loc in ${idfiles}; do
 		if [[ -e $loc/includes/constants.php ]]; then
 			insver=$(grep "PHPBB_VERSION" $loc/includes/constants.php | cut -d "'" -f4)
@@ -433,7 +437,7 @@ function phpbb3 {
 }
 
 function openx {
-	idfiles=$(find  $1 -name OX.php | xargs grep -l "OpenX" | sed "s/lib\/OX\.php//")
+	idfiles=$(find $1 -path "$1/mail/*" -prune -o  -name OX.php -print | xargs grep -l "OpenX" | sed "s/lib\/OX\.php//")
 	for loc in ${idfiles}; do
 		if [[ -e $loc/constants.php ]]; then
 			insver=$(grep "OA_VERSION" $loc/constants.php | cut -d "'" -f4)
@@ -446,7 +450,7 @@ function openx {
 }
 
 function redmine2_3 {
-	idfiles=$(find $1 -name redmine.rb | xargs grep -l "redmine" | sed "s|lib/redmine.rb||")
+	idfiles=$(find $1 -path "$1/mail/*" -prune -o  -name redmine.rb -print | xargs grep -l "redmine" | sed "s|lib/redmine.rb||")
 	for loc in ${idfiles}; do
 		if [[ -e $loc/doc/CHANGELOG ]]; then
 			insver=$(grep "==" $loc/doc/CHANGELOG | head -2 | tail -1 | cut -d "v" -f2)
@@ -460,7 +464,7 @@ function redmine2_3 {
 }
 
 function redmine2_4 {
-	idfiles=$(find $1 -name redmine.rb | xargs grep -l "redmine" | sed "s|lib/redmine.rb||")
+	idfiles=$(find $1 -path "$1/mail/*" -prune -o  -name redmine.rb -print| xargs grep -l "redmine" | sed "s|lib/redmine.rb||")
 	for loc in ${idfiles}; do
 		if [[ -e $loc/doc/CHANGELOG ]]; then
 			insver=$(grep "==" $loc/doc/CHANGELOG | head -2 | tail -1 | cut -d "v" -f2)
@@ -475,7 +479,7 @@ function redmine2_4 {
 
 
 function drupal7 {
-	idfiles=$(find  $1 -name authorize.php | xargs grep -l "Drupal" | sed 's:[^/]*$::')
+	idfiles=$(find $1 -path "$1/mail/*" -prune -o  -name authorize.php -print| xargs grep -l "Drupal" | sed 's:[^/]*$::')
 	for loc in ${idfiles}; do
 		if [[ -e $loc/includes/bootstrap.inc ]]; then
 			insver=$(grep "VERSION" $loc/includes/bootstrap.inc | cut -d "'" -f4|head -1)
@@ -485,7 +489,7 @@ function drupal7 {
 }
 
 function drupal6 {
-	idfiles=$(find  $1 -name database.mysql.inc | xargs grep -l "Drupal" | sed "s/includes\/database\.mysql\.inc//")
+	idfiles=$(find $1 -path "$1/mail/*" -prune -o  -name database.mysql.inc -print| xargs grep -l "Drupal" | sed "s/includes\/database\.mysql\.inc//")
 	for loc in ${idfiles}; do
 		if [[ -e $loc/CHANGELOG.txt ]]; then
 			insver=$(grep "Drupal" $loc/CHANGELOG.txt | head -1 | awk '{print $2}' | cut -d "," -f1)
@@ -495,7 +499,7 @@ function drupal6 {
 }
 
 function magento {
-	idfiles=$(find $1 -name Mage.php | xargs grep -l "* Magento" | sed "s/app\/Mage\.php//")
+	idfiles=$(find $1 -path "$1/mail/*" -prune -o  -name Mage.php -print| xargs grep -l "* Magento" | sed "s/app\/Mage\.php//")
 	for loc in ${idfiles}; do
 		if [[ -e $loc/RELEASE_NOTES.txt ]]; then
 			insver=$(grep "====" $loc/RELEASE_NOTES.txt | head -1 | awk '{print $2}')
@@ -505,7 +509,7 @@ function magento {
 }
 
 function zencart {
-	idfiles=$(find  $1 -name "filenames.php" | xargs grep -l "Zen Cart Development Team"  | sed 's/includes\/filenames\.php//')
+	idfiles=$(find $1 -path "$1/mail/*" -prune -o  -name "filenames.php" -print| xargs grep -l "Zen Cart Development Team"  | sed 's/includes\/filenames\.php//')
 	for loc in ${idfiles}; do
 		if [[ -e $loc/includes/version.php ]]; then
 			insver=$(grep "PROJECT_VERSION_MAJOR" $loc/includes/version.php | cut -d "'" -f4)"."$(grep "PROJECT_VERSION_MINOR" $loc/includes/version.php | cut -d "'" -f4)
@@ -515,7 +519,7 @@ function zencart {
 }
 
 function xcart {
-	idfiles=$(find  $1 -name "cart.php" | xargs grep -l "\| X-Cart"  | sed 's:[^/]*$::')
+	idfiles=$(find $1 -path "$1/mail/*" -prune -o  -name "cart.php" -print| xargs grep -l "\| X-Cart"  | sed 's:[^/]*$::')
 	for loc in ${idfiles}; do
 		if [[ -e $loc/VERSION ]]; then
 			insver=$(cat $loc/VERSION | awk '{print $2}' | head -1)
@@ -531,7 +535,7 @@ function xcart {
 }
 
 function vbulletin4 {
-	idfiles=$(find  $1 -name "diagnostic.php" | xargs grep -l "vbulletin"  | sed 's|/admincp/diagnostic.php||')
+	idfiles=$(find $1 -path "$1/mail/*" -prune -o  -name "diagnostic.php" -print| xargs grep -l "vbulletin"  | sed 's|/admincp/diagnostic.php||')
 	for loc in ${idfiles}; do
 		if [[ -e $loc/admincp/diagnostic.php ]]; then
 			insver=$(grep "md5_sum_versions" $loc/admincp/diagnostic.php | head -n1 | cut -d "'" -f4)
