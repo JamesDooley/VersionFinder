@@ -12,10 +12,10 @@ scans="$scans drupal6;Drupal6;6;6.30"
 scans="$scans e107;e107;1;1.0.4"
 scans="$scans joomla15;Joomla_1.5;1.5;1.5.999" # EOL; No longer offered on site
 scans="$scans joomla17;Joomla_1.7;1.7.999;1.7.999" # EOL; No longer offered on site
-scans="$scans joomla25;Joomla_2.5;2.5;2.5.17"
-scans="$scans joomla32;Joomla_3.2;3.2;3.2.1"
+scans="$scans joomla25;Joomla_2.5;2.5;2.5.18"
+scans="$scans joomla32;Joomla_3.2;3.2;3.2.2"
 scans="$scans mambo;Mambo_CMS;4.6;4.6.5"
-scans="$scans mediawiki;MediaWiki;1.22;1.22.1"
+scans="$scans mediawiki;MediaWiki;1.22;1.22.2"
 scans="$scans openx;OpenX/Revive;3.0;3.0.2"
 scans="$scans oscommerce2;osCommerce2;2.3;2.3.3.4"
 scans="$scans phpbb3;phpBB3;3.0;3.0.12"
@@ -25,7 +25,7 @@ scans="$scans redmine2_4;Redmine_2.4;2.4;2.4.2"
 # vBull has 3.8 and 5.0 lines, due to closed source I am not able to create signatures
 scans="$scans vbulletin4;vBulletin_4;4.2;4.2.2"
 scans="$scans wordpress;WordPress;3.8;3.8.1"
-scans="$scans xcart;X-Cart;5.0;5.0.10"
+scans="$scans xcart;X-Cart;5.0;5.0.11"
 scans="$scans xoops;XOOPS;2.5;2.5.6"
 scans="$scans zencart;ZenCart;1.5;1.5.1"
 
