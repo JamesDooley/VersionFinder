@@ -20,7 +20,7 @@ MediaWiki         1.22        1.22.2
 OpenX/Revive      3.0         3.0.2
 osCommerce2       2.3         2.3.3.4
 osCommerce3(dev)  3.0         3.0.2
-CRE_Loaded6       6.999       6.999
+CRE_Loaded6       6.999       6.999 #EOL
 CRE_Loaded7       7.002       7.002.1.1
 phpBB3            3.0         3.0.12
 Piwigo            2.6         2.6.1
