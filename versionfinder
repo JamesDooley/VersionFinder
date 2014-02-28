@@ -371,6 +371,9 @@ function oscommerce2 {
 	for loc in ${idfiles}; do
 		if [[ -e $loc/includes/version.php ]]; then
 			insver=$(cat $loc/includes/version.php | head -1)
+			if [[ $insver == *"php"* ]]; then
+				insver=$(cat $loc/includes/version.php | sed -n 's/^.*Id:.*,v \([0-9.]*\).*$/\1/p')
+			fi
 			printresult $2 "$insver" "$loc"
 		fi
 	done
