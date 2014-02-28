@@ -7,30 +7,30 @@ Current Signatures
 =============
 
 ```
-Program Name		Warn Ver	Cur Ver
-Drupal7			7		7.26
-Drupal6			6		6.30
-e107			1		1.0.4
-Joomla_1.5		1.5		1.5.999
-Joomla_1.7		1.7.999		1.7.999
-Joomla_2.5		2.5		2.5.18
-Joomla_3.2		3.2		3.2.2
-Mambo_CMS		4.6		4.6.5
-MediaWiki		1.22		1.22.2
-OpenX/Revive		3.0		3.0.2
-osCommerce2		2.3		2.3.3.4
-osCommerce3(dev)	3.0		3.0.2
-CRE_Loaded6		6.999		6.999
-CRE_Loaded7		7.002		7.002.1.1
-phpBB3			3.0		3.0.12
-Piwigo			2.6		2.6.1
-Redmine_2.3		2.3		2.3.4
-Redmine_2.4		2.4		2.4.2
-vBulletin_4		4.2		4.2.2
-WordPress		3.8		3.8.1
-X-Cart			5.0		5.0.11
-XOOPS			2.5		2.5.6
-ZenCart			1.5		1.5.1
+Program Name      Warn Ver    Cur Ver
+Drupal7           7           7.26
+Drupal6           6           6.30
+e107              1           1.0.4
+Joomla_1.5        1.5         1.5.999 #EOL
+Joomla_1.7        1.7.999     1.7.999 #EOL
+Joomla_2.5        2.5         2.5.18
+Joomla_3.2        3.2         3.2.2
+Mambo_CMS         4.6         4.6.5
+MediaWiki         1.22        1.22.2
+OpenX/Revive      3.0         3.0.2
+osCommerce2       2.3         2.3.3.4
+osCommerce3(dev)	3.0         3.0.2
+CRE_Loaded6       6.999       6.999
+CRE_Loaded7       7.002       7.002.1.1
+phpBB3            3.0         3.0.12
+Piwigo            2.6         2.6.1
+Redmine_2.3       2.3         2.3.4
+Redmine_2.4       2.4         2.4.2
+vBulletin_4       4.2         4.2.2
+WordPress         3.8         3.8.1
+X-Cart            5.0         5.0.11
+XOOPS             2.5         2.5.6
+ZenCart           1.5         1.5.1
 ```
 
 Usage
