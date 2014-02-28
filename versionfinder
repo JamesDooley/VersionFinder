@@ -18,6 +18,9 @@ scans="$scans mambo;Mambo_CMS;4.6;4.6.5"
 scans="$scans mediawiki;MediaWiki;1.22;1.22.2"
 scans="$scans openx;OpenX/Revive;3.0;3.0.2"
 scans="$scans oscommerce2;osCommerce2;2.3;2.3.3.4"
+scans="$scans oscommerce3;osCommerce3(dev);3.0;3.0.2"
+scans="$scans CRELoaded6;CRE_Loaded6;6.999;6.999" # EOL; No longer offered on site
+scans="$scans CRELoaded7;CRE_Loaded7;7.002;7.002.1.1"
 scans="$scans phpbb3;phpBB3;3.0;3.0.12"
 scans="$scans piwigo;Piwigo;2.6;2.6.1"
 scans="$scans redmine2_3;Redmine_2.3;2.3;2.3.4"
@@ -232,6 +235,8 @@ function printresult {
 	if [[ ! $csvformat ]]; then
 		#Add tabs based on program name size
 		if [[ $(echo "$program" | wc -c) -lt 9 ]]; then
+			program="$program\t\t\t"
+		elif [[ $(echo "$program" | wc -c) -lt 17 ]]; then
 			program="$program\t\t"
 		else
 			program="$program\t"
@@ -372,6 +377,9 @@ function oscommerce2 {
 		if [[ -e $loc/includes/version.php ]]; then
 			insver=$(cat $loc/includes/version.php | head -1)
 			if [[ $insver == *"php"* ]]; then
+				if [[ $(grep PROJECT_VERSION $loc/includes/version.php | grep "CRE Loaded") ]]; then
+					continue
+				fi
 				insver=$(cat $loc/includes/version.php | sed -n 's/^.*Id:.*,v \([0-9.]*\).*$/\1/p')
 			fi
 			printresult $2 "$insver" "$loc"
@@ -379,6 +387,40 @@ function oscommerce2 {
 	done
 }
 
+function oscommerce3 {
+	idfiles=$(find $1 -path "$1/mail/*" -prune -o  -name "OSCOM.php"  -print| xargs grep -l "osCommerce Online Merchant"  | sed -n 's|/OM/Core/OSCOM.php||p')
+	for loc in ${idfiles}; do
+		if [[ -e $loc/OM/version.txt ]]; then
+			insver=$(cat $loc/OM/version.txt| head -n1)
+			printresult $2 "$insver" "$loc"
+		fi
+	done
+}
+
+function CRELoaded6 {
+	idfiles=$(find $1 -path "$1/mail/*" -prune -o  -name "version.php" | xargs grep -l "CRE Loaded6" | sed -n 's|/admin/includes/version.php||p')
+	for loc in ${idfiles}; do
+		if [[ -e $loc/admin/includes/version.php ]]; then
+			insver=$(grep "INSTALLED_VERSION_MAJOR" $loc/admin/includes/version.php | cut -d "'" -f4)
+			insver=$insver"."$(grep "INSTALLED_VERSION_MINOR" $loc/admin/includes/version.php | cut -d "'" -f4)
+			insver=$insver"."$(grep "INSTALLED_PATCH" $loc/admin/includes/version.php | cut -d "'" -f4)
+			if [[ ! $insver == "."* ]]; then
+				printresult $2 "$insver" "$loc"
+			fi
+		fi
+	done
+}
+
+function CRELoaded7 {
+	idfiles=$(find $1 -path "$1/mail/*" -prune -o -name checkout.php | xargs grep -l "loaded7" | sed -n 's|/checkout.php||p')
+	for loc in ${idfiles}; do
+		if [[ -e $loc/includes/version.txt ]]; then
+			insver=$(cat $loc/includes/version.txt|head -n1|cut -d '|' -f1)
+			printresult $2 "$insver" "$loc"
+		fi
+	done
+}
+	
 function xoops {
 	idfiles=$(find $1 -path "$1/mail/*" -prune -o  -name xoops.css -print | sed 's:[^/]*$::')
 	for loc in ${idfiles}; do
