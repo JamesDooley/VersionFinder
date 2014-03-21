@@ -38,22 +38,16 @@ Usage
 
 
 ```
-Usage: ./versionfinder [OPTION] [--user username]
+Usage: ./versionfinder [OPTION] [--user usernames] [--directory directories]
 
 Scan server for known CMS versions and report what is found
 
 	--outdated
 		Returns only outdated packages, does not print headings
-	--report
-		Removes coloring format for easy export to file using > filename
-	--csv
-		Prints output in CSV format.
 	--user <username>
-		Scans only user's account, use quotes for a providing a list of users
+		Given a space seperated list, will scan the homedir for each linux user.
 	--directory <directory>
-		Scans only a specific directory, used quotes for providing a list of directories
-	--sigs
-		Print current list of program versions
+		Given a space seperated list, will scan each directory.
 ```
 
 Quick installation
@@ -63,7 +57,7 @@ You can quickly install the latest version of version finder using wget:
 
 ```
 mkdir -p /root/bin/
-wget https://raw.github.com/JamesDooley/VersionFinder/master/versionfinder -O /root/bin/versionfinder
+wget https://raw.github.com/JamesDooley/VersionFinder/master/versionfinder.pl -O /root/bin/versionfinder
 chmod 700 /root/bin/versionfinder
 ```
 
