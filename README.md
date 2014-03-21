@@ -7,30 +7,30 @@ Current Signatures
 =============
 
 ```
-Program Name      Warn Ver    Cur Ver
-Drupal7           7           7.26
-Drupal6           6           6.30
-e107              1           1.0.4
-Joomla_1.5        1.5         1.5.999 #EOL
-Joomla_1.7        1.7.999     1.7.999 #EOL
-Joomla_2.5        2.5         2.5.18
-Joomla_3.2        3.2         3.2.2
-Mambo_CMS         4.6         4.6.5
-MediaWiki         1.22        1.22.2
-OpenX/Revive      3.0         3.0.2
-osCommerce2       2.3         2.3.3.4
-osCommerce3(dev)  3.0         3.0.2
-CRE_Loaded6       6.999       6.999 #EOL
-CRE_Loaded7       7.002       7.002.1.1
-phpBB3            3.0         3.0.12
-Piwigo            2.6         2.6.1
-Redmine_2.3       2.3         2.3.4
-Redmine_2.4       2.4         2.4.2
-vBulletin_4       4.2         4.2.2
-WordPress         3.8         3.8.1
-X-Cart            5.0         5.0.11
-XOOPS             2.5         2.5.6
-ZenCart           1.5         1.5.1
+Signature Name            Current Ver     Major Ver
+CRE Loaded6               6.999           6
+CRE Loaded7               7.2.1.4         7.2
+Drupal 6.x                6.30            6
+Drupal 7.x                7.26            7
+e107                      1.0.4           1
+Joomla 1.5.x              1.5.999         1.5
+Joomla 1.7.x              1.7.999         1.7
+Joomla 2.5.x              2.5.19          2.5
+Joomla 3.2.x              3.2.3           3.2
+Mambo                     4.6.5           4.6
+MediaWiki                 1.22.4          1.22
+OpenX / Revive            3.0.3           3.0
+osCommerce 2.x            2.3.3.4         2.3
+osCommerce 3.x (Devel)    3.0.2           3.0
+phpBB3                    3.0.12          3.0
+Piwigo                    2.6.1           2.6
+Redmine                   2.4.4           2.4
+vBulletin 4.x             4.2.2           4.2
+WordPress                 3.8.1           3.8
+X-Cart 4.x                4.6.3           4.6
+X-Cart 5.x                5.0.12          5.0
+XOOPS                     2.5.6           2.5
+ZenCart                   1.5.1           1.5
 ```
 
 Usage

@@ -513,6 +513,9 @@ Scans server for known CMS versions and reports what is found
 	
 		--outdated
 			Only prints outdated CMS installs
+			
+		--signatrues
+			Prints the current signature versions and exits
 		
 	Adding Directories Manually:
 	
@@ -593,6 +596,12 @@ while (@ARGV) {
 			$OUTDATED=1;
 		} elsif ($argument =~ /^--help/i) {
 			printUsage;
+		} elsif ($argument =~ /^--signatures/i) {
+			printf $resultformat, "Signature Name", "Current Ver", "Major Ver";
+			foreach my $signame (sort {$a cmp $b} keys %{$SIGNATURES}) {
+				printf $resultformat, $SIGNATURES->{$signame}->{name}, $SIGNATURES->{$signame}->{curver}, $SIGNATURES->{$signame}->{majorver};
+			}
+			exit 0;
 		} else {
 			print "Unknown option: $argument\n";
 			exit 1;
