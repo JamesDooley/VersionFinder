@@ -437,6 +437,9 @@ function e107 {
 		if [[ -e $loc/admin/ver.php ]]; then
 			insver=$(grep "e107_version" $loc/admin/ver.php | head -1 | cut -d '"' -f2)
 			printresult $2 "$insver" "$loc"
+		elif [[ -e $loc/e107_admin/ver.php ]]; then
+			insver=$(grep "e107_version" $loc/e107_admin/ver.php | head -1 | cut -d '"' -f2)
+			printresult $2 "$insver" "$loc"
 		fi
 	done
 }
