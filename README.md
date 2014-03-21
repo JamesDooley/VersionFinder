@@ -57,7 +57,7 @@ You can quickly install the latest version of version finder using wget:
 
 ```
 mkdir -p /root/bin/
-wget https://raw.github.com/JamesDooley/VersionFinder/master/versionfinder.pl -O /root/bin/versionfinder
+wget --no-check-certificate https://raw.github.com/JamesDooley/VersionFinder/master/versionfinder.pl -O /root/bin/versionfinder
 chmod 700 /root/bin/versionfinder
 ```
 
