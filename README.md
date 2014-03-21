@@ -78,16 +78,22 @@ Note about cPanel support
 
 Version finder was mainly designed with cPanel support in mind.  It should automatically detect all accounts on the server and scan all of the proper directories related to the account.  The user option can be used to scan specific users, likewise the directory option can be used to scan a specific directory.
 
+Will also scan /var/www/html and /usr/local/apache/htdocs if they exist.
+
 
 Note about Plesk support
 =============
 
 Plesk support was added recently, but has not been as throughly tested as cPanel.  All domains listed in /var/www/vhosts should be automatically scanned by the script.  The user option can be used to scan specific users in /var/www/vhosts, likewise the directory option can be used to scan a specific directory.
 
+Will also scan /var/www/vhosts and /var/www/html if they exist.
 
 Note about other systems / vanilla LAMP
 =============
 
-There is the beginnings of code to pull information directly from apache / nginx to get a list of all sites to scan, this code is not finished and will take some work to complete on my end. In the mean time you can still use this script by specifying the specific directory you want to scan. If all of the sites exist in a specific parent directory you can scan that directory like so:
+By default if Plesk and cPanel are not found the script will let you know that it can automatically scan /home and /var/www/html.
+For now you will need to hit enter to accept this.
+
+If you want to bypass the message or want to scan a different directory you can use:
 
  versionfinder --directory /home

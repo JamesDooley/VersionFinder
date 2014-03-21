@@ -618,6 +618,9 @@ unless (@scandirs) {
 		if (-d "/var/www/html") {
 			push(@scandirs, "/var/www/html");
 		}
+		if (-d "/usr/local/apache/htdocs") {
+			push(@scandirs, "/usr/local/apache/htdocs");
+		}
 	} elsif (-d "/usr/local/psa") {
 		foreach my $vhost (glob("/var/www/vhosts")) {
 			push(@scandirs, $vhost);
