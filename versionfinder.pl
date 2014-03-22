@@ -8,17 +8,8 @@ if ($DEBUG) {
 	use Data::Dumper;
 }
 
-
-#TODO: Add signature download section
-
 our $HITS;
 our $OUTDATED;
-
-our $resultformat = "%-25s %-15s %-s\n";
-
-our $INTERACTIVE;
-
-$INTERACTIVE = -t STDOUT ? 1 : 0;
 
 our $COLORS = {
 	'reset'			=> "\e[0m",
@@ -29,7 +20,7 @@ our $COLORS = {
 	'green'			=> "\e[32m",
 	'yellow'		=> "\e[33m",
 	'blue'			=> "\e[34m",
-	'majenta'		=> "\e[35m",
+	'magenta'		=> "\e[35m",
 	'cyan'			=> "\e[36m",
 	'white'			=> "\e[37m",
 	'bold black'	=> "\e[1;30m",
@@ -37,10 +28,19 @@ our $COLORS = {
 	'bold green'	=> "\e[1;32m",
 	'bold yellow'	=> "\e[1;33m",
 	'bold blue'		=> "\e[1;34m",
-	'bold majenta'	=> "\e[1;35m",
+	'bold magenta'	=> "\e[1;35m",
 	'bold cyan'		=> "\e[1;36m",
 	'bold white'	=> "\e[1;37m",
 };
+
+our $resultformat = "%-25s %-15s %-s\n";
+our $statusformat = "\r$COLORS->{blue}Starting scan in [%4s | %4s]: %-40s$COLORS->{reset}";
+
+our $INTERACTIVE = -t STDOUT ? 1 : 0;
+our $TERMINAL = -t STDERR ? 1 : 0;
+$| = 1;
+
+
 
 our $SIGNATURES= {
 	drupal7=>{
@@ -353,7 +353,8 @@ our $SIGNATURES= {
 sub ScanDir {
 	my $directory = shift;
 	return if ($directory =~ /virtfs$/i);
-	return if (-l $directory);
+	return if (-l "$directory");
+	
 	foreach my $signame (keys %$SIGNATURES) {
 		my $signature = $SIGNATURES->{$signame};
 		my $signaturefile = "$directory/" . $signature->{fingerprint}->{file};
@@ -453,9 +454,10 @@ sub ScanDir {
 			print "DEBUG: - $signame found, installed version is outdated in $directory\n" if $DEBUG;
 		}
 	}
-	foreach my $object (glob "$directory/.* $directory/*") {
+	foreach my $object (glob "'$directory/.*' '$directory/*'") {
 		next if $object =~ m|\.$|;
 		$object =~ s|//*|/|g;
+		next if $object =~ m#/home/\w+/(?:mail)#;
 		if (-d $object) {
 			ScanDir("$object");
 		}	
@@ -514,7 +516,7 @@ Scans server for known CMS versions and reports what is found
 		--outdated
 			Only prints outdated CMS installs
 			
-		--signatrues
+		--signatures
 			Prints the current signature versions and exits
 		
 	Adding Directories Manually:
@@ -550,7 +552,7 @@ sub getUserDir {
 
 sub printResults {
 	
-	print "Version Finder Results\n\n";
+	print "\nVersion Finder Results\n\n";
 	unless ($OUTDATED) {
 		print "\n==== Up-To-Date CMS Packages ====\n";
 		foreach my $hit (@{$HITS->{current}}) {
@@ -632,9 +634,11 @@ unless (@scandirs) {
 }
 
 unless (@scandirs) {
-	print "Unable to automatically find directories, press enter to scan /home and /var/www/html.\n";
-	print "Otherwise Ctrl-C to manually provide directories to scan with --directory";
-	<>;
+	if ($INTERACTIVE) {
+		print "Unable to automatically find directories, press enter to scan /home and /var/www/html.\n";
+		print "Otherwise Ctrl-C to manually provide directories to scan with --directory";
+		<>;
+	}
 	if (-d "/home") {
 		push(@scandirs,"/home");
 	}
@@ -644,10 +648,15 @@ unless (@scandirs) {
 }
 
 die "Unable to find any directories to scan" unless (@scandirs);
-
+my $dircount = scalar @scandirs;
+my $curcount = 0;
 foreach my $directory (@scandirs) {
-	print "Starting scan in $directory\n";
+	$curcount++;
+	my $title = $directory;
+	substr($title,20,-17,"...") if (length $title > 40);
+	printf STDERR $statusformat, $curcount, $dircount, $title if ($TERMINAL); 
 	ScanDir($directory);
 }
+print STDERR "\n" if ($TERMINAL);
 
 printResults();
