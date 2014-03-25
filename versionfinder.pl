@@ -4,33 +4,29 @@ use warnings;
 
 our $DEBUG=0;
 
-if ($DEBUG) {
-	use Data::Dumper;
-}
-
 our $HITS;
 our $OUTDATED;
 
 our $COLORS = {
-	'reset'			=> "\e[0m",
-	'default'		=> "",
-	'bold'			=> "\e[1m",
-	'black'			=> "\e[30m",
-	'red'			=> "\e[31m",
-	'green'			=> "\e[32m",
-	'yellow'		=> "\e[33m",
-	'blue'			=> "\e[34m",
-	'magenta'		=> "\e[35m",
-	'cyan'			=> "\e[36m",
-	'white'			=> "\e[37m",
-	'bold black'	=> "\e[1;30m",
-	'bold red'		=> "\e[1;31m",
-	'bold green'	=> "\e[1;32m",
-	'bold yellow'	=> "\e[1;33m",
-	'bold blue'		=> "\e[1;34m",
-	'bold magenta'	=> "\e[1;35m",
-	'bold cyan'		=> "\e[1;36m",
-	'bold white'	=> "\e[1;37m",
+	'reset' => "\e[0m",
+	'default' => "",
+	'bold' => "\e[1m",
+	'black' => "\e[30m",
+	'red' => "\e[31m",
+	'green' => "\e[32m",
+	'yellow' => "\e[33m",
+	'blue' => "\e[34m",
+	'magenta' => "\e[35m",
+	'cyan' => "\e[36m",
+	'white' => "\e[37m",
+	'bold black' => "\e[1;30m",
+	'bold red' => "\e[1;31m",
+	'bold green' => "\e[1;32m",
+	'bold yellow' => "\e[1;33m",
+	'bold blue' => "\e[1;34m",
+	'bold magenta' => "\e[1;35m",
+	'bold cyan' => "\e[1;36m",
+	'bold white' => "\e[1;37m",
 };
 
 our $resultformat = "%-25s %-15s %-s\n";
@@ -280,7 +276,8 @@ our $SIGNATURES= {
 			signature=>"vbulletin",
 			version=>{
 				file=>"admincp/diagnostic.php",
-				regex=>"sum_versions.*vbulletin.*=> '(.*)'"
+				regex=>"sum_versions.*vbulletin.*=> '(.*)'",
+				filter=>' Patch Level ',
 			}
 		}
 	},
@@ -355,6 +352,7 @@ sub ScanDir {
 	return if ($directory =~ /virtfs$/i);
 	return if (-l "$directory");
 	
+	print "DEBUG 2: Scanning directory $directory\n" if ($DEBUG && $DEBUG == 2);
 	foreach my $signame (keys %$SIGNATURES) {
 		my $signature = $SIGNATURES->{$signame};
 		my $signaturefile = "$directory/" . $signature->{fingerprint}->{file};
@@ -425,7 +423,9 @@ sub ScanDir {
 		unless ($version) {
 			print "DEBUG: CMS signature match but unable to get version information\n" if $DEBUG;
 		}
-
+		if ($signature->{fingerprint}->{version}->{filter}) {
+			$version =~ s/$signature->{fingerprint}->{version}->{filter}/\./;
+		}
 		next unless $version;
 		my $vermsg = "$directory contains $signame $version";
 		my $result = {
@@ -604,11 +604,21 @@ while (@ARGV) {
 				printf $resultformat, $SIGNATURES->{$signame}->{name}, $SIGNATURES->{$signame}->{curver}, $SIGNATURES->{$signame}->{majorver};
 			}
 			exit 0;
+		} elsif ($argument =~ /^--debug/i) {
+			if (@ARGV && $ARGV[0] =~ /[0-2]/) {
+				$DEBUG = shift @ARGV;
+			} else {
+				$DEBUG=1;
+			}
 		} else {
 			print "Unknown option: $argument\n";
 			exit 1;
 		}
 	}
+}
+
+if ($DEBUG) {
+	use Data::Dumper;
 }
 
 unless (@scandirs) {
