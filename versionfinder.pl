@@ -422,7 +422,13 @@ sub ScanDir {
 		}
 		unless ($version) {
 			print "DEBUG: CMS signature match but unable to get version information\n" if $DEBUG;
+			my $result = {
+				signature => $signame,
+				directory => $directory
+			};
+			push (@{$HITS->{nover}}, $result);
 		}
+		next unless $version;
 		if ($signature->{fingerprint}->{version}->{filter}) {
 			$version =~ s/$signature->{fingerprint}->{version}->{filter}/\./;
 		}
@@ -433,6 +439,7 @@ sub ScanDir {
 			directory => $directory,
 			version => $version
 		};
+		
 		if ($signature->{eol}) {
 			push (@{$HITS->{eol}}, $result);
 			print "DEBUG: - $signame found matching EOL product in $directory\n" if $DEBUG;
@@ -573,6 +580,13 @@ sub printResults {
 			printf $COLORS->{red} . $resultformat . $COLORS->{reset}, $hit->{signature}, $hit->{version}, $hit->{directory} if $INTERACTIVE && $hit->{reallyold};
 			printf $COLORS->{yellow} . $resultformat . $COLORS->{reset}, $hit->{signature}, $hit->{version}, $hit->{directory} if $INTERACTIVE && ! $hit->{reallyold};
 			printf $resultformat, $hit->{signature}, $hit->{version}, $hit->{directory} unless $INTERACTIVE;
+		}
+	}
+	if ($HITS->{nover}) {
+		print "\n==== Unable to Determine Version Number ====\n";
+		foreach my $hit (@{$HITS->{nover}}) {
+			printf $COLORS->{magenta} . $resultformat . $COLORS->{reset}, $hit->{signature}, "", $hit->{directory} if $INTERACTIVE;
+			printf $resultformat, $hit->{signature}, "", $hit->{directory} unless $INTERACTIVE;
 		}
 	}
 	print "==== No CMS Packages Found ====" unless ($HITS);
