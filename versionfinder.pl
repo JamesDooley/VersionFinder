@@ -39,6 +39,34 @@ $| = 1;
 
 
 our $SIGNATURES= {
+	creloaded6=>{
+		name=>"CRE Loaded6",
+		majorver=>"6",
+		curver=>"6.999",
+		eol=>1,
+		fingerprint=>{
+			file=>'/admin/includes/version.php',
+			signature=>"CRE Loaded6",
+			version=>{
+				file=>'/admin/includes/version.php',
+				regex=>'INSTALLED_(?:VERSION_MAJOR|VERSION_MINOR|PATCH)\', \'(.*)\'',
+				multiline=>1
+			}
+		}
+	},
+	creloaded7=>{
+		name=>"CRE Loaded7",
+		majorver=>"7.2",
+		curver=>"7.2.1.4",
+		fingerprint=>{
+			file=>'checkout.php',
+			signature=>'loaded7',
+			version=>{
+				file=>'/includes/version.txt',
+				regex=>'^(.*)\|',
+			}
+		}
+	},
 	drupal7=>{
 		name=>"Drupal 7.x",
 		majorver=>"7",
@@ -197,34 +225,6 @@ our $SIGNATURES= {
 			version=>{
 				file=>"OM/version.txt",
 				flatfile=>1
-			}
-		}
-	},
-	creloaded6=>{
-		name=>"CRE Loaded6",
-		majorver=>"6",
-		curver=>"6.999",
-		eol=>1,
-		fingerprint=>{
-			file=>'/admin/includes/version.php',
-			signature=>"CRE Loaded6",
-			version=>{
-				file=>'/admin/includes/version.php',
-				regex=>'INSTALLED_(?:VERSION_MAJOR|VERSION_MINOR|PATCH)\', \'(.*)\'',
-				multiline=>1
-			}
-		}
-	},
-	creloaded7=>{
-		name=>"CRE Loaded7",
-		majorver=>"7.2",
-		curver=>"7.2.1.4",
-		fingerprint=>{
-			file=>'checkout.php',
-			signature=>'loaded7',
-			version=>{
-				file=>'/includes/version.txt',
-				regex=>'^(.*)\|',
 			}
 		}
 	},
