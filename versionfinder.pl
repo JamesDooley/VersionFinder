@@ -124,8 +124,8 @@ our $SIGNATURES= {
 		curver=>"1.7.999",
 		eol=>1,
 		fingerprint=>{
-			file=>"joomla.xml",
-			signature=>"Joomla",
+			file=>"administrator/index.php",
+			signature=>"Joomla.Administrator",
 			version=>{
 				file=>"includes/version.php",
 				regex=>'(?:\$RELEASE|\$DEV_LEVEL) = \'(.*)\'',
@@ -138,8 +138,8 @@ our $SIGNATURES= {
 		majorver=>"2.5",
 		curver=>"2.5.19",
 		fingerprint=>{
-			file=>"joomla.xml",
-			signature=>"Joomla",
+			file=>"administrator/index.php",
+			signature=>"Joomla.Administrator",
 			version=>{
 				file=>"libraries/cms/version/version.php",
 				regex=>'(?:\$RELEASE|\$DEV_LEVEL) = \'(.*)\'',
@@ -177,7 +177,7 @@ our $SIGNATURES= {
 	mediawiki=>{
 		name=>"MediaWiki",
 		majorver=>"1.22",
-		curver=>"1.22.5",
+		curver=>"1.22.6",
 		fingerprint=>{
 			file=>"includes/DefaultSettings.php",
 			signature=>"mediawiki",
@@ -204,10 +204,10 @@ our $SIGNATURES= {
 		name=>"osCommerce 2.x",
 		majorver=>"2.3",
 		curver=>"2.3.3.4",
-		exclude=>"zen-cart",
 		fingerprint=>{
-			file=>"includes/filenames.php",
+			file=>"admin/includes/filenames.php",
 			signature=>"osCommerce",
+			exclude=>"zen-cart|loaded7",
 			version=>{
 				file=>"includes/version.php",
 				flatfile=>1
@@ -308,7 +308,7 @@ our $SIGNATURES= {
 	xcart5=>{
 		name=>"X-Cart 5.x",
 		majorver=>"5.0",
-		curver=>"5.0.12",
+		curver=>"5.0.14",
 		fingerprint=>{
 			file=>"cart.php",
 			signature=>"category.*X-Cart 5",
@@ -489,6 +489,17 @@ sub vercomp {
 	for (my $i=0; $i<$digitcount; $i++) {
 		$ver1[$i] = 0 unless $ver1[$i];
 		$ver2[$i] = 0 unless $ver2[$i];
+		if ($ver1[$i] =~ /^([0-9]*)(?:[_-])alpha/i) {
+			$ver1[$i] = $1-.2;
+		} elsif ($ver1[$i] =~ /^([0-9]*)(?:[_-])beta/i) {
+			$ver1[$i] = $1-.1;
+		}
+		if ($ver2[$i] =~ /^([0-9]*)(?:[_-])alpha/i) {
+			$ver2[$i] = $1-.2;
+		} elsif ($ver2[$i] =~ /^([0-9]*)(?:[_-])beta/i) {
+			$ver2[$i] = $1-.1;
+		}		
+		
 		if ($ver1[$i] > $ver2[$i]) {
 			return 1
 		} elsif ($ver1[$i] < $ver2[$i]) {
