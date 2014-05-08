@@ -460,13 +460,14 @@ sub ScanDir {
 			print "DEBUG: - $signame found, installed version is outdated in $directory\n" if $DEBUG;
 		}
 	}
-	foreach my $object (glob "'$directory/.*' '$directory/*'") {
+	$directory =~ s|\ |\\\ |g;
+	foreach my $object (<$directory/{,.}*>) {
 		next if $object =~ m|\.$|;
 		$object =~ s|//*|/|g;
 		next if $object =~ m#/home/\w+/(?:mail)#;
 		if (-d $object) {
 			ScanDir("$object");
-		}	
+		}
 	}
 }
 
@@ -490,14 +491,14 @@ sub vercomp {
 		$ver1[$i] = 0 unless $ver1[$i];
 		$ver2[$i] = 0 unless $ver2[$i];
 		if ($ver1[$i] =~ /^([0-9]*)(?:[_-])alpha/i) {
-			$ver1[$i] = $1-.2;
+			$ver1[$i] = $1-.002;
 		} elsif ($ver1[$i] =~ /^([0-9]*)(?:[_-])beta/i) {
-			$ver1[$i] = $1-.1;
+			$ver1[$i] = $1-.001;
 		}
 		if ($ver2[$i] =~ /^([0-9]*)(?:[_-])alpha/i) {
-			$ver2[$i] = $1-.2;
+			$ver2[$i] = $1-.002;
 		} elsif ($ver2[$i] =~ /^([0-9]*)(?:[_-])beta/i) {
-			$ver2[$i] = $1-.1;
+			$ver2[$i] = $1-.001;
 		}		
 		
 		if ($ver1[$i] > $ver2[$i]) {
