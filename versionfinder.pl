@@ -7,6 +7,8 @@ our $DEBUG=0;
 our $HITS;
 our $OUTDATED;
 
+
+
 our $COLORS = {
 	'reset' => "\e[0m",
 	'bold' => "\e[1m",
@@ -26,6 +28,13 @@ our $COLORS = {
 	'bold magenta' => "\e[1;35m",
 	'bold cyan' => "\e[1;36m",
 	'bold white' => "\e[1;37m",
+};
+
+our $DEBUGCOLOR = {
+	0 => $COLORS->{reset},
+	1 => $COLORS->{red},
+	2 => $COLORS->{magenta},
+	3 => $COLORS->{'bold white'}
 };
 
 our $resultformat = "%-25s %-15s %-s\n";
@@ -351,20 +360,20 @@ sub ScanDir {
 	return if ($directory =~ /virtfs$/i);
 	return if (-l "$directory");
 	
-	print "DEBUG 2: Scanning directory $directory\n" if ($DEBUG && $DEBUG == 2);
+	_DEBUG(2,"Scanning directory $directory");
 	foreach my $signame (keys %$SIGNATURES) {
 		my $signature = $SIGNATURES->{$signame};
 		my $signaturefile = "$directory/" . $signature->{fingerprint}->{file};
 		next unless (-e $signaturefile);
-		print "DEBUG: Signature file found in $directory for $signame\n" if $DEBUG;
+		_DEBUG("Signature file found in $directory for $signame");
 		if ($signature->{fingerprint}->{signature}) {
 			if (FileContains("$signaturefile",$signature->{fingerprint}->{signature})) {
-				print "DEBUG: Signature match for $signame found in $directory\n" if $DEBUG;
+				_DEBUG("Signature match for $signame found in $directory");
 				if ($signature->{fingerprint}->{exclude}) {
 					next if FileContains("$signaturefile",$signature->{fingerprint}->{exclude})
 				}
 			} else {
-				print "DEBUG: Signature did not match for $signame in $directory\n" if $DEBUG;
+				_DEBUG("Signature did not match for $signame in $directory");
 				next;
 			}
 		}
@@ -374,21 +383,21 @@ sub ScanDir {
 		my $version;
 		foreach my $verfile (@verfiles) {
 			$verfile = "$directory/$verfile";
-			print "DEBUG: Checking for $verfile\n" if $DEBUG;
+			_DEBUG("Checking for $verfile");
 			next unless (-e "$verfile");
 			if ($signature->{fingerprint}->{version}->{regex}) {
-				print "DEBUG: Using regex check\n" if $DEBUG;
+				_DEBUG("Using regex check");
 				my $regex = $signature->{fingerprint}->{version}->{regex};
 				my $versionfile = do {local $/ = undef; open my $fh, "<", $verfile; <$fh>;};
 				if ($signature->{fingerprint}->{version}->{exclude}) {
 					next if $versionfile =~ m/$signature->{fingerprint}->{version}->{exclude}/;
 				}
 				if ($signature->{fingerprint}->{version}->{multiline}) {
-					print "DEBUG: Multiline regex\n" if $DEBUG;
+					_DEBUG("Multiline regex");
 					my @matches = ($versionfile =~ m/$regex/g);
 					next unless $matches[0];
 					$version = $matches[0];
-					print "DEBUG: ". Dumper(@matches) if $DEBUG;
+					_DEBUG(Dumper(@matches));
 					for (my $i=1; $i<scalar @matches; $i++) {
 						$version .= ".$matches[$i]";
 					}
@@ -398,21 +407,19 @@ sub ScanDir {
 					$version = $1;
 				}
 			} elsif ($signature->{fingerprint}->{version}->{sub}) {
-				print "DEBUG: Using sub check\n" if $DEBUG;
+				_DEBUG("Using sub check");
 				&$signature->{fingerprint}->{version}->{sub}($verfile);
 			} elsif ($signature->{fingerprint}->{version}->{flatfile}) {
-				print "DEBUG: Using flatfile check\n" if $DEBUG;
+				_DEBUG("Using flatfile check");
 				my @matches;
 				my $versionfile = do {local $/ = undef; open my $fh, "<", $verfile; <$fh>;};
 				@matches = ($versionfile =~ m/^(.*)$/g);
 				if (scalar @matches > 2) {
-					print "DEBUG: \@matches > 2\n" if $DEBUG;
-					print "DEBUG: " . Dumper(@matches) if $DEBUG;
+					_DEBUG("\@matches > 2",Dumper(@matches));
 					next;
 				}
 				unless ($matches[0]) {
-					print "DEBUG: \@matches[0] is not set\n" if $DEBUG;
-					print "DEBUG: " . Dumper(@matches) if $DEBUG;
+					_DEBUG("\@matches[0] is not set",Dumper(@matches));
 					next;
 				}
 				$version = $matches[0];
@@ -420,7 +427,7 @@ sub ScanDir {
 			last if $version;
 		}
 		unless ($version) {
-			print "DEBUG: CMS signature match but unable to get version information\n" if $DEBUG;
+			_DEBUG("CMS signature match but unable to get version information");
 			my $result = {
 				signature => $signame,
 				directory => $directory
@@ -441,29 +448,43 @@ sub ScanDir {
 		
 		if ($signature->{eol}) {
 			push (@{$HITS->{eol}}, $result);
-			print "DEBUG: - $signame found matching EOL product in $directory\n" if $DEBUG;
+			_DEBUG("$signame found matching EOL product in $directory");
 			next;
 		}
 		my $vercomp = vercomp($version, $signature->{curver});
 		if ($vercomp == 0) {
 			push (@{$HITS->{current}}, $result);
-			print "DEBUG: - $signame found, matches current version in $directory\n" if $DEBUG;
+			_DEBUG("$signame found, matches current version in $directory");
 		} elsif ($vercomp == 1) {
 			push (@{$HITS->{current}}, $result);
-			print "DEBUG: - $signame found, installed version is greater than signature in $directory\n" if $DEBUG;
+			_DEBUG("$signame found, installed version is greater than signature in $directory");
 		} elsif ($vercomp == 2) {
 			$vercomp = vercomp($version, $signature->{majorver});
 			if ($vercomp == 2) {
 				$result->{reallyold} = 1;
 			}
 			push (@{$HITS->{outdated}}, $result);
-			print "DEBUG: - $signame found, installed version is outdated in $directory\n" if $DEBUG;
+			_DEBUG("$signame found, installed version is outdated in $directory");
 		}
 	}
-	$directory =~ s|\ |\\\ |g;
-	foreach my $object (<$directory/{,.}*>) {
+	my $globdir = $directory;
+	$globdir =~ s|\\|\\\\|g;
+	$globdir =~ s|\ |\\\ |g;
+	$globdir =~ s|\t|\\t|g;
+	_DEBUG(3,"Using: $globdir for glob");
+	my @glob = <$globdir/{,.}*>;
+	if (! @glob) {
+		push(@{$HITS->{globerror}},$directory);
+		return;
+	}
+	
+	foreach my $object (@glob) {
 		next if $object =~ m|\.$|;
 		$object =~ s|//*|/|g;
+		if ($object =~ m|\n|) {
+			push (@{$HITS->{globerror}},$object);
+			next;
+		}
 		next if $object =~ m#/home/\w+/(?:mail)#;
 		if (-d $object) {
 			ScanDir("$object");
@@ -521,6 +542,18 @@ sub FileContains {
 	}
 	close $FH;
 	return 0;
+}
+
+sub _DEBUG {
+	return unless $DEBUG;
+	my $level = 1;
+	$level = shift if ($_[0] =~ m|^[0-9]$|);
+	return if ($level > $DEBUG);
+	print $DEBUGCOLOR->{$level};
+	foreach my $msg (@_) {
+		print "DEBUG $level: $msg\n";
+	}
+	print $COLORS->{reset};
 }
 
 sub printUsage {
@@ -600,6 +633,13 @@ sub printResults {
 			printf $resultformat, $hit->{signature}, "", $hit->{directory} unless $INTERACTIVE;
 		}
 	}
+	if ($HITS->{globerror}) {
+		print "\n==== Glob error in the following folders ====\n";
+		foreach my $hit (@{$HITS->{globerror}}) {
+			print $COLORS->{magenta} . $hit . $COLORS->{reset} . "\n";
+		}
+		print "These folders were not scanned due to possible recursion errors.\n";
+	}
 	print "==== No CMS Packages Found ====" unless ($HITS);
 	
 }
@@ -630,7 +670,7 @@ while (@ARGV) {
 			}
 			exit 0;
 		} elsif ($argument =~ /^--debug/i) {
-			if (@ARGV && $ARGV[0] =~ /[0-2]/) {
+			if (@ARGV && $ARGV[0] =~ /[0-9]/) {
 				$DEBUG = shift @ARGV;
 			} else {
 				$DEBUG=1;
