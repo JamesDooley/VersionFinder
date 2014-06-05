@@ -6,7 +6,7 @@ our $DEBUG=0;
 
 our $HITS;
 our $OUTDATED;
-
+our $SUSPENDED;
 
 
 our $COLORS = {
@@ -145,7 +145,7 @@ our $SIGNATURES= {
 	joomla25=>{
 		name=>"Joomla 2.5.x",
 		majorver=>"2.5",
-		curver=>"2.5.19",
+		curver=>"2.5.20",
 		fingerprint=>{
 			file=>"administrator/index.php",
 			signature=>"Joomla.Administrator",
@@ -185,8 +185,8 @@ our $SIGNATURES= {
 	},
 	mediawiki=>{
 		name=>"MediaWiki",
-		majorver=>"1.22",
-		curver=>"1.22.6",
+		majorver=>"1.23",
+		curver=>"1.23.0",
 		fingerprint=>{
 			file=>"includes/DefaultSettings.php",
 			signature=>"mediawiki",
@@ -211,8 +211,8 @@ our $SIGNATURES= {
 	},
 	oscommerce2=>{
 		name=>"osCommerce 2.x",
-		majorver=>"2.3",
-		curver=>"2.3.3.4",
+		majorver=>"2.4",
+		curver=>"2.3.4",
 		fingerprint=>{
 			file=>"admin/includes/filenames.php",
 			signature=>"osCommerce",
@@ -316,8 +316,8 @@ our $SIGNATURES= {
 	},
 	xcart5=>{
 		name=>"X-Cart 5.x",
-		majorver=>"5.0",
-		curver=>"5.0.14",
+		majorver=>"5.1",
+		curver=>"5.1.2",
 		fingerprint=>{
 			file=>"cart.php",
 			signature=>"category.*X-Cart 5",
@@ -522,6 +522,12 @@ sub vercomp {
 			$ver2[$i] = $1-.001;
 		}		
 		
+		$ver1[$i] =~ s/^([0-9]*)/$1/;
+		$ver2[$i] =~ s/^([0-9]*)/$1/;
+		
+		$ver1[$i] = 0 unless $ver1[$i];
+		$ver2[$i] = 0 unless $ver2[$i];
+		
 		if ($ver1[$i] > $ver2[$i]) {
 			return 1
 		} elsif ($ver1[$i] < $ver2[$i]) {
@@ -565,10 +571,13 @@ Scans server for known CMS versions and reports what is found
 	OPTIONS:
 	
 		--outdated
-			Only prints outdated CMS installs
+			Only prints outdated CMS installs.
 			
 		--signatures
-			Prints the current signature versions and exits
+			Prints the current signature versions and exits.
+			
+		--suspended
+			Also scans cPanel's suspended accounts.
 		
 	Adding Directories Manually:
 	
@@ -640,6 +649,13 @@ sub printResults {
 		}
 		print "These folders were not scanned due to possible recursion errors.\n";
 	}
+	if ($HITS->{suspended}) {
+		print "\n==== Suspended accounts not scanned ====\n";
+		foreach my $hit (@{$HITS->{suspended}}) {
+			print $COLORS->{yellow} . $hit . $COLORS->{reset} . "\n";
+		}
+		print "These accounts were not scanned, to scan them include the --suspended flag.\n";
+	}
 	print "==== No CMS Packages Found ====" unless ($HITS);
 	
 }
@@ -669,6 +685,8 @@ while (@ARGV) {
 				printf $resultformat, $SIGNATURES->{$signame}->{name}, $SIGNATURES->{$signame}->{curver}, $SIGNATURES->{$signame}->{majorver};
 			}
 			exit 0;
+		} elsif ($argument =~ /^--suspended/i) {
+			$SUSPENDED=1;
 		} elsif ($argument =~ /^--debug/i) {
 			if (@ARGV && $ARGV[0] =~ /[0-9]/) {
 				$DEBUG = shift @ARGV;
@@ -690,7 +708,11 @@ unless (@scandirs) {
 	if (-d "/var/cpanel") {
 		foreach my $user (glob("/var/cpanel/users/*")) {
 			$user =~ s/.*\/(.*$)/$1/;
-			push(@scandirs, getUserDir($user));
+			if (-e "/var/cpanel/suspended/$user" && ! $SUSPENDED) {
+				push(@{$HITS->{suspended}},$user);
+			} else {
+				push(@scandirs, getUserDir($user));
+			}
 		};
 		if (-d "/var/www/html") {
 			push(@scandirs, "/var/www/html");
