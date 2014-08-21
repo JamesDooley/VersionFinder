@@ -9,28 +9,28 @@ Current Signatures
 ```
 Signature Name            Current Ver     Major Ver
 CRE Loaded6               6.999           6
-CRE Loaded7               7.2.1.4         7.2
-Drupal 6.x                6.30            6
-Drupal 7.x                7.26            7
+CRE Loaded7               7.2.4.2         7.2
+Drupal 6.x                6.33            6
+Drupal 7.x                7.31            7
 e107                      1.0.4           1
 Joomla 1.5.x              1.5.999         1.5
 Joomla 1.7.x              1.7.999         1.7
-Joomla 2.5.x              2.5.19          2.5
-Joomla 3.2.x              3.2.3           3.2
+Joomla 2.5.x              2.5.24          2.5
+Joomla 3.3.x              3.3.3           3.3
 Mambo                     4.6.5           4.6
-MediaWiki                 1.22.4          1.22
-OpenX / Revive            3.0.3           3.0
-osCommerce 2.x            2.3.3.4         2.3
+MediaWiki                 1.23.2          1.23
+OpenX / Revive            3.0.5           3.0
+osCommerce 2.x            2.3.4           2.4
 osCommerce 3.x (Devel)    3.0.2           3.0
 phpBB3                    3.0.12          3.0
-Piwigo                    2.6.1           2.6
-Redmine                   2.4.4           2.4
+Piwigo                    2.6.3           2.6
+Redmine                   2.4.6           2.4
 vBulletin 4.x             4.2.2           4.2
-WordPress                 3.8.1           3.8
-X-Cart 4.x                4.6.3           4.6
-X-Cart 5.x                5.0.12          5.0
-XOOPS                     2.5.6           2.5
-ZenCart                   1.5.1           1.5
+WordPress                 3.9.2           3.9
+X-Cart 4.x                4.6.4           4.6
+X-Cart 5.x                5.1.5           5.1
+XOOPS                     2.5.7           2.5
+ZenCart                   1.5.3           1.5
 ```
 
 Usage
