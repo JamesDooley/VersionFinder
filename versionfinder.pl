@@ -157,9 +157,9 @@ our $SIGNATURES= {
 		}
 	},
 	joomla33=>{
-		name=>"Joomla 3.3.x",
-		majorver=>"3.3",
-		curver=>"3.3.6",
+		name=>"Joomla 3.4.x",
+		majorver=>"3.4",
+		curver=>"3.4.0",
 		fingerprint=>{
 			file=>"web.config.txt",
 			version=>{
@@ -172,7 +172,7 @@ our $SIGNATURES= {
 	mambo=>{
 		name=>"Mambo",
 		majorver=>"4.6",
-		curver=>"4.6.5",
+		curver=>"4.6.999",
 		fingerprint=>{
 			file=>"includes/mambofunc.php",
 			version=>{
@@ -239,7 +239,7 @@ our $SIGNATURES= {
 	phpbb3=>{
 		name=>"phpBB3",
 		majorver=>"3.1",
-		curver=>"3.1.1",
+		curver=>"3.1.3",
 		fingerprint=>{
 			file=>"includes/bbcode.php",
 			signature=>"phpBB3",
@@ -249,10 +249,23 @@ our $SIGNATURES= {
 			}
 		}
 	},
+	PHPMailer=>{
+		name=>"PHPMailer",
+		majorver=>"5.2",
+		curver=>"5.2.9",
+		fingerprint=>{
+			file=>"class.phpmailer.php",
+			signature=>"phpmailer",
+			version=>{
+				file=>"class.phpmailer.php",
+				regex=>"public .*Version += [\"'](.*)[\"']"
+			}
+		}
+	},
 	piwigo=>{
 		name=>"Piwigo",
 		majorver=>"2.7",
-		curver=>"2.7.2",
+		curver=>"2.7.4",
 		fingerprint=>{
 			file=>"identification.php",
 			signature=>"Piwigo",
@@ -264,8 +277,8 @@ our $SIGNATURES= {
 	},
 	redmine=>{
 		name=>"Redmine",
-		majorver=>"2.4",
-		curver=>"2.4.7",
+		majorver=>"2.6",
+		curver=>"2.6.3",
 		fingerprint=>{
 			file=>"lib/redmine.rb",
 			signature=>"redmine",
@@ -292,7 +305,7 @@ our $SIGNATURES= {
 	whmcs=>{
 		name=>"WHMCS",
 		majorver=>"5.3",
-		curver=>"5.3.11",
+		curver=>"5.3.12",
 		fingerprint=>{
 			file=>"includes/classes/WHMCS/Admin.php",
 			signature=>"WHMCS",
@@ -305,7 +318,7 @@ our $SIGNATURES= {
 	wordpress=>{
 		name=>"WordPress",
 		majorver=>"4.1",
-		curver=>"4.1",
+		curver=>"4.1.1",
 		fingerprint=>{
 			file=>"wp-config.php",
 			version=>{
@@ -330,7 +343,7 @@ our $SIGNATURES= {
 	xcart5=>{
 		name=>"X-Cart 5.x",
 		majorver=>"5.1",
-		curver=>"5.1.9",
+		curver=>"5.1.11",
 		fingerprint=>{
 			file=>"cart.php",
 			signature=>"category.*X-Cart",
@@ -355,7 +368,7 @@ our $SIGNATURES= {
 	zencart=>{
 		name=>"ZenCart",
 		majorver=>"1.5",
-		curver=>"1.5.3",
+		curver=>"1.5.4",
 		fingerprint=>{
 			file=>"includes/filenames.php",
 			signature=>"Zen Cart",
