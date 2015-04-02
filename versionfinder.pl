@@ -2,12 +2,19 @@
 use strict;
 use warnings;
 
+use FindBin qw($RealBin $RealScript);
+use File::Basename;
+use Storable;
+
 our $DEBUG=0;
 
 our $HITS;
 our $OUTDATED;
 our $SUSPENDED;
 
+#Automated Updates
+our $REPO = "https://raw.githubusercontent.com/JamesDooley/VersionFinder/master";
+our $UpdateCheckTime = 86400; # 24 hours
 
 our $COLORS = {
 	'reset' => "\e[0m",
@@ -44,342 +51,7 @@ our $INTERACTIVE = -t STDOUT ? 1 : 0;
 our $TERMINAL = -t STDERR ? 1 : 0;
 $| = 1;
 
-
-
-our $SIGNATURES= {
-	creloaded6=>{
-		name=>"CRE Loaded6",
-		majorver=>"6",
-		curver=>"6.999",
-		eol=>1,
-		fingerprint=>{
-			file=>'/admin/includes/version.php',
-			signature=>"CRE Loaded6",
-			version=>{
-				file=>'/admin/includes/version.php',
-				regex=>'INSTALLED_(?:VERSION_MAJOR|VERSION_MINOR|PATCH)\', \'(.*)\'',
-				multiline=>1
-			}
-		}
-	},
-	creloaded7=>{
-		name=>"CRE Loaded7",
-		majorver=>"7.2",
-		curver=>"7.2.4.2",
-		fingerprint=>{
-			file=>'checkout.php',
-			signature=>'loaded7',
-			version=>{
-				file=>'/includes/version.txt',
-				regex=>'^(.*)\|',
-			}
-		}
-	},
-	drupal7=>{
-		name=>"Drupal 7.x",
-		majorver=>"7",
-		curver=>"7.34",
-		fingerprint=> {
-			file=>"authorize.php",
-			signature=>"Drupal",
-			version=>{
-				file=>"includes/bootstrap.inc",
-				regex=>"define.*VERSION', '(.*)'"
-			}
-		},
-	},
-	drupal6=>{
-		name=>"Drupal 6.x",
-		majorver=>"6",
-		curver=>"6.34",
-		fingerprint=>{
-			file=>"includes/database.mysql.inc",
-			signature=>"Drupal",
-			version=>{
-				file=>"CHANGELOG.txt",
-				regex=>"Drupal (.*),"
-			}
-		},
-	},
-	e107=>{
-		name=>"e107",
-		majorver=>"1",
-		curver=>"1.0.4",
-		fingerprint=>{
-			file=>"e107_config.php",
-			version=>{
-				files=>["admin/ver.php","e107_admin/ver.php"],
-				regex=>'e107_version.*"(.*)";'
-			}
-		},
-	},
-	joomla15=> {
-		name=>"Joomla 1.5.x",
-		majorver=>"1.5",
-		curver=>"1.5.999",
-		eol=>1,
-		fingerprint=>{
-			file=>"includes/joomla.php",
-			signature=>"Joomla.Legacy",
-			version=>{
-				file=>"CHANGELOG.php",
-				regex=>"-* (.*) Stable Release"
-			}
-		}
-	},
-	joomla17=> {
-		name=>"Joomla 1.7.x",
-		majorver=>"1.7",
-		curver=>"1.7.999",
-		eol=>1,
-		fingerprint=>{
-			file=>"administrator/index.php",
-			signature=>"Joomla.Administrator",
-			version=>{
-				file=>"includes/version.php",
-				regex=>'(?:\$RELEASE|\$DEV_LEVEL) = \'(.*)\'',
-				multiline=>1
-			}
-		},
-	},
-	joomla25=>{
-		name=>"Joomla 2.5.x",
-		majorver=>"2.5",
-		curver=>"2.5.28",
-		fingerprint=>{
-			file=>"administrator/index.php",
-			signature=>"Joomla.Administrator",
-			version=>{
-				file=>"libraries/cms/version/version.php",
-				regex=>'(?:\$RELEASE|\$DEV_LEVEL) = \'(.*)\'',
-				multiline=>1
-			}
-		}
-	},
-	joomla33=>{
-		name=>"Joomla 3.4.x",
-		majorver=>"3.4",
-		curver=>"3.4.0",
-		fingerprint=>{
-			file=>"web.config.txt",
-			version=>{
-				file=>"libraries/cms/version/version.php",
-				regex=>'(?:\$RELEASE|\$DEV_LEVEL) = \'(.*)\'',
-				multiline=>1
-			}
-		}
-	},
-	mambo=>{
-		name=>"Mambo",
-		majorver=>"4.6",
-		curver=>"4.6.999",
-		fingerprint=>{
-			file=>"includes/mambofunc.php",
-			version=>{
-				file=>"includes/version.php",
-				regex=>'(?:\$RELEASE|\$DEV_LEVEL) = \'(.*)\'',
-				multiline=>1	
-			}
-			
-		}
-	},
-	mediawiki=>{
-		name=>"MediaWiki",
-		majorver=>"1.24",
-		curver=>"1.24.1",
-		fingerprint=>{
-			file=>"includes/DefaultSettings.php",
-			signature=>"mediawiki",
-			version=>{
-				file=>"includes/DefaultSettings.php",
-				regex=>'\$wgVersion = \'(.*)\''
-			}
-		}
-	},
-	openx=>{
-		name=>"OpenX / Revive",
-		majorver=>"3.0",
-		curver=>"3.0.6",
-		fingerprint=>{
-			file=>"lib/OX.php",
-			signature=>"OpenX",
-			version=>{
-				file=>"constants.php",
-				regex=>"VERSION', '(.*)'",
-			}
-		}
-	},
-	oscommerce2=>{
-		name=>"osCommerce 2.x",
-		majorver=>"2.4",
-		curver=>"2.3.4",
-		fingerprint=>{
-			file=>"admin/includes/filenames.php",
-			signature=>"osCommerce",
-			exclude=>"zen-cart|loaded7",
-			version=>{
-				file=>"includes/version.php",
-				flatfile=>1
-			}
-		}
-	},
-	oscommerce3=>{
-		name=>"osCommerce 3.x (Devel)",
-		majorver=>"3.0",
-		curver=>"3.0.2",
-		fingerprint=>{
-			file=>"OM/Core/OSCOM.php",
-			signature=>"osCommerce",
-			version=>{
-				file=>"OM/version.txt",
-				flatfile=>1
-			}
-		}
-	},
-	phpbb3=>{
-		name=>"phpBB3",
-		majorver=>"3.1",
-		curver=>"3.1.3",
-		fingerprint=>{
-			file=>"includes/bbcode.php",
-			signature=>"phpBB3",
-			version=>{
-				file=>"includes/constants.php",
-				regex=>"PHPBB_VERSION', '(.*)'"
-			}
-		}
-	},
-	PHPMailer=>{
-		name=>"PHPMailer",
-		majorver=>"5.2",
-		curver=>"5.2.9",
-		fingerprint=>{
-			file=>"class.phpmailer.php",
-			signature=>"phpmailer",
-			version=>{
-				file=>"class.phpmailer.php",
-				regex=>"public .*Version += [\"'](.*)[\"']"
-			}
-		}
-	},
-	piwigo=>{
-		name=>"Piwigo",
-		majorver=>"2.7",
-		curver=>"2.7.4",
-		fingerprint=>{
-			file=>"identification.php",
-			signature=>"Piwigo",
-			version=>{
-				file=>"include/constants.php",
-				regex=>"PHPWG_VERSION', '(.*)'"
-			}
-		}
-	},
-	redmine=>{
-		name=>"Redmine",
-		majorver=>"2.6",
-		curver=>"2.6.3",
-		fingerprint=>{
-			file=>"lib/redmine.rb",
-			signature=>"redmine",
-			version=>{
-				file=>"doc/CHANGELOG",
-				regex=>"==.* v(.*)"
-			}
-		}
-	},
-	vbulletin4=>{
-		name=>"vBulletin 4.x",
-		majorver=>"4.2",
-		curver=>"4.2.2",
-		fingerprint=>{
-			file=>"admincp/diagnostic.php",
-			signature=>"vbulletin",
-			version=>{
-				file=>"admincp/diagnostic.php",
-				regex=>"sum_versions.*vbulletin.*=> '(.*)'",
-				filter=>' Patch Level ',
-			}
-		}
-	},
-	whmcs=>{
-		name=>"WHMCS",
-		majorver=>"5.3",
-		curver=>"5.3.12",
-		fingerprint=>{
-			file=>"includes/classes/WHMCS/Admin.php",
-			signature=>"WHMCS",
-			version=>{
-				file=>"init.php",
-				regex=>'\* Version\: ([0-9.]*)'
-			}
-		}
-	},
-	wordpress=>{
-		name=>"WordPress",
-		majorver=>"4.1",
-		curver=>"4.1.1",
-		fingerprint=>{
-			file=>"wp-config.php",
-			version=>{
-				file=>"wp-includes/version.php",
-				regex=>'\$wp_version = \'(.*)\''
-			}
-		}
-	},
-	xcart4=>{
-		name=>"X-Cart 4.x",
-		majorver=>"4.6",
-		curver=>"4.6.6",
-		fingerprint=>{
-			file=>"cart.php",
-			signature=>'X-Cart',
-			version=>{
-				file=>"VERSION",
-				regex=>"Version (.*)"
-			}
-		}
-	},
-	xcart5=>{
-		name=>"X-Cart 5.x",
-		majorver=>"5.1",
-		curver=>"5.1.11",
-		fingerprint=>{
-			file=>"cart.php",
-			signature=>"category.*X-Cart",
-			version=>{
-				file=>"Includes/install/install_settings.php",
-				regex=>"LC_VERSION', '(.*)'"
-			}
-		}
-	},
-	xoops=>{
-		name=>"XOOPS",
-		majorver=>"2.5",
-		curver=>"2.5.7.1",
-		fingerprint=>{
-			file=>"xoops.css",
-			version=>{
-				file=>"include/version.php",
-				regex=>"XOOPS_VERSION.*XOOPS (.*)'"
-			}
-		}
-	},
-	zencart=>{
-		name=>"ZenCart",
-		majorver=>"1.5",
-		curver=>"1.5.4",
-		fingerprint=>{
-			file=>"includes/filenames.php",
-			signature=>"Zen Cart",
-			version=>{
-				file=>"includes/version.php",
-				regex=>'PROJECT_VERSION_(?:MAJOR|MINOR)\', \'(.*)\'',
-				multiline=>1
-			}
-		}
-	}
-};
+our $SIGNATURES;
 
 sub ScanDir {
 	my $directory = shift;
@@ -605,6 +277,9 @@ Scans server for known CMS versions and reports what is found
 		--suspended
 			Also scans cPanel's suspended accounts.
 		
+		--update
+			Forces an update of the script and signatures file.
+			
 	Adding Directories Manually:
 	
 		--user <usernames>
@@ -686,6 +361,115 @@ sub printResults {
 	
 }
 
+sub checkUpdate {
+	print "Checking for updates: ";
+	unless (qx(which curl 2>/dev/null)) {
+		if ($INTERACTIVE) {
+			print $COLORS->{red} . "[Failed]" . $COLORS->{reset} . "\n - Curl is not found on this system\n - " . $COLORS->{yellow} . "Automated update checks are disabled." . $COLORS->{reset}."\n"
+		} else {
+			print " [Failed]\n - Curl is not found on this system\n - Automated update checks are disabled.\n"
+		}
+		return;
+	};
+	my $VFUpdates;
+	my @ToUpdate;
+	if (-e "$RealBin/.vf_updates") {
+		open (my $FH, "<","$RealBin/.vf_updates");
+		while (<$FH>) {
+			$_ =~ /^([a-zA-Z.]*):(.*)$/;
+			next unless ($1 && $2);
+			$VFUpdates->{$1} = $2;
+		}
+	}
+	if ($VFUpdates->{lastcheck} && $VFUpdates->{lastcheck} + $UpdateCheckTime > time) {
+		if ($INTERACTIVE) {
+			print $COLORS->{blue} . "[Deferred]" . $COLORS->{reset} . "\n";
+		} else {
+			print "[Deferred]\n";
+		}
+		return;
+	}
+	print "\n";
+	foreach my $file ("versionfinder.pl","versionfinder.sigs") {
+		print "- Checking $file ";
+		my $header = qx(curl -I "$REPO/$file" 2>/dev/null);
+		unless ($header =~ /ETag:.+"(.*)"/) {
+			if ($INTERACTIVE) {
+				print $COLORS->{red} . "[Failed]" . $COLORS->{reset} . "\n - Repo did not return an ETag\n - " . $COLORS->{yellow} . "Automated update checks are temporarily disabled." . $COLORS->{reset}."\n"
+			} else {
+				print "[Failed]\n - Repo did not return an ETag\n - Automated update checks are disabled.\n"
+			}
+			next;
+		}
+		if ($VFUpdates->{$file} && $VFUpdates->{$file} eq $1) {
+			if ($INTERACTIVE) {
+				print $COLORS->{green} . "[Ok]" . $COLORS->{reset} . "\n"
+			} else {
+				print "[Ok]\n"
+			}
+			next;
+		}
+		if ($INTERACTIVE) {
+				print $COLORS->{blue} . "[Update Needed]" . $COLORS->{reset} . "\n"
+		} else {
+				print "[Update Needed]\n"
+		}
+		if (updateFile("$file")) {
+				$VFUpdates->{$file} = $1;
+		};
+		
+	}
+	$VFUpdates->{lastcheck} = time;
+	open (my $FH, ">", "$RealBin/.vf_updates");
+	foreach my $var (keys %$VFUpdates) {
+		print $FH "$var:".$VFUpdates->{$var}."\n";
+	}
+	close $FH;
+	
+}
+
+sub updateFile {
+	my $file = shift;
+	print "Attempting to update $file ";
+	if (qx(which wget)) {
+		qx(wget --quiet --no-check-certificate -O "$RealBin/$file.new" "$REPO/$file");
+	} elsif (qx(which curl)) {
+		qx(curl --fail --output "$RealBin/$file.new" "$REPO/$file" 2>/dev/null);
+	} else {
+		if ($INTERACTIVE) {
+			print $COLORS->{red} . "[Failed]" . $COLORS->{reset} . "\n - Need Curl or Wget for automatic downloads\n - " . $COLORS->{yellow} . "Automated updates are temporarily disabled, please manually update." . $COLORS->{reset}."\n";
+		} else {
+			print "[Failed]\n - Need Curl or Wget for automatic downloads\n - Automated update checks are disabled, please manually update.\n";
+		}
+		return 0;
+	}
+	if ( ! -e "$RealBin/$file.new" || -z "$RealBin/$file.new") {
+		unlink "$RealBin/$file.new" if (-e "$RealBin/$file.new");
+		if ($INTERACTIVE) {
+			print $COLORS->{red} . "[Failed]" . $COLORS->{reset} . "\n - File did not download properly\n";
+		} else {
+			print "[Failed]\n - Need Curl or Wget for automatic downloads\n - Automated update checks are disabled, please manually update.\n";
+		}
+		return 0;
+	}
+	my $realfile;
+	if ($file =~ /versionfinder.pl/) {
+		$realfile = $RealScript;
+	} else {
+		$realfile = $file;
+	}
+	unlink "$RealBin/$realfile" if (-e "$RealBin/$realfile" && -e "$RealBin/$file.new");
+	rename "$RealBin/$file.new","$RealBin/$realfile";
+	if ($file =~ /versionfinder.pl/) {
+		chmod 0755, "$RealBin/$realfile";
+	}
+	if ($INTERACTIVE) {
+		print $COLORS->{green} . "[Updated]" . $COLORS->{reset} ."\n";
+	} else {
+		print "[Updated]\n";
+	}
+	return 1;
+}
 
 our @scandirs;
 while (@ARGV) {
@@ -719,6 +503,10 @@ while (@ARGV) {
 			} else {
 				$DEBUG=1;
 			}
+		} elsif ($argument =~ /^--update/i) {
+			updateFile "versionfinder.pl";
+			updateFile "versionfinder.sigs";
+			exit 0;
 		} else {
 			print "Unknown option: $argument\n";
 			exit 1;
@@ -771,6 +559,14 @@ unless (@scandirs) {
 }
 
 die "Unable to find any directories to scan" unless (@scandirs);
+checkUpdate;
+
+unless (-e "$RealBin/versionfinder.sigs") {
+	updateFile("versionfinder.sigs");
+	die "Signatures file is not found and could not be downloaded, please manually install from the github repo." unless (-e "$RealBin/versionfinder.sigs");
+}
+$SIGNATURES = ${retrieve("$RealBin/versionfinder.sigs")};
+
 my $dircount = scalar @scandirs;
 my $curcount = 0;
 foreach my $directory (@scandirs) {
