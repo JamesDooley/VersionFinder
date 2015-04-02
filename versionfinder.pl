@@ -471,6 +471,12 @@ sub updateFile {
 	return 1;
 }
 
+unless (-e "$RealBin/versionfinder.sigs") {
+	updateFile("versionfinder.sigs");
+	die "Signatures file is not found and could not be downloaded, please manually install from the github repo." unless (-e "$RealBin/versionfinder.sigs");
+}
+$SIGNATURES = ${retrieve("$RealBin/versionfinder.sigs")};
+
 our @scandirs;
 while (@ARGV) {
 	my $argument = shift @ARGV;
@@ -560,12 +566,6 @@ unless (@scandirs) {
 
 die "Unable to find any directories to scan" unless (@scandirs);
 checkUpdate;
-
-unless (-e "$RealBin/versionfinder.sigs") {
-	updateFile("versionfinder.sigs");
-	die "Signatures file is not found and could not be downloaded, please manually install from the github repo." unless (-e "$RealBin/versionfinder.sigs");
-}
-$SIGNATURES = ${retrieve("$RealBin/versionfinder.sigs")};
 
 my $dircount = scalar @scandirs;
 my $curcount = 0;
