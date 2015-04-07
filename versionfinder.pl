@@ -418,7 +418,7 @@ sub checkUpdate {
 		}
 		if (updateFile("$file")) {
 				$VFUpdates->{$file} = $1;
-				$ScriptUpdated = 1 if ($file == "versionfinder.pl");
+				$ScriptUpdated = 1 if ($file eq "versionfinder.pl");
 		};
 		
 	}
@@ -433,7 +433,7 @@ sub checkUpdate {
 	}
 	close $FH;
 	if ($ScriptUpdated) {
-		print "Main script updated, restarting";
+		print "Main script updated, restarting\n\n";
 		exec($^X, $0, @OARGV);
 		exit 0;
 	}
@@ -523,8 +523,8 @@ while (@ARGV) {
 				$DEBUG=1;
 			}
 		} elsif ($argument =~ /^--update/i) {
-			updateFile "versionfinder.pl";
-			updateFile ".vf_signatures";
+			updateFile("versionfinder.pl");
+			updateFile(".vf_signatures");
 			exit 0;
 		} else {
 			print "Unknown option: $argument\n";
