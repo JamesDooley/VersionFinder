@@ -1,0 +1,336 @@
+our $SIGNATURES= {
+	creloaded6=>{
+		name=>"CRE Loaded6",
+		majorver=>"6",
+		curver=>"6.999",
+		eol=>1,
+		fingerprint=>{
+			file=>'/admin/includes/version.php',
+			signature=>"CRE Loaded6",
+			version=>{
+				file=>'/admin/includes/version.php',
+				regex=>'INSTALLED_(?:VERSION_MAJOR|VERSION_MINOR|PATCH)\', \'(.*)\'',
+				multiline=>1
+			}
+		}
+	},
+	creloaded7=>{
+		name=>"CRE Loaded7",
+		majorver=>"7.2",
+		curver=>"7.2.4.2",
+		fingerprint=>{
+			file=>'checkout.php',
+			signature=>'loaded7',
+			version=>{
+				file=>'/includes/version.txt',
+				regex=>'^(.*)\|',
+			}
+		}
+	},
+	drupal7=>{
+		name=>"Drupal 7.x",
+		majorver=>"7",
+		curver=>"7.34",
+		fingerprint=> {
+			file=>"authorize.php",
+			signature=>"Drupal",
+			version=>{
+				file=>"includes/bootstrap.inc",
+				regex=>"define.*VERSION', '(.*)'"
+			}
+		},
+	},
+	drupal6=>{
+		name=>"Drupal 6.x",
+		majorver=>"6",
+		curver=>"6.34",
+		fingerprint=>{
+			file=>"includes/database.mysql.inc",
+			signature=>"Drupal",
+			version=>{
+				file=>"CHANGELOG.txt",
+				regex=>"Drupal (.*),"
+			}
+		},
+	},
+	e107=>{
+		name=>"e107",
+		majorver=>"1",
+		curver=>"1.0.4",
+		fingerprint=>{
+			file=>"e107_config.php",
+			version=>{
+				files=>["admin/ver.php","e107_admin/ver.php"],
+				regex=>'e107_version.*"(.*)";'
+			}
+		},
+	},
+	joomla15=> {
+		name=>"Joomla 1.5.x",
+		majorver=>"1.5",
+		curver=>"1.5.999",
+		eol=>1,
+		fingerprint=>{
+			file=>"includes/joomla.php",
+			signature=>"Joomla.Legacy",
+			version=>{
+				file=>"CHANGELOG.php",
+				regex=>"-* (.*) Stable Release"
+			}
+		}
+	},
+	joomla17=> {
+		name=>"Joomla 1.7.x",
+		majorver=>"1.7",
+		curver=>"1.7.999",
+		eol=>1,
+		fingerprint=>{
+			file=>"administrator/index.php",
+			signature=>"Joomla.Administrator",
+			version=>{
+				file=>"includes/version.php",
+				regex=>'(?:\$RELEASE|\$DEV_LEVEL) = \'(.*)\'',
+				multiline=>1
+			}
+		},
+	},
+	joomla25=>{
+		name=>"Joomla 2.5.x",
+		majorver=>"2.5",
+		curver=>"2.5.28",
+		fingerprint=>{
+			file=>"administrator/index.php",
+			signature=>"Joomla.Administrator",
+			version=>{
+				file=>"libraries/cms/version/version.php",
+				regex=>'(?:\$RELEASE|\$DEV_LEVEL) = \'(.*)\'',
+				multiline=>1
+			}
+		}
+	},
+	joomla33=>{
+		name=>"Joomla 3.4.x",
+		majorver=>"3.4",
+		curver=>"3.4.0",
+		fingerprint=>{
+			file=>"web.config.txt",
+			version=>{
+				file=>"libraries/cms/version/version.php",
+				regex=>'(?:\$RELEASE|\$DEV_LEVEL) = \'(.*)\'',
+				multiline=>1
+			}
+		}
+	},
+	mambo=>{
+		name=>"Mambo",
+		majorver=>"4.6",
+		curver=>"4.6.999",
+		fingerprint=>{
+			file=>"includes/mambofunc.php",
+			version=>{
+				file=>"includes/version.php",
+				regex=>'(?:\$RELEASE|\$DEV_LEVEL) = \'(.*)\'',
+				multiline=>1	
+			}
+			
+		}
+	},
+	mediawiki=>{
+		name=>"MediaWiki",
+		majorver=>"1.24",
+		curver=>"1.24.1",
+		fingerprint=>{
+			file=>"includes/DefaultSettings.php",
+			signature=>"mediawiki",
+			version=>{
+				file=>"includes/DefaultSettings.php",
+				regex=>'\$wgVersion = \'(.*)\''
+			}
+		}
+	},
+	openx=>{
+		name=>"OpenX / Revive",
+		majorver=>"3.0",
+		curver=>"3.0.6",
+		fingerprint=>{
+			file=>"lib/OX.php",
+			signature=>"OpenX",
+			version=>{
+				file=>"constants.php",
+				regex=>"VERSION', '(.*)'",
+			}
+		}
+	},
+	oscommerce2=>{
+		name=>"osCommerce 2.x",
+		majorver=>"2.4",
+		curver=>"2.3.4",
+		fingerprint=>{
+			file=>"admin/includes/filenames.php",
+			signature=>"osCommerce",
+			exclude=>"zen-cart|loaded7",
+			version=>{
+				file=>"includes/version.php",
+				flatfile=>1
+			}
+		}
+	},
+	oscommerce3=>{
+		name=>"osCommerce 3.x (Devel)",
+		majorver=>"3.0",
+		curver=>"3.0.2",
+		fingerprint=>{
+			file=>"OM/Core/OSCOM.php",
+			signature=>"osCommerce",
+			version=>{
+				file=>"OM/version.txt",
+				flatfile=>1
+			}
+		}
+	},
+	phpbb3=>{
+		name=>"phpBB3",
+		majorver=>"3.1",
+		curver=>"3.1.3",
+		fingerprint=>{
+			file=>"includes/bbcode.php",
+			signature=>"phpBB3",
+			version=>{
+				file=>"includes/constants.php",
+				regex=>"PHPBB_VERSION', '(.*)'"
+			}
+		}
+	},
+	PHPMailer=>{
+		name=>"PHPMailer",
+		majorver=>"5.2",
+		curver=>"5.2.9",
+		fingerprint=>{
+			file=>"class.phpmailer.php",
+			signature=>"phpmailer",
+			version=>{
+				file=>"class.phpmailer.php",
+				regex=>"[public|var] .*Version += [\"'](.*)[\"']"
+			}
+		}
+	},
+	piwigo=>{
+		name=>"Piwigo",
+		majorver=>"2.7",
+		curver=>"2.7.4",
+		fingerprint=>{
+			file=>"identification.php",
+			signature=>"Piwigo",
+			version=>{
+				file=>"include/constants.php",
+				regex=>"PHPWG_VERSION', '(.*)'"
+			}
+		}
+	},
+	redmine=>{
+		name=>"Redmine",
+		majorver=>"2.6",
+		curver=>"2.6.3",
+		fingerprint=>{
+			file=>"lib/redmine.rb",
+			signature=>"redmine",
+			version=>{
+				file=>"doc/CHANGELOG",
+				regex=>"==.* v(.*)"
+			}
+		}
+	},
+	vbulletin4=>{
+		name=>"vBulletin 4.x",
+		majorver=>"4.2",
+		curver=>"4.2.2",
+		fingerprint=>{
+			file=>"admincp/diagnostic.php",
+			signature=>"vbulletin",
+			version=>{
+				file=>"admincp/diagnostic.php",
+				regex=>"sum_versions.*vbulletin.*=> '(.*)'",
+				filter=>' Patch Level ',
+			}
+		}
+	},
+	whmcs=>{
+		name=>"WHMCS",
+		majorver=>"5.3",
+		curver=>"5.3.12",
+		fingerprint=>{
+			file=>"includes/classes/WHMCS/Admin.php",
+			signature=>"WHMCS",
+			version=>{
+				file=>"init.php",
+				regex=>'\* Version\: ([0-9.]*)'
+			}
+		}
+	},
+	wordpress=>{
+		name=>"WordPress",
+		majorver=>"4.1",
+		curver=>"4.1.1",
+		fingerprint=>{
+			file=>"wp-config.php",
+			version=>{
+				file=>"wp-includes/version.php",
+				regex=>'\$wp_version = \'(.*)\''
+			}
+		}
+	},
+	xcart4=>{
+		name=>"X-Cart 4.x",
+		majorver=>"4.6",
+		curver=>"4.6.6",
+		fingerprint=>{
+			file=>"cart.php",
+			signature=>'X-Cart',
+			version=>{
+				file=>"VERSION",
+				regex=>"Version (.*)"
+			}
+		}
+	},
+	xcart5=>{
+		name=>"X-Cart 5.x",
+		majorver=>"5.1",
+		curver=>"5.1.11",
+		fingerprint=>{
+			file=>"cart.php",
+			signature=>"category.*X-Cart",
+			version=>{
+				file=>"Includes/install/install_settings.php",
+				regex=>"LC_VERSION', '(.*)'"
+			}
+		}
+	},
+	xoops=>{
+		name=>"XOOPS",
+		majorver=>"2.5",
+		curver=>"2.5.7.1",
+		fingerprint=>{
+			file=>"xoops.css",
+			version=>{
+				file=>"include/version.php",
+				regex=>"XOOPS_VERSION.*XOOPS (.*)'"
+			}
+		}
+	},
+	zencart=>{
+		name=>"ZenCart",
+		majorver=>"1.5",
+		curver=>"1.5.4",
+		fingerprint=>{
+			file=>"includes/filenames.php",
+			signature=>"Zen Cart",
+			version=>{
+				file=>"includes/version.php",
+				regex=>'PROJECT_VERSION_(?:MAJOR|MINOR)\', \'(.*)\'',
+				multiline=>1
+			}
+		}
+	}
+};
+
+1

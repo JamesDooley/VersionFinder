@@ -16,6 +16,8 @@ our $SUSPENDED;
 our $REPO = "https://raw.githubusercontent.com/JamesDooley/VersionFinder/master";
 our $UpdateCheckTime = 86400; # 24 hours
 
+our @OARGV = @ARGV;
+
 our $COLORS = {
 	'reset' => "\e[0m",
 	'bold' => "\e[1m",
@@ -372,7 +374,7 @@ sub checkUpdate {
 		return;
 	};
 	my $VFUpdates;
-	my @ToUpdate;
+	my $ScriptUpdated;
 	if (-e "$RealBin/.vf_updates") {
 		open (my $FH, "<","$RealBin/.vf_updates");
 		while (<$FH>) {
@@ -390,7 +392,7 @@ sub checkUpdate {
 		return;
 	}
 	print "\n";
-	foreach my $file ("versionfinder.pl","versionfinder.sigs") {
+	foreach my $file ("versionfinder.pl",".vf_signatures") {
 		print "- Checking $file ";
 		my $header = qx(curl -I "$REPO/$file" 2>/dev/null);
 		unless ($header =~ /ETag:.+"(.*)"/) {
@@ -416,8 +418,13 @@ sub checkUpdate {
 		}
 		if (updateFile("$file")) {
 				$VFUpdates->{$file} = $1;
+				$ScriptUpdated = 1 if ($file == "versionfinder.pl");
 		};
 		
+	}
+	if (-e "$RealBin/versionfinder.sigs") {
+		delete $VFUpdates->{'versionfinder.sigs'};
+		unlink "$RealBin/versionfinder.sigs";
 	}
 	$VFUpdates->{lastcheck} = time;
 	open (my $FH, ">", "$RealBin/.vf_updates");
@@ -425,7 +432,11 @@ sub checkUpdate {
 		print $FH "$var:".$VFUpdates->{$var}."\n";
 	}
 	close $FH;
-	
+	if ($ScriptUpdated) {
+		print "Main script updated, restarting";
+		exec($^X, $0, @OARGV);
+		exit 0;
+	}
 }
 
 sub updateFile {
@@ -471,13 +482,15 @@ sub updateFile {
 	return 1;
 }
 
-unless (-e "$RealBin/versionfinder.sigs") {
-	updateFile("versionfinder.sigs");
-	die "Signatures file is not found and could not be downloaded, please manually install from the github repo." unless (-e "$RealBin/versionfinder.sigs");
+unless (-e "$RealBin/.vf_signatures") {
+	updateFile(".vf_signatures");
+	die "Signatures file is not found and could not be downloaded, please manually install from the github repo." unless (-e "$RealBin/.vf_signatures");
 }
-$SIGNATURES = ${retrieve("$RealBin/versionfinder.sigs")};
+
+require "$RealBin/.vf_signatures";
 
 our @scandirs;
+
 while (@ARGV) {
 	my $argument = shift @ARGV;
 	if ($argument =~ /^-/) {
@@ -511,7 +524,7 @@ while (@ARGV) {
 			}
 		} elsif ($argument =~ /^--update/i) {
 			updateFile "versionfinder.pl";
-			updateFile "versionfinder.sigs";
+			updateFile ".vf_signatures";
 			exit 0;
 		} else {
 			print "Unknown option: $argument\n";
