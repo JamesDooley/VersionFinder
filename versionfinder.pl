@@ -1,10 +1,10 @@
 #!/usr/bin/perl
 use strict;
 use warnings;
+no warnings qw(newline);
 
 use FindBin qw($RealBin $RealScript);
 use File::Basename;
-use Storable;
 
 our $DEBUG=0;
 
@@ -57,23 +57,29 @@ our $SIGNATURES;
 
 sub ScanDir {
 	my $directory = shift;
+	$directory =~ s|/+$||;
 	return if ($directory =~ /virtfs$/i);
+	return if ($directory =~ m#/home/\w+/(?:mail)#);
 	return if (-l "$directory");
 	
-	_DEBUG(2,"Scanning directory $directory");
+	my $escdir = $directory;
+	$escdir =~ s/\\/\\\\/g;
+	$escdir =~ s/\t/\\t/g;
+	$escdir =~ s/\n/\\n/g;
+	_DEBUG(2,"Scanning directory $escdir");
 	foreach my $signame (keys %$SIGNATURES) {
 		my $signature = $SIGNATURES->{$signame};
 		my $signaturefile = "$directory/" . $signature->{fingerprint}->{file};
 		next unless (-e $signaturefile);
-		_DEBUG("Signature file found in $directory for $signame");
+		_DEBUG("Signature file found in $escdir for $signame");
 		if ($signature->{fingerprint}->{signature}) {
 			if (FileContains("$signaturefile",$signature->{fingerprint}->{signature})) {
-				_DEBUG("Signature match for $signame found in $directory");
+				_DEBUG("Signature match for $signame found in $escdir");
 				if ($signature->{fingerprint}->{exclude}) {
 					next if FileContains("$signaturefile",$signature->{fingerprint}->{exclude})
 				}
 			} else {
-				_DEBUG("Signature did not match for $signame in $directory");
+				_DEBUG("Signature did not match for $signame in $escdir");
 				next;
 			}
 		}
@@ -83,7 +89,7 @@ sub ScanDir {
 		my $version;
 		foreach my $verfile (@verfiles) {
 			$verfile = "$directory/$verfile";
-			_DEBUG("Checking for $verfile");
+			_DEBUG("Checking for $escdir/$verfile");
 			next unless (-e "$verfile");
 			if ($signature->{fingerprint}->{version}->{regex}) {
 				_DEBUG("Using regex check");
@@ -130,7 +136,7 @@ sub ScanDir {
 			_DEBUG("CMS signature match but unable to get version information");
 			my $result = {
 				signature => $signame,
-				directory => $directory
+				directory => $escdir
 			};
 			push (@{$HITS->{nover}}, $result);
 		}
@@ -139,57 +145,45 @@ sub ScanDir {
 			$version =~ s/$signature->{fingerprint}->{version}->{filter}/\./;
 		}
 		next unless $version;
-		my $vermsg = "$directory contains $signame $version";
+		my $vermsg = "$escdir contains $signame $version";
 		my $result = {
 			signature => $signame,
-			directory => $directory,
+			directory => $escdir,
 			version => $version
 		};
 		
 		if ($signature->{eol}) {
 			push (@{$HITS->{eol}}, $result);
-			_DEBUG("$signame found matching EOL product in $directory");
+			_DEBUG("$signame found matching EOL product in $escdir");
 			next;
 		}
 		my $vercomp = vercomp($version, $signature->{curver});
 		if ($vercomp == 0) {
 			push (@{$HITS->{current}}, $result);
-			_DEBUG("$signame found, matches current version in $directory");
+			_DEBUG("$signame found, matches current version in $escdir");
 		} elsif ($vercomp == 1) {
 			push (@{$HITS->{current}}, $result);
-			_DEBUG("$signame found, installed version is greater than signature in $directory");
+			_DEBUG("$signame found, installed version is greater than signature in $escdir");
 		} elsif ($vercomp == 2) {
 			$vercomp = vercomp($version, $signature->{majorver});
 			if ($vercomp == 2) {
 				$result->{reallyold} = 1;
 			}
 			push (@{$HITS->{outdated}}, $result);
-			_DEBUG("$signame found, installed version is outdated in $directory");
+			_DEBUG("$signame found, installed version is outdated in $escdir");
 		}
 	}
-	my $globdir = $directory;
-	$globdir =~ s|\\|\\\\|g;
-	$globdir =~ s|\ |\\\ |g;
-	$globdir =~ s|\t|\\t|g;
-	_DEBUG(3,"Using: $globdir for glob");
-	my @glob = <$globdir/{,.}*>;
-	if (! @glob) {
-		push(@{$HITS->{globerror}},$directory);
+	undef $!;
+	opendir (my $dir, $directory);
+	if ($!) {
+		push (@{$HITS->{globerror}}, $directory);
 		return;
 	}
+	my @DIRS = grep {!/^\.*$/ && -d "$directory/$_"} readdir($dir);
+	closedir ($dir);
 	
-	foreach my $object (@glob) {
-		next if $object =~ m|\.$|;
-		$object =~ s|//*|/|g;
-		if ($object =~ m|\n|) {
-			push (@{$HITS->{globerror}},$object);
-			next;
-		}
-		next if $object =~ m#/home/\w+/(?:mail)#;
-		if (-d $object) {
-			ScanDir("$object");
-		}
-	}
+	ScanDir ("$directory/$_") foreach (@DIRS);
+	
 }
 
 sub vercomp {
