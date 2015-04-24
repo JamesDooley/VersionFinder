@@ -85,8 +85,8 @@ our $SIGNATURES= {
 		curver=>"1.7.999",
 		eol=>1,
 		fingerprint=>{
-			file=>"administrator/index.php",
-			signature=>"Joomla.Administrator",
+			file=>"includes/version.php",
+			signature=>"Joomla!",
 			version=>{
 				file=>"includes/version.php",
 				regex=>'(?:\$RELEASE|\$DEV_LEVEL) = \'(.*)\'',
@@ -100,8 +100,8 @@ our $SIGNATURES= {
 		curver=>"2.5.999",
 		eol=>1,
 		fingerprint=>{
-			file=>"administrator/index.php",
-			signature=>"Joomla.Administrator",
+			file=>"libraries/cms/version/version.php",
+			signature=>"RELEASE = '2",
 			version=>{
 				file=>"libraries/cms/version/version.php",
 				regex=>'(?:\$RELEASE|\$DEV_LEVEL) = \'(.*)\'',
@@ -114,7 +114,8 @@ our $SIGNATURES= {
 		majorver=>"3.4",
 		curver=>"3.4.1",
 		fingerprint=>{
-			file=>"web.config.txt",
+			file=>"libraries/cms/version/version.php",
+			signature=>"RELEASE = '3",
 			version=>{
 				file=>"libraries/cms/version/version.php",
 				regex=>'(?:\$RELEASE|\$DEV_LEVEL) = \'(.*)\'',
@@ -288,6 +289,7 @@ our $SIGNATURES= {
 		fingerprint=>{
 			file=>"cart.php",
 			signature=>'X-Cart',
+			exclude=>'X-Cart 5',
 			version=>{
 				file=>"VERSION",
 				regex=>"Version (.*)"
@@ -300,7 +302,7 @@ our $SIGNATURES= {
 		curver=>"5.2.3",
 		fingerprint=>{
 			file=>"cart.php",
-			signature=>"category.*X-Cart",
+			signature=>"category.*X-Cart 5",
 			version=>{
 				file=>"Includes/install/install_settings.php",
 				regex=>"LC_VERSION', '(.*)'"

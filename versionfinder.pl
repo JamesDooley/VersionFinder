@@ -167,10 +167,12 @@ sub ScanDir {
 		} elsif ($vercomp == 2) {
 			$vercomp = vercomp($version, $signature->{majorver});
 			if ($vercomp == 2) {
-				$result->{reallyold} = 1;
+				_DEBUG("$signame found, installed version is really outdated in $escdir");
+				push (@{$HITS->{reallyold}}, $result);
+			} else {
+				push (@{$HITS->{outdated}}, $result);
+				_DEBUG("$signame found, installed version is outdated in $escdir");
 			}
-			push (@{$HITS->{outdated}}, $result);
-			_DEBUG("$signame found, installed version is outdated in $escdir");
 		}
 	}
 	undef $!;
@@ -325,10 +327,16 @@ sub printResults {
 		}
 	}
 	if ($HITS->{outdated}) {
+		print "\n==== Very Outdated CMS Packages ====\n";
+		foreach my $hit (@{$HITS->{reallyold}}) {
+			printf $COLORS->{red} . $resultformat . $COLORS->{reset}, $hit->{signature}, $hit->{version}, $hit->{directory} if $INTERACTIVE;
+			printf $resultformat, $hit->{signature}, $hit->{version}, $hit->{directory} unless $INTERACTIVE;
+		}
+	}
+	if ($HITS->{outdated}) {
 		print "\n==== Outdated CMS Packages ====\n";
 		foreach my $hit (@{$HITS->{outdated}}) {
-			printf $COLORS->{red} . $resultformat . $COLORS->{reset}, $hit->{signature}, $hit->{version}, $hit->{directory} if $INTERACTIVE && $hit->{reallyold};
-			printf $COLORS->{yellow} . $resultformat . $COLORS->{reset}, $hit->{signature}, $hit->{version}, $hit->{directory} if $INTERACTIVE && ! $hit->{reallyold};
+			printf $COLORS->{yellow} . $resultformat . $COLORS->{reset}, $hit->{signature}, $hit->{version}, $hit->{directory} if $INTERACTIVE;
 			printf $resultformat, $hit->{signature}, $hit->{version}, $hit->{directory} unless $INTERACTIVE;
 		}
 	}
