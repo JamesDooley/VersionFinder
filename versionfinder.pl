@@ -249,11 +249,11 @@ sub _DEBUG {
 	my $level = 1;
 	$level = shift if ($_[0] =~ m|^[0-9]$|);
 	return if ($level > $DEBUG);
-	print $DEBUGCOLOR->{$level};
+	print $DEBUGCOLOR->{$level} if ($TERMINAL);
 	foreach my $msg (@_) {
 		print "DEBUG $level: $msg\n";
 	}
-	print $COLORS->{reset};
+	print $COLORS->{reset} if ($TERMINAL);
 }
 
 sub printUsage {
