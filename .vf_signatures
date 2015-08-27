@@ -1,340 +1,670 @@
-our $SIGNATURES= {
-	creloaded6=>{
-		name=>"CRE Loaded6",
-		majorver=>"6",
-		curver=>"6.999",
-		eol=>1,
-		fingerprint=>{
-			file=>'/admin/includes/version.php',
-			signature=>"CRE Loaded6",
-			version=>{
-				file=>'/admin/includes/version.php',
-				regex=>'INSTALLED_(?:VERSION_MAJOR|VERSION_MINOR|PATCH)\', \'(.*)\'',
-				multiline=>1
-			}
-		}
-	},
-	creloaded7=>{
-		name=>"CRE Loaded7",
-		majorver=>"7.3",
-		curver=>"7.3.3.4",
-		fingerprint=>{
-			file=>'checkout.php',
-			signature=>'loaded7',
-			version=>{
-				file=>'/includes/version.txt',
-				regex=>'^(.*)\|',
-			}
-		}
-	},
-	drupal7=>{
-		name=>"Drupal 7.x",
-		majorver=>"7",
-		curver=>"7.38",
-		fingerprint=> {
-			file=>"authorize.php",
-			signature=>"Drupal",
-			version=>{
-				file=>"includes/bootstrap.inc",
-				regex=>"define.*VERSION', '(.*)'"
-			}
-		},
-	},
-	drupal6=>{
-		name=>"Drupal 6.x",
-		majorver=>"6",
-		curver=>"6.36",
-		fingerprint=>{
-			file=>"includes/database.mysql.inc",
-			signature=>"Drupal",
-			version=>{
-				file=>"CHANGELOG.txt",
-				regex=>"Drupal (.*),"
-			}
-		},
-	},
-	e107=>{
-		name=>"e107",
-		majorver=>"1",
-		curver=>"1.0.4",
-		fingerprint=>{
-			file=>"e107_config.php",
-			version=>{
-				files=>["admin/ver.php","e107_admin/ver.php"],
-				regex=>'e107_version.*"(.*)";'
-			}
-		},
-	},
-	joomla15=> {
-		name=>"Joomla 1.5.x",
-		majorver=>"1.5",
-		curver=>"1.5.999",
-		eol=>1,
-		fingerprint=>{
-			file=>"includes/joomla.php",
-			signature=>"Joomla.Legacy",
-			version=>{
-				file=>"CHANGELOG.php",
-				regex=>"-* (.*) Stable Release"
-			}
-		}
-	},
-	joomla17=> {
-		name=>"Joomla 1.7.x",
-		majorver=>"1.7",
-		curver=>"1.7.999",
-		eol=>1,
-		fingerprint=>{
-			file=>"includes/version.php",
-			signature=>"Joomla!",
-			version=>{
-				file=>"includes/version.php",
-				regex=>'(?:\$RELEASE|\$DEV_LEVEL) = \'(.*)\'',
-				multiline=>1
-			}
-		},
-	},
-	joomla25=>{
-		name=>"Joomla 2.5.x",
-		majorver=>"2.5",
-		curver=>"2.5.999",
-		eol=>1,
-		fingerprint=>{
-			file=>"libraries/cms/version/version.php",
-			signature=>"RELEASE = '2",
-			version=>{
-				file=>"libraries/cms/version/version.php",
-				regex=>'(?:\$RELEASE|\$DEV_LEVEL) = \'(.*)\'',
-				multiline=>1
-			}
-		}
-	},
-	joomla33=>{
-		name=>"Joomla 3.4.x",
-		majorver=>"3.4",
-		curver=>"3.4.3",
-		fingerprint=>{
-			file=>"libraries/cms/version/version.php",
-			signature=>"RELEASE = '3",
-			version=>{
-				file=>"libraries/cms/version/version.php",
-				regex=>'(?:\$RELEASE|\$DEV_LEVEL) = \'(.*)\'',
-				multiline=>1
-			}
-		}
-	},
-	mambo=>{
-		name=>"Mambo",
-		majorver=>"4.6",
-		curver=>"4.6.999",
-		eol=>1,
-		fingerprint=>{
-			file=>"includes/mambofunc.php",
-			version=>{
-				file=>"includes/version.php",
-				regex=>'(?:\$RELEASE|\$DEV_LEVEL) = \'(.*)\'',
-				multiline=>1	
-			}
-			
-		}
-	},
-	mediawiki=>{
-		name=>"MediaWiki",
-		majorver=>"1.25",
-		curver=>"1.25.1",
-		fingerprint=>{
-			file=>"includes/DefaultSettings.php",
-			signature=>"mediawiki",
-			version=>{
-				file=>"includes/DefaultSettings.php",
-				regex=>'\$wgVersion = \'(.*)\''
-			}
-		}
-	},
-	openx=>{
-		name=>"OpenX / Revive",
-		majorver=>"3.2",
-		curver=>"3.2.1",
-		fingerprint=>{
-			file=>"lib/OX.php",
-			signature=>"OpenX",
-			version=>{
-				file=>"constants.php",
-				regex=>"VERSION', '(.*)'",
-			}
-		}
-	},
-	oscommerce2=>{
-		name=>"osCommerce 2.x",
-		majorver=>"2.4",
-		curver=>"2.3.4",
-		fingerprint=>{
-			file=>"admin/includes/filenames.php",
-			signature=>"osCommerce",
-			exclude=>"zen-cart|loaded7",
-			version=>{
-				file=>"includes/version.php",
-				flatfile=>1
-			}
-		}
-	},
-	oscommerce3=>{
-		name=>"osCommerce 3.x (Devel)",
-		majorver=>"3.0",
-		curver=>"3.0.2",
-		fingerprint=>{
-			file=>"OM/Core/OSCOM.php",
-			signature=>"osCommerce",
-			version=>{
-				file=>"OM/version.txt",
-				flatfile=>1
-			}
-		}
-	},
-	phpbb3=>{
-		name=>"phpBB3",
-		majorver=>"3.1",
-		curver=>"3.1.5",
-		fingerprint=>{
-			file=>"includes/bbcode.php",
-			signature=>"phpBB3",
-			version=>{
-				file=>"includes/constants.php",
-				regex=>"PHPBB_VERSION', '(.*)'"
-			}
-		}
-	},
-	PHPMailer=>{
-		name=>"PHPMailer",
-		majorver=>"5.2",
-		curver=>"5.2.10",
-		fingerprint=>{
-			file=>"class.phpmailer.php",
-			signature=>"phpmailer",
-			version=>{
-				file=>"class.phpmailer.php",
-				regex=>"[public|var] .*Version += [\"'](.*)[\"']"
-			}
-		}
-	},
-	piwigo=>{
-		name=>"Piwigo",
-		majorver=>"2.7",
-		curver=>"2.7.4",
-		fingerprint=>{
-			file=>"identification.php",
-			signature=>"Piwigo",
-			version=>{
-				file=>"include/constants.php",
-				regex=>"PHPWG_VERSION', '(.*)'"
-			}
-		}
-	},
-	redmine=>{
-		name=>"Redmine",
-		majorver=>"2.6",
-		curver=>"2.6.6",
-		fingerprint=>{
-			file=>"lib/redmine.rb",
-			signature=>"redmine",
-			version=>{
-				file=>"doc/CHANGELOG",
-				regex=>"==.* v(.*)"
-			}
-		}
-	},
-	vbulletin4=>{
-		name=>"vBulletin 5.x",
-		majorver=>"5.1",
-		curver=>"5.1.8",
-		fingerprint=>{
-			file=>"admincp/diagnostic.php",
-			signature=>"vbulletin",
-			version=>{
-				file=>"admincp/diagnostic.php",
-				regex=>"sum_versions.*vbulletin.*=> '(.*)'",
-				filter=>' Patch Level ',
-			}
-		}
-	},
-	whmcs=>{
-		name=>"WHMCS",
-		majorver=>"5.3",
-		curver=>"5.3.14",
-		fingerprint=>{
-			file=>"includes/classes/WHMCS/Admin.php",
-			signature=>"WHMCS",
-			version=>{
-				file=>"init.php",
-				regex=>'\* Version\: ([0-9.]*)'
-			}
-		}
-	},
-	wordpress=>{
-		name=>"WordPress",
-		majorver=>"4.2",
-		curver=>"4.2.4",
-		fingerprint=>{
-			file=>"wp-config.php",
-			version=>{
-				file=>"wp-includes/version.php",
-				regex=>'\$wp_version = \'(.*)\''
-			}
-		}
-	},
-	xcart4=>{
-		name=>"X-Cart 4.x",
-		majorver=>"4.7",
-		curver=>"4.7.3",
-		fingerprint=>{
-			file=>"cart.php",
-			signature=>'X-Cart',
-			exclude=>'X-Cart 5',
-			version=>{
-				file=>"VERSION",
-				regex=>"Version (.*)"
-			}
-		}
-	},
-	xcart5=>{
-		name=>"X-Cart 5.x",
-		majorver=>"5.2",
-		curver=>"5.2.6",
-		fingerprint=>{
-			file=>"cart.php",
-			signature=>"category.*X-Cart 5",
-			version=>{
-				file=>"Includes/install/install_settings.php",
-				regex=>"LC_VERSION', '(.*)'"
-			}
-		}
-	},
-	xoops=>{
-		name=>"XOOPS",
-		majorver=>"2.5",
-		curver=>"2.5.7.1",
-		fingerprint=>{
-			file=>"xoops.css",
-			version=>{
-				file=>"include/version.php",
-				regex=>"XOOPS_VERSION.*XOOPS (.*)'"
-			}
-		}
-	},
-	zencart=>{
-		name=>"ZenCart",
-		majorver=>"1.5",
-		curver=>"1.5.4",
-		fingerprint=>{
-			file=>"includes/filenames.php",
-			signature=>"Zen Cart",
-			version=>{
-				file=>"includes/version.php",
-				regex=>'PROJECT_VERSION_(?:MAJOR|MINOR)\', \'(.*)\'',
-				multiline=>1
-			}
-		}
-	}
+$SIGNATURES = {
+  'PHPMailer' => {
+    'fingerprints' => [
+      {
+        'exclude' => 'Joomla.Legacy',
+        'file' => 'class.phpmailer.php',
+        'signature' => 'phpmailer'
+      }
+    ],
+    'name' => 'PHPMailer',
+    'releases' => {
+      '5' => {
+        'minor' => '5.2',
+        'release' => '5.2.10'
+      }
+    },
+    'update' => {
+      'current' => {
+        'base' => '.release-title a',
+        'major' => 1,
+        'minor' => 2,
+        'regex' => '^PHPMailer ([0-9.]*)$',
+        'single' => 1,
+        'url' => 'https://github.com/PHPMailer/PHPMailer/releases'
+      }
+    },
+    'versions' => [
+      {
+        'file' => 'class.phpmailer.php',
+        'regex' => '[public|var] .*Version += ["\'](.*)["\']'
+      }
+    ]
+  },
+  'creloaded' => {
+    'fingerprints' => [
+      {
+        'file' => '/admin/includes/version.php',
+        'signature' => 'CRE Loaded'
+      },
+      {
+        'file' => 'checkout.php',
+        'signature' => 'loaded7'
+      }
+    ],
+    'name' => 'CRE Loaded',
+    'releases' => {
+      '7' => {
+        'minor' => '7.003',
+        'release' => '7.003.4.0'
+      }
+    },
+    'update' => {
+      'current' => {
+        'base' => '.release-title a',
+        'major' => 1,
+        'minor' => 2,
+        'regex' => '([0-9]*\\.[0-9.]*)',
+        'single' => 1,
+        'url' => 'https://github.com/loadedcommerce/loaded7/releases'
+      }
+    },
+    'versions' => [
+      {
+        'file' => '/admin/includes/version.php',
+        'multiline' => 1,
+        'regex' => 'INSTALLED_(?:VERSION_MAJOR|VERSION_MINOR|PATCH)\', \'(.*)\''
+      },
+      {
+        'file' => '/includes/version.txt',
+        'regex' => '^(.*)\\|'
+      }
+    ]
+  },
+  'drupal' => {
+    'fingerprints' => [
+      {
+        'file' => 'authorize.php',
+        'signature' => 'Drupal'
+      },
+      {
+        'file' => 'includes/database.mysql.inc',
+        'signature' => 'Drupal'
+      }
+    ],
+    'name' => 'Drupal',
+    'releases' => {
+      '6' => {
+        'minor' => '6',
+        'release' => '6.37'
+      },
+      '7' => {
+        'minor' => '7',
+        'release' => '7.39'
+      }
+    },
+    'update' => {
+      'current' => {
+        'base' => '.view-project-release-download-table > div.view-content td[data-th=Version] a',
+        'major' => 1,
+        'minor' => 1,
+        'regex' => '^([0-9]*\\.[0-9.]*)$',
+        'url' => 'https://www.drupal.org/project/drupal'
+      }
+    },
+    'versions' => [
+      {
+        'file' => 'includes/bootstrap.inc',
+        'regex' => 'define.*VERSION\', \'(.*)\''
+      },
+      {
+        'file' => 'CHANGELOG.txt',
+        'regex' => 'Drupal (.*),'
+      }
+    ]
+  },
+  'e107' => {
+    'fingerprints' => [
+      {
+        'file' => 'e107_config.php'
+      }
+    ],
+    'name' => 'e107',
+    'notices' => {
+      '1' => 'This version of e107 has not been updated since March 14, 2013.',
+      '2' => 'This is a beta release and may not be stable.',
+      'all' => 'e107 is currently stuck between old legacy software and a beta release.'
+    },
+    'releases' => {
+      '1' => {
+        'minor' => '1.0',
+        'release' => '1.0.4'
+      },
+      '2' => {
+        'minor' => '2.0',
+        'release' => '2.0.0'
+      }
+    },
+    'versions' => [
+      {
+        'file' => 'admin/ver.php',
+        'regex' => 'e107_version.*"(.*)";'
+      },
+      {
+        'file' => 'e107_admin/ver.php',
+        'regex' => 'e107_version.*"(.*)";'
+      }
+    ]
+  },
+  'joomla' => {
+    'fingerprints' => [
+      {
+        'file' => 'includes/joomla.php'
+      },
+      {
+        'file' => 'includes/version.php',
+        'signature' => 'Joomla!'
+      },
+      {
+        'file' => 'libraries/cms/version/version.php',
+        'signature' => 'Joomla.Libraries'
+      }
+    ],
+    'name' => 'Joomla!',
+    'releases' => {
+      '3' => {
+        'minor' => '3.4',
+        'release' => '3.4.3'
+      }
+    },
+    'update' => {
+      'current' => {
+        'base' => '.btn-download #latest .subline',
+        'major' => 1,
+        'minor' => 2,
+        'regex' => '^English.* ([0-9]*\\.[0-9.]*).*$',
+        'single' => 1,
+        'url' => 'http://www.joomla.org/download.html'
+      }
+    },
+    'versions' => [
+      {
+        'file' => 'CHANGELOG.php',
+        'regex' => '-* (.*) Stable Release'
+      },
+      {
+        'file' => 'includes/version.php',
+        'multiline' => 1,
+        'regex' => '(?:\\$RELEASE|\\$DEV_LEVEL) = \'(.*)\''
+      },
+      {
+        'file' => 'libraries/cms/version/version.php',
+        'multiline' => 1,
+        'regex' => '(?:\\$RELEASE|\\$DEV_LEVEL) = \'(.*)\''
+      }
+    ]
+  },
+  'mambo' => {
+    'fingerprints' => [
+      {
+        'file' => 'includes/mambofunc.php'
+      }
+    ],
+    'name' => 'Mambo',
+    'notices' => {
+      'all' => 'The Mambo project has been completely abandoned, there will be no future updates.'
+    },
+    'releases' => {
+      '4' => {
+        'eol' => 1,
+        'minor' => '4.6',
+        'release' => '4.6.5'
+      }
+    },
+    'versions' => [
+      {
+        'file' => 'includes/version.php',
+        'multiline' => 1,
+        'regex' => '(?:\\$RELEASE|\\$DEV_LEVEL) = \'(.*)\''
+      }
+    ]
+  },
+  'mediawiki' => {
+    'fingerprints' => [
+      {
+        'file' => 'includes/DefaultSettings.php',
+        'signature' => 'mediawiki'
+      }
+    ],
+    'name' => 'MediaWiki',
+    'releases' => {
+      '1.23' => {
+        'minor' => '1.23',
+        'release' => '1.23.10'
+      },
+      '1.24' => {
+        'minor' => '1.24',
+        'release' => '1.24.3'
+      },
+      '1.25' => {
+        'minor' => '1.25',
+        'release' => '1.25.2'
+      }
+    },
+    'update' => {
+      'current' => {
+        'base' => '.ambox-notice span',
+        'major' => 2,
+        'minor' => 2,
+        'regex' => '^MediaWiki ([0-9.]*).*$',
+        'url' => 'https://www.mediawiki.org/wiki/Download'
+      }
+    },
+    'versions' => [
+      {
+        'file' => 'includes/DefaultSettings.php',
+        'regex' => '\\$wgVersion = \'(.*)\''
+      }
+    ]
+  },
+  'oscommerce' => {
+    'fingerprints' => [
+      {
+        'exclude' => 'zen-cart|loaded7',
+        'file' => 'admin/includes/filenames.php',
+        'signature' => 'osCommerce'
+      },
+      {
+        'file' => 'OM/Core/OSCOM.php',
+        'signature' => 'osCommerce'
+      }
+    ],
+    'name' => 'osCommerce',
+    'releases' => {
+      '2' => {
+        'minor' => '2.3',
+        'release' => '2.3.4'
+      },
+      '3' => {
+        'minor' => '3.0',
+        'release' => '3.0.2'
+      }
+    },
+    'update' => {
+      '2' => {
+        'base' => '#maincontent > div.row > form option',
+        'major' => 1,
+        'minor' => 2,
+        'regex' => '^v([0-9.]*).*$',
+        'single' => 1,
+        'url' => 'http://www.oscommerce.com/Products'
+      },
+      '3' => {
+        'base' => '.release-timeline .commit a span',
+        'major' => 1,
+        'minor' => 2,
+        'regex' => '^v([0-9.]*).*$',
+        'single' => 1,
+        'url' => 'https://github.com/osCommerce/oscommerce/releases'
+      }
+    },
+    'versions' => [
+      {
+        'file' => 'includes/version.php',
+        'flatfile' => 1
+      },
+      {
+        'file' => 'OM/version.txt',
+        'flatfile' => 1
+      }
+    ]
+  },
+  'phpbb3' => {
+    'fingerprints' => [
+      {
+        'file' => 'includes/bbcode.php',
+        'signature' => 'phpBB'
+      }
+    ],
+    'name' => 'phpBB3',
+    'notices' => {
+      '3.0' => 'End of Life Date: November 2015'
+    },
+    'releases' => {
+      '3.0' => {
+        'minor' => '3.0',
+        'release' => '3.0.14'
+      },
+      '3.1' => {
+        'minor' => '3.1',
+        'release' => '3.1.5'
+      }
+    },
+    'update' => {
+      '3.0' => {
+        'base' => '#full-package .download dd a',
+        'major' => 2,
+        'minor' => 2,
+        'regex' => 'Latest.*phpBB: ([0-9.]*).*',
+        'single' => 1,
+        'url' => 'https://www.phpbb.com/downloads/3.0/'
+      },
+      '3.1' => {
+        'base' => '#full-package .download dd a',
+        'major' => 2,
+        'minor' => 2,
+        'regex' => 'Latest.*phpBB: ([0-9.]*).*',
+        'single' => 1,
+        'url' => 'https://www.phpbb.com/downloads/'
+      }
+    },
+    'versions' => [
+      {
+        'file' => 'includes/constants.php',
+        'regex' => 'PHPBB_VERSION\', \'(.*)\''
+      }
+    ]
+  },
+  'piwigo' => {
+    'fingerprints' => [
+      {
+        'file' => 'identification.php',
+        'signature' => 'Piwigo'
+      }
+    ],
+    'name' => 'Piwigo',
+    'releases' => {
+      '2' => {
+        'minor' => '2.7',
+        'release' => '2.7.4'
+      }
+    },
+    'update' => {
+      'current' => {
+        'base' => '#downloadBlock a',
+        'major' => 1,
+        'minor' => 2,
+        'regex' => 'Download Piwigo ([0-9.]*)',
+        'single' => 1,
+        'url' => 'http://piwigo.org/'
+      }
+    },
+    'versions' => [
+      {
+        'file' => 'include/constants.php',
+        'regex' => 'PHPWG_VERSION\', \'(.*)\''
+      }
+    ]
+  },
+  'redmine' => {
+    'fingerprints' => [
+      {
+        'file' => 'lib/redmine.rb',
+        'signature' => 'redmine'
+      }
+    ],
+    'name' => 'Redmine',
+    'releases' => {
+      '2.6' => {
+        'minor' => '2.6',
+        'release' => '2.6.6'
+      },
+      '3.0' => {
+        'minor' => '3.0',
+        'release' => '3.0.4'
+      },
+      '3.1' => {
+        'minor' => '3.1',
+        'release' => '3.1.0'
+      }
+    },
+    'update' => {
+      'current' => {
+        'base' => '.wiki-page ul li',
+        'major' => 2,
+        'minor' => 2,
+        'regex' => '^([0-9.]*) \\(',
+        'url' => 'http://www.redmine.org/projects/redmine/wiki/Download'
+      }
+    },
+    'versions' => [
+      {
+        'file' => 'doc/CHANGELOG',
+        'regex' => '==.* v(.*)'
+      }
+    ]
+  },
+  'revive' => {
+    'fingerprints' => [
+      {
+        'file' => 'lib/OX.php',
+        'signature' => 'OpenX'
+      }
+    ],
+    'name' => 'OpenX / Revive',
+    'releases' => {
+      '3' => {
+        'minor' => '3.2',
+        'release' => '3.2.1'
+      }
+    },
+    'update' => {
+      'current' => {
+        'base' => '#primary .entry_content h2',
+        'major' => 1,
+        'minor' => 2,
+        'regex' => '^Revive.*version ([0-9.]+)',
+        'single' => 1,
+        'url' => 'http://www.revive-adserver.com/download/'
+      }
+    },
+    'versions' => [
+      {
+        'file' => 'constants.php',
+        'regex' => 'VERSION\', \'(.*)\''
+      }
+    ]
+  },
+  'vbulletin' => {
+    'fingerprints' => [
+      {
+        'file' => 'admincp/diagnostic.php',
+        'signature' => 'vbulletin'
+      }
+    ],
+    'name' => 'vBulletin',
+    'releases' => {
+      '5' => {
+        'minor' => '5.1',
+        'release' => '5.1.9'
+      }
+    },
+    'update' => {
+      'current' => {
+        'base' => '.versionselectbox option[selected]',
+        'major' => 1,
+        'minor' => 2,
+        'regex' => '([0-9.]*( Patch Level [0-9.]*)?)',
+        'single' => 1,
+        'url' => 'http://www.vbulletin.com/docs/html/top'
+      }
+    },
+    'versions' => [
+      {
+        'file' => 'admincp/diagnostic.php',
+        'filter' => ' Patch Level ',
+        'regex' => 'sum_versions.*vbulletin.*=> \'(.*)\''
+      }
+    ]
+  },
+  'whmcs' => {
+    'fingerprints' => [
+      {
+        'file' => 'includes/classes/WHMCS/Admin.php',
+        'signature' => 'WHMCS'
+      }
+    ],
+    'name' => 'WHMCS',
+    'notices' => {
+      '5' => 'End of Life Date: 31 October 2015',
+      'all' => 'Due to potential security concerns, it is recommended to only run this on a server dedicated to WHMCS.'
+    },
+    'releases' => {
+      '5' => {
+        'minor' => '5.3',
+        'release' => '5.3.14'
+      },
+      '6' => {
+        'minor' => '6.0',
+        'release' => '6.0.2'
+      }
+    },
+    'update' => {
+      'current' => {
+        'base' => '.patchsets .latestver',
+        'major' => 1,
+        'minor' => 2,
+        'regex' => '^V([0-9.]*)',
+        'url' => 'https://download.whmcs.com/'
+      }
+    },
+    'versions' => [
+      {
+        'file' => 'init.php',
+        'regex' => '\\* Version\\: ([0-9.]*)'
+      },
+      {
+        'file' => 'announcements.php',
+        'regex' => 'Version: ([0-9.]*)'
+      }
+    ]
+  },
+  'wordpress' => {
+    'fingerprints' => [
+      {
+        'file' => 'wp-config-sample.php'
+      }
+    ],
+    'name' => 'WordPress',
+    'releases' => {
+      '4' => {
+        'minor' => '4.3',
+        'release' => '4.3'
+      }
+    },
+    'update' => {
+      'current' => {
+        'base' => '#home-text .download-button',
+        'major' => 1,
+        'minor' => 2,
+        'regex' => 'Download WordPress ([0-9.]*)',
+        'single' => 1,
+        'url' => 'https://wordpress.org/'
+      }
+    },
+    'versions' => [
+      {
+        'file' => 'wp-includes/version.php',
+        'regex' => '\\$wp_version = \'(.*)\''
+      }
+    ]
+  },
+  'xcart' => {
+    'fingerprints' => [
+      {
+        'file' => 'cart.php',
+        'signature' => 'X-Cart'
+      }
+    ],
+    'name' => 'X-Cart',
+    'releases' => {
+      '4' => {
+        'minor' => '4.7',
+        'release' => '4.7.3'
+      },
+      '5' => {
+        'minor' => '5.2',
+        'release' => '5.2.6'
+      }
+    },
+    'update' => {
+      '4' => {
+        'base' => '.filehistory tr:nth-child(2) td[dir=ltr]',
+        'major' => 1,
+        'minor' => 2,
+        'regex' => '^X-Cart v([0-9.]*).*$',
+        'single' => 1,
+        'url' => 'http://help.x-cart.com/index.php?title=File:X-CART_CHANGELOG.txt'
+      },
+      '5' => {
+        'base' => '.child-display a',
+        'major' => 1,
+        'minor' => 2,
+        'regex' => '^([0-9.]*) -.*$',
+        'single' => 1,
+        'url' => 'http://kb.x-cart.com/display/XDD/Changelog'
+      }
+    },
+    'versions' => [
+      {
+        'file' => 'VERSION',
+        'regex' => 'Version (.*)'
+      },
+      {
+        'file' => 'Includes/install/install_settings.php',
+        'regex' => 'LC_VERSION\', \'(.*)\''
+      }
+    ]
+  },
+  'xoops' => {
+    'fingerprints' => [
+      {
+        'file' => 'include/xoops.js'
+      }
+    ],
+    'name' => 'XOOPS',
+    'releases' => {
+      '2' => {
+        'minor' => '2.5',
+        'release' => '2.5.7.1'
+      }
+    },
+    'update' => {
+      'current' => {
+        'base' => '#xoops-contents h2 font',
+        'major' => 1,
+        'minor' => 2,
+        'regex' => '^XOOPS ([0-9.]*).*$',
+        'url' => 'http://xoops.org/modules/core/'
+      }
+    },
+    'versions' => [
+      {
+        'file' => 'include/version.php',
+        'regex' => 'XOOPS_VERSION.*XOOPS (.*)\''
+      }
+    ]
+  },
+  'zencart' => {
+    'fingerprints' => [
+      {
+        'file' => 'includes/filenames.php',
+        'signature' => 'Zen Cart'
+      }
+    ],
+    'name' => 'ZenCart',
+    'releases' => {
+      '1' => {
+        'minor' => '1.5',
+        'release' => '1.5.4'
+      }
+    },
+    'update' => {
+      'current' => {
+        'base' => '.my_right_box div a',
+        'major' => 1,
+        'minor' => 2,
+        'regex' => 'v([0-9.]*).*',
+        'single' => 1,
+        'url' => 'https://www.zen-cart.com/'
+      }
+    },
+    'versions' => [
+      {
+        'file' => 'includes/version.php',
+        'multiline' => 1,
+        'regex' => 'PROJECT_VERSION_(?:MAJOR|MINOR)\', \'(.*)\''
+      }
+    ]
+  }
 };
-
-1

@@ -12,6 +12,17 @@ our $HITS;
 our $OUTDATED;
 our $SUSPENDED;
 
+our @SIGFILELIST;
+
+our $GRIP;
+our $SENDGRIP = 0;
+our $GRIP_EMAIL = 'james@jamesdooley.us';
+
+our $REPORTEMAIL;
+our $NOEMPTYREPORT;
+
+our $RESULTS;
+
 #Automated Updates
 our $REPO = "https://raw.githubusercontent.com/JamesDooley/VersionFinder/master";
 our $UpdateCheckTime = 86400; # 24 hours
@@ -62,119 +73,16 @@ sub ScanDir {
 	return if ($directory =~ m#/home/\w+/(?:mail)#);
 	return if (-l "$directory");
 	
-	my $escdir = $directory;
-	$escdir =~ s/\\/\\\\/g;
-	$escdir =~ s/\t/\\t/g;
-	$escdir =~ s/\n/\\n/g;
-	_DEBUG(2,"Scanning directory $escdir");
-	foreach my $signame (keys %$SIGNATURES) {
-		my $signature = $SIGNATURES->{$signame};
-		my $signaturefile = "$directory/" . $signature->{fingerprint}->{file};
-		next unless (-e $signaturefile);
-		_DEBUG("Signature file found in $escdir for $signame");
-		if ($signature->{fingerprint}->{signature}) {
-			if (FileContains("$signaturefile",$signature->{fingerprint}->{signature})) {
-				_DEBUG("Signature match for $signame found in $escdir");
-				if ($signature->{fingerprint}->{exclude}) {
-					next if FileContains("$signaturefile",$signature->{fingerprint}->{exclude})
-				}
-			} else {
-				_DEBUG("Signature did not match for $signame in $escdir");
-				next;
-			}
-		}
-		my @verfiles;
-		if ($signature->{fingerprint}->{version}->{files}) {@verfiles = @{$signature->{fingerprint}->{version}->{files}}};
-		if ($signature->{fingerprint}->{version}->{file}) {push(@verfiles,$signature->{fingerprint}->{version}->{file})};
-		my $version;
-		foreach my $verfile (@verfiles) {
-			$verfile = "$directory/$verfile";
-			_DEBUG("Checking for $escdir/$verfile");
-			next unless (-e "$verfile");
-			if ($signature->{fingerprint}->{version}->{regex}) {
-				_DEBUG("Using regex check");
-				my $regex = $signature->{fingerprint}->{version}->{regex};
-				my $versionfile = do {local $/ = undef; open my $fh, "<", $verfile; <$fh>;};
-				if ($signature->{fingerprint}->{version}->{exclude}) {
-					next if $versionfile =~ m/$signature->{fingerprint}->{version}->{exclude}/;
-				}
-				if ($signature->{fingerprint}->{version}->{multiline}) {
-					_DEBUG("Multiline regex");
-					my @matches = ($versionfile =~ m/$regex/g);
-					next unless $matches[0];
-					$version = $matches[0];
-					_DEBUG(Dumper(@matches));
-					for (my $i=1; $i<scalar @matches; $i++) {
-						$version .= ".$matches[$i]";
-					}
-				} else {
-					$versionfile =~ m/$regex/;
-					next unless $1;
-					$version = $1;
-				}
-			} elsif ($signature->{fingerprint}->{version}->{sub}) {
-				_DEBUG("Using sub check");
-				&$signature->{fingerprint}->{version}->{sub}($verfile);
-			} elsif ($signature->{fingerprint}->{version}->{flatfile}) {
-				_DEBUG("Using flatfile check");
-				my @matches;
-				my $versionfile = do {local $/ = undef; open my $fh, "<", $verfile; <$fh>;};
-				@matches = ($versionfile =~ m/^(.*)$/g);
-				if (scalar @matches > 2) {
-					_DEBUG("\@matches > 2",Dumper(@matches));
-					next;
-				}
-				unless ($matches[0]) {
-					_DEBUG("\@matches[0] is not set",Dumper(@matches));
-					next;
-				}
-				$version = $matches[0];
-			}
-			last if $version;
-		}
-		unless ($version) {
-			_DEBUG("CMS signature match but unable to get version information");
-			my $result = {
-				signature => $signame,
-				directory => $escdir
-			};
-			push (@{$HITS->{nover}}, $result);
-		}
-		next unless $version;
-		if ($signature->{fingerprint}->{version}->{filter}) {
-			$version =~ s/$signature->{fingerprint}->{version}->{filter}/\./;
-		}
-		next unless $version;
-		my $vermsg = "$escdir contains $signame $version";
-		my $result = {
-			signature => $signame,
-			directory => $escdir,
-			version => $version
-		};
-		
-		if ($signature->{eol}) {
-			push (@{$HITS->{eol}}, $result);
-			_DEBUG("$signame found matching EOL product in $escdir");
-			next;
-		}
-		my $vercomp = vercomp($version, $signature->{curver});
-		if ($vercomp == 0) {
-			push (@{$HITS->{current}}, $result);
-			_DEBUG("$signame found, matches current version in $escdir");
-		} elsif ($vercomp == 1) {
-			push (@{$HITS->{current}}, $result);
-			_DEBUG("$signame found, installed version is greater than signature in $escdir");
-		} elsif ($vercomp == 2) {
-			$vercomp = vercomp($version, $signature->{majorver});
-			if ($vercomp == 2) {
-				_DEBUG("$signame found, installed version is really outdated in $escdir");
-				push (@{$HITS->{reallyold}}, $result);
-			} else {
-				push (@{$HITS->{outdated}}, $result);
-				_DEBUG("$signame found, installed version is outdated in $escdir");
-			}
+	_DEBUG(2,"Scanning directory " . escdir($directory));
+	foreach my $sigfile (@SIGFILELIST) {
+		my $file = (keys %$sigfile)[0];
+		if (-e "$directory/$file") {
+			my $signame = $sigfile->{$file};
+			_DEBUG("Signature file found in ". escdir($directory) ." for $signame");
+			checkcms($directory,$signame);
 		}
 	}
+	
 	undef $!;
 	opendir (my $dir, $directory);
 	if ($!) {
@@ -188,6 +96,167 @@ sub ScanDir {
 	
 }
 
+sub checkcms {
+	my ($directory, $signame) = @_;
+	
+	my $signature = $SIGNATURES->{$signame};
+	my $matched;
+	foreach my $fingerprint (@{$signature->{fingerprints}}) {
+		my $signaturefile = "$directory/" . $fingerprint->{file};
+		next unless (-e $signaturefile);
+		_DEBUG("Signature file found in " . escdir($directory) . " for $signame");
+		if ($fingerprint->{signature}) {
+			if (FileContains("$signaturefile", $fingerprint->{signature})) {
+				_DEBUG("Fingerprint match for $signame found in " . escdir($directory));
+			} else {
+				next;
+			}
+		}
+		if ($fingerprint->{exclude}) {
+			if (FileContains("$signaturefile", $fingerprint->{exclude})) {
+				_DEBUG("Fingerprint matches exclude, skipping match");
+				next;
+			}
+		}
+		$matched=1;
+	}
+	unless ($matched) {
+		_DEBUG("No fingerprint matches for $signame in " . escdir($directory));
+		return;
+	}
+
+	_DEBUG("Signature match found in " . escdir($directory) . " for $signame");
+	my $ver;
+	foreach my $version (@{$signature->{versions}}) {
+		my $verfile = "$directory/" . $version->{file};
+		_DEBUG("Checking for " . escdir($directory) . "/" . $version->{file});
+		next unless (-e "$verfile");
+		if ($version->{regex}) {
+			my $regex = $version->{regex};
+			_DEBUG("Attempting to pull version using regex method");
+			my $versionfile = do{local $/ = undef; open my $fh, "<", $verfile; <$fh>;};
+			if ($version->{exclude}) {
+				my $exclude = $version->{exclude};
+				if ($versionfile =~ m/$exclude/) {
+					_DEBUG("Version file found but matched exclude");
+					next;
+				}
+			}
+			if ($version->{multiline}) {
+				_DEBUG("Attempting multiline regex check");
+				my @matches = ($versionfile =~ m/$regex/g);
+				next unless $matches[0];
+				_DEBUG(Dumper(@matches));
+				$ver = shift @matches;
+				foreach my $match (@matches) {
+					$ver .= ".$match";
+				}
+			} else {
+				$versionfile =~ m/$regex/;
+				next unless $1;
+				$ver = $1;
+			}
+		} elsif ($version->{sub}) {
+			_DEBUG("Attempting to pull version using subroutine");
+			$ver = &$version->{sub}($verfile);
+		} elsif ($version->{flatfile}) {
+			_DEBUG("Attempting to pull vresion using flat file");
+			my $versionfile = do{local $/ = undef; open my $fh, "<", $verfile; <$fh>;};
+			my @matches = ($versionfile =~ m/^(.*)$/g);
+			if (scalar @matches > 2) {
+				_DEBUG("\@matches > 2", Dumper(@matches));
+				next;
+			}
+			unless ($matches[0]) {
+				_DEBUG("\@matches[0] is not set");
+				next;
+			}
+			$ver = $matches[0];
+		}
+		if ($ver && $version->{filter}) {
+			$ver =~ s/$version->{filter}/\./; 
+		}
+	}
+	$ver =~ s/\r// if ($ver);
+	unless ($ver) {
+		_DEBUG("CMS signature match but unable to get version information");
+		$GRIP->{$signame}->{"Unknown"}++;
+		my $result = {
+			signature => $signame,
+			name => $signature->{name},
+			directory => escdir($directory)
+		};
+		push (@{$HITS->{nover}}, $result);
+		return;
+	}
+	my $vermsg = escdir($directory) ."contains $signame $ver";
+	$GRIP->{$signame}->{$ver}++;
+	_DEBUG($vermsg);
+	my $result = {
+		signature => $signame,
+		name => $signature->{name},
+		directory => escdir($directory),
+		version => $ver
+	};
+	push(@{$result->{notice}}, $signature->{notices}->{all}) if ($signature->{notices}->{all});
+	$matched = "";
+	foreach my $major (keys %{$signature->{releases}}) {
+		_DEBUG("Checking $ver against $major");
+		if ($ver =~ /^$major/) {
+			_DEBUG("Matched Major $major");
+			$matched = 1;
+			my $release = $signature->{releases}->{$major};
+			push(@{$result->{notice}}, $signature->{notices}->{$major}) if ($signature->{notices}->{$major});
+			if ($release->{eol}) {
+				_DEBUG("$signame found matching EOL product in " . escdir($directory));
+				push(@{$HITS->{eol}}, $result);
+				return
+			}
+			_DEBUG("Comp: $ver <=> $release->{release}");
+			my $vercomp = vercomp($ver, $release->{release});
+			_DEBUG(" - : $vercomp");
+			if ($vercomp == 0) {
+				_DEBUG("$signame found, matches supported release in " . escdir($directory));
+				push(@{$HITS->{current}}, $result);
+			} elsif ($vercomp == 1) {
+				_DEBUG("$signame found, installed version is greater than signature in " . escdir($directory));
+				push(@{$result->{notice}}, "Version installed is greater than signature, either this is a beta release or the signature file is outdated.");
+				push(@{$HITS->{current}}, $result)
+			} elsif ($vercomp == 2) {
+				$vercomp = vercomp($ver, $release->{minor});
+				if ($vercomp == 2) {
+					_DEBUG("$signame found, installed version is really outdated in " . escdir($directory));
+					push(@{$HITS->{reallyold}}, $result);
+				} else {
+					_DEBUG("$signame found, installed version is outdated in " . escdir($directory));
+					push(@{$HITS->{outdated}}, $result);
+				}
+			}
+		}
+	}
+	unless ($matched) {
+		my $max = (sort { $b <=> $a } keys %{$signature->{releases}})[0];
+		my $vercomp = vercomp($ver, $max);
+		#my $vmax = (sort { $b <=> $a } ($max, $ver))[0];
+		if ($vercomp == 1) {
+			_DEBUG("$signame found, installed major version is greater than supported releases in " . escdir($directory));
+			push(@{$result->{notice}}, "Version installed is greater than supported major release, either this is a beta release or the signature file is outdated.");
+			push(@{$HITS->{current}}, $result);
+		} else {
+			_DEBUG("$signame found, installed major version is less than supported releases in " . escdir($directory) . ". Marking as EOL.");
+			_DEBUG(Dumper($result));
+			push(@{$HITS->{eol}}, $result);
+		}
+	}
+}
+
+sub escdir {
+	my $dir = shift;
+	$dir =~ s/\\/\\\\/g;
+	$dir =~ s/\t/\\t/g;
+	$dir =~ s/\n/\\n/g;
+	return $dir;
+}
 sub vercomp {
 	#Returns 0 if equal
 	#Returns 1 if ver1 > ver2
@@ -275,8 +344,20 @@ Scans server for known CMS versions and reports what is found
 		--suspended
 			Also scans cPanel's suspended accounts.
 		
+		--report <email>
+			Sends a report to a specific email or list of email addresses
+			
+		--noemptyreport
+			Does not send a report if not results are returned
+		
 		--update
 			Forces an update of the script and signatures file.
+			
+		--grip [<email>]
+			Sends a list and count of all version numbers.
+			This will help show the distributation of installed CMS' on a system.
+			By default this sends the grip list to james\@jamesdooley.us, but can be changed by providing an email address.
+			The only identifiable information in the report is the hostname.
 			
 	Adding Directories Manually:
 	
@@ -309,60 +390,129 @@ sub getUserDir {
 	}
 }
 
-sub printResults {
+sub reportPrint {
+	my ($line, $color, $format) = @_;
 	
-	print "\nVersion Finder Results\n\n";
-	unless ($OUTDATED) {
-		print "\n==== Up-To-Date CMS Packages ====\n";
+	if (ref $line eq "HASH") {
+		# Result formatted line
+		$format = $resultformat unless $format;
+		$RESULTS .= sprintf $format, $line->{name} || '', $line->{version} || '', $line->{directory} || '' if $REPORTEMAIL;
+		
+		$format = $COLORS->{$color} . $format . $COLORS->{reset} if ($INTERACTIVE && $color);
+		
+		printf $format, $line->{name} || '', $line->{version} || '', $line->{directory} || '';
+	} else {
+		# String formatted line
+		$format = "%s\n" unless $format;
+		$RESULTS .= sprintf $format, $line;
+		
+		$format = $COLORS->{$color} . $format . $COLORS->{reset} if ($INTERACTIVE && $color);
+		
+		printf $format, $line;
+	}
+}
+
+sub generateResults {
+	my $display;
+	
+	reportPrint("Version Finder Results",'',"\n%s\n\n");
+	
+	if (! $OUTDATED && $HITS->{current}) {
+		$display = 1;
+		reportPrint("==== Up-To-Date CMS Packages ====",'',"\n%s\n\n");
+		
 		foreach my $hit (@{$HITS->{current}}) {
-			printf $COLORS->{green} . $resultformat . $COLORS->{reset}, $hit->{signature}, $hit->{version}, $hit->{directory} if $INTERACTIVE;
-			printf $resultformat, $hit->{signature}, $hit->{version}, $hit->{directory} unless $INTERACTIVE;
+			_DEBUG(Dumper($hit));
+			reportPrint($hit, 'green');
+			reportPrint(" - " . $_) for @{$hit->{notice}};
 		}
 	}
 	if ($HITS->{eol}) {
-		print "\n==== End-Of-Life CMS Packages ====\n";
+		$display = 1;
+		reportPrint("==== End-Of-Life CMS Packages ====",'',"\n%s\n\n");
+		
 		foreach my $hit (@{$HITS->{eol}}) {
-			printf $COLORS->{magenta} . $resultformat . $COLORS->{reset}, $hit->{signature}, $hit->{version}, $hit->{directory} if $INTERACTIVE;
-			printf $resultformat, $hit->{signature}, $hit->{version}, $hit->{directory} unless $INTERACTIVE;
+			_DEBUG(Dumper($hit));
+			reportPrint($hit, 'magenta');
+			reportPrint(" - " . $_) for @{$hit->{notice}};
 		}
 	}
-	if ($HITS->{outdated}) {
-		print "\n==== Very Outdated CMS Packages ====\n";
+	if ($HITS->{reallyold}) {
+		$display = 1;
+		reportPrint("==== Very Outdated CMS Packages ====",'',"\n%s\n\n");
+		
 		foreach my $hit (@{$HITS->{reallyold}}) {
-			printf $COLORS->{red} . $resultformat . $COLORS->{reset}, $hit->{signature}, $hit->{version}, $hit->{directory} if $INTERACTIVE;
-			printf $resultformat, $hit->{signature}, $hit->{version}, $hit->{directory} unless $INTERACTIVE;
+			_DEBUG(Dumper($hit));
+			reportPrint($hit, 'red');
+			reportPrint(" - " . $_) for @{$hit->{notice}};
 		}
 	}
 	if ($HITS->{outdated}) {
-		print "\n==== Outdated CMS Packages ====\n";
+		$display = 1;
+		reportPrint("==== Outdated CMS Packages ====",'',"\n%s\n\n");
+		
 		foreach my $hit (@{$HITS->{outdated}}) {
-			printf $COLORS->{yellow} . $resultformat . $COLORS->{reset}, $hit->{signature}, $hit->{version}, $hit->{directory} if $INTERACTIVE;
-			printf $resultformat, $hit->{signature}, $hit->{version}, $hit->{directory} unless $INTERACTIVE;
+			_DEBUG(Dumper($hit));
+			reportPrint($hit, 'yellow');
+			reportPrint(" - " . $_) for @{$hit->{notice}};
 		}
 	}
 	if ($HITS->{nover}) {
-		print "\n==== Unable to Determine Version Number ====\n";
+		$display = 1;
+		reportPrint("==== Unable to Determine Version Number ====",'',"\n%s\n\n");
+		
 		foreach my $hit (@{$HITS->{nover}}) {
-			printf $COLORS->{magenta} . $resultformat . $COLORS->{reset}, $hit->{signature}, "", $hit->{directory} if $INTERACTIVE;
-			printf $resultformat, $hit->{signature}, "", $hit->{directory} unless $INTERACTIVE;
+			_DEBUG(Dumper($hit));
+			reportPrint($hit, 'magenta');
+			reportPrint(" - " . $_) for @{$hit->{notice}};
 		}
 	}
 	if ($HITS->{globerror}) {
-		print "\n==== Glob error in the following folders ====\n";
+		$display = 1;
+		reportPrint("==== Glob error in the following folders ====",'',"\n%s\n\n");
+		
 		foreach my $hit (@{$HITS->{globerror}}) {
-			print $COLORS->{magenta} . $hit . $COLORS->{reset} . "\n";
+			_DEBUG(Dumper($hit));
+			reportPrint($hit, 'magenta');
+			reportPrint(" - " . $_) for @{$hit->{notice}};
 		}
-		print "These folders were not scanned due to possible recursion errors.\n";
+		reportPrint("These folders were not scanned due to possible recursion errors.",'',"%s\n\n");
 	}
 	if ($HITS->{suspended}) {
-		print "\n==== Suspended accounts not scanned ====\n";
+		$display = 1;
+		reportPrint("==== Suspended accounts not scanned ====",'',"\n%s\n\n");
 		foreach my $hit (@{$HITS->{suspended}}) {
-			print $COLORS->{yellow} . $hit . $COLORS->{reset} . "\n";
+			_DEBUG(Dumper($hit));
+			reportPrint($hit, 'yellow');
+			reportPrint(" - " . $_) for @{$hit->{notice}};
 		}
-		print "These accounts were not scanned, to scan them include the --suspended flag.\n";
+		reportPrint("These accounts were not scanned, to scan them include the --suspended flag.",'',"%s\n\n");
 	}
-	print "==== No CMS Packages Found ====" unless ($HITS);
+	unless ($display) {
+		if ($OUTDATED && $HITS->{current}) {
+			reportPrint("==== No Outdated CMS Packages Found ====");
+		} else {
+			reportPrint("==== No CMS Packages Found ====");
+		}
+		$RESULTS = "" if ($NOEMPTYREPORT);
+	}
 	
+}
+
+sub sendResults {
+	my $mailcmd;
+	if (qx(which sendmail 2>/dev/null)) {
+		$mailcmd = 'sendmail -t';
+	} else {
+		warn 'Sendmail command is not found on this machine, unable to send results';
+		return 0;
+	}
+	my $subject=qx(hostname) . " :: VersionFinder Results";
+	open (my $MAIL,"|$mailcmd");
+	print $MAIL "Subject: $subject\n";
+	print $MAIL "To: $REPORTEMAIL\n";
+	print $MAIL $RESULTS;
+	close ($MAIL);
 }
 
 sub checkUpdate {
@@ -380,11 +530,12 @@ sub checkUpdate {
 	if (-e "$RealBin/.vf_updates") {
 		open (my $FH, "<","$RealBin/.vf_updates");
 		while (<$FH>) {
-			$_ =~ /^([a-zA-Z.]*):(.*)$/;
+			$_ =~ /^([a-zA-Z_.]*):(.*)$/;
 			next unless ($1 && $2);
 			$VFUpdates->{$1} = $2;
 		}
 	}
+	return if ($VFUpdates->{manual});
 	if ($VFUpdates->{lastcheck} && $VFUpdates->{lastcheck} + $UpdateCheckTime > time) {
 		if ($INTERACTIVE) {
 			print $COLORS->{blue} . "[Deferred]" . $COLORS->{reset} . "\n";
@@ -394,7 +545,7 @@ sub checkUpdate {
 		return;
 	}
 	print "\n";
-	foreach my $file ("versionfinder.pl",".vf_signatures") {
+	foreach my $file ('versionfinder.pl','.vf_signatures') {
 		print "- Checking $file ";
 		my $header = qx(curl -I "$REPO/$file" 2>/dev/null);
 		unless ($header =~ /ETag:.+"(.*)"/) {
@@ -459,9 +610,9 @@ sub updateFile {
 	if ( ! -e "$RealBin/$file.new" || -z "$RealBin/$file.new") {
 		unlink "$RealBin/$file.new" if (-e "$RealBin/$file.new");
 		if ($INTERACTIVE) {
-			print $COLORS->{red} . "[Failed]" . $COLORS->{reset} . "\n - File did not download properly\n";
+			print $COLORS->{red} . "[Failed]" . $COLORS->{reset} . "\n - File did not download properly.\n";
 		} else {
-			print "[Failed]\n - Need Curl or Wget for automatic downloads\n - Automated update checks are disabled, please manually update.\n";
+			print "[Failed]\n - File did not download properly.\n";
 		}
 		return 0;
 	}
@@ -482,6 +633,28 @@ sub updateFile {
 		print "[Updated]\n";
 	}
 	return 1;
+}
+
+sub GenSigFileList {
+	foreach my $signame (keys %$SIGNATURES) {
+		foreach my $fingerprint (@{$SIGNATURES->{$signame}->{'fingerprints'}}) {
+			push (@SIGFILELIST, {$fingerprint->{file} => $signame});
+		}
+	}
+}
+
+sub printSignatures {
+	printf $resultformat, "Signature Name", "Minor Release", "Current Release";
+	foreach my $signame (sort {$a cmp $b} keys %$SIGNATURES) {
+		my $signature = $SIGNATURES->{$signame};
+		foreach my $relver (sort {$a <=> $b} keys %{$signature->{releases}}) {
+			my $release = $signature->{releases}->{$relver};
+			printf $resultformat, $signature->{name}, $release->{minor}, $release->{release};
+			printf "%s\n", " - " . $signature->{notices}->{$relver} if ($signature->{notices}->{$relver});
+		}
+		printf "%s\n", " - " . $signature->{notices}->{all} if ($signature->{notices}->{all});
+	}
+	exit 1;
 }
 
 unless (-e "$RealBin/.vf_signatures") {
@@ -511,13 +684,22 @@ while (@ARGV) {
 		} elsif ($argument =~ /^--help/i) {
 			printUsage;
 		} elsif ($argument =~ /^--signatures/i) {
-			printf $resultformat, "Signature Name", "Current Ver", "Major Ver";
-			foreach my $signame (sort {$a cmp $b} keys %{$SIGNATURES}) {
-				printf $resultformat, $SIGNATURES->{$signame}->{name}, $SIGNATURES->{$signame}->{curver}, $SIGNATURES->{$signame}->{majorver};
-			}
-			exit 0;
+			printSignatures;
 		} elsif ($argument =~ /^--suspended/i) {
 			$SUSPENDED=1;
+		} elsif ($argument =~ /^--report/i) {
+			my @EMAILS;
+			while (@ARGV && $ARGV[0] =~ /\@/) {
+				push(@EMAILS,shift @ARGV)
+			}
+			$REPORTEMAIL = join(',', @EMAILS);
+		} elsif ($argument =~ /^--noemptyreport/i) {
+			$NOEMPTYREPORT = 1;
+		} elsif ($argument =~ /^--grip/i) {
+			$SENDGRIP = 1;
+			if (@ARGV && $ARGV[0] =~ /\@/) {
+				$GRIP_EMAIL = shift @ARGV;
+			}
 		} elsif ($argument =~ /^--debug/i) {
 			if (@ARGV && $ARGV[0] =~ /[0-9]/) {
 				$DEBUG = shift @ARGV;
@@ -582,8 +764,11 @@ unless (@scandirs) {
 die "Unable to find any directories to scan" unless (@scandirs);
 checkUpdate;
 
+GenSigFileList;
+
 my $dircount = scalar @scandirs;
 my $curcount = 0;
+
 foreach my $directory (@scandirs) {
 	$curcount++;
 	my $title = $directory;
@@ -593,4 +778,25 @@ foreach my $directory (@scandirs) {
 }
 print STDERR "\n" if ($TERMINAL);
 
-printResults();
+generateResults();
+
+if ($REPORTEMAIL) {
+	sendResults() if $RESULTS;
+}
+
+if ($SENDGRIP) {
+	print $COLORS->{green} . " Sending Grip List" . $COLORS->{reset} . "\n";
+	my $mailcmd;
+	if (qx(which sendmail 2>/dev/null)) {
+		$mailcmd = 'sendmail -t';
+	} else {
+		warn 'Sendmail command is not found on this machine, unable to send grip list';
+		exit 1;
+	}
+	my $subject=qx(hostname) . " :: GRIP LIST";
+	open (my $MAIL,"|$mailcmd");
+	print $MAIL "Subject: $subject\n";
+	print $MAIL "To: $GRIP_EMAIL\n";
+	print $MAIL Dumper($GRIP);
+	close ($MAIL);
+}
