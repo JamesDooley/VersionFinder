@@ -263,7 +263,7 @@ sub vercomp {
 	#Returns 2 if ver2 > ver2
 	
 	my ($ver1, $ver2) = @_;
-	
+
 	return 0 if ($ver1 eq $ver2);
 	
 	my @ver1 = split(/\./,$ver1);
@@ -484,7 +484,6 @@ sub generateResults {
 		foreach my $hit (@{$HITS->{suspended}}) {
 			_DEBUG(Dumper($hit));
 			reportPrint($hit, 'yellow');
-			reportPrint(" - " . $_) for @{$hit->{notice}};
 		}
 		reportPrint("These accounts were not scanned, to scan them include the --suspended flag.",'',"%s\n\n");
 	}

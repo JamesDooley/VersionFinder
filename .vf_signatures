@@ -11,7 +11,7 @@ $SIGNATURES = {
     'releases' => {
       '5' => {
         'minor' => '5.2',
-        'release' => '5.2.10'
+        'release' => '5.2.11'
       }
     },
     'update' => {
@@ -254,6 +254,58 @@ $SIGNATURES = {
       {
         'file' => 'includes/DefaultSettings.php',
         'regex' => '\\$wgVersion = \'(.*)\''
+      }
+    ]
+  },
+  'modx' => {
+    'fingerprints' => [
+      {
+        'file' => 'manager/includes/version.inc.php',
+        'regex' => 'modx'
+      },
+      {
+        'file' => 'core/docs/version.inc.php',
+        'regex' => 'MODX'
+      }
+    ],
+    'name' => 'MODx',
+    'releases' => {
+      '1.0' => {
+        'minor' => '1.0',
+        'release' => '1.0.15'
+      },
+      '2.4' => {
+        'minor' => '2.4',
+        'release' => '2.4.0'
+      }
+    },
+    'update' => {
+      'evolution' => {
+        'base' => '.release_package h3',
+        'major' => 2,
+        'minor' => 2,
+        'regex' => 'MODX Evolution ([0-9.]*)',
+        'single' => 1,
+        'url' => 'http://modx.com/download/evolution/'
+      },
+      'revolution' => {
+        'base' => '.release_package h3',
+        'major' => 2,
+        'minor' => 2,
+        'regex' => 'MODX Revolution ([0-9.]*)',
+        'single' => 1,
+        'url' => 'http://modx.com/download/'
+      }
+    },
+    'versions' => [
+      {
+        'file' => 'manager/includes/version.inc.php',
+        'regex' => '(?:modx_)?version.*\'([0-9.]*)\''
+      },
+      {
+        'file' => 'core/docs/version.inc.php',
+        'multiline' => 1,
+        'regex' => '\'(?:major_|minor_)?version.*\'([0-9]*)\''
       }
     ]
   },
