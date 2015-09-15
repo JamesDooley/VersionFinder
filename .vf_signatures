@@ -11,7 +11,7 @@ $SIGNATURES = {
     'releases' => {
       '5' => {
         'minor' => '5.2',
-        'release' => '5.2.12'
+        'release' => '5.2.13'
       }
     },
     'update' => {
@@ -164,7 +164,7 @@ $SIGNATURES = {
     'releases' => {
       '3' => {
         'minor' => '3.4',
-        'release' => '3.4.3'
+        'release' => '3.4.4'
       }
     },
     'update' => {
@@ -191,6 +191,38 @@ $SIGNATURES = {
         'file' => 'libraries/cms/version/version.php',
         'multiline' => 1,
         'regex' => '(?:\\$RELEASE|\\$DEV_LEVEL) = \'(.*)\''
+      }
+    ]
+  },
+  'magento' => {
+    'fingerprints' => [
+      {
+        'file' => 'app/Mage.php',
+        'signature' => 'magentocommerce'
+      }
+    ],
+    'name' => 'Magento',
+    'releases' => {
+      '1.9' => {
+        'minor' => '1.9',
+        'release' => '1.9.2.1'
+      }
+    },
+    'update' => {
+      'current' => {
+        'base' => '.download-releases .release-download .col1 strong',
+        'major' => 2,
+        'minor' => 2,
+        'regex' => '^ver ([0-9]*\\.[0-9.]*)',
+        'single' => 1,
+        'url' => 'https://www.magentocommerce.com/download'
+      }
+    },
+    'versions' => [
+      {
+        'file' => 'app/Mage.php',
+        'multiline' => 1,
+        'regex' => '(?:\'major\'|\'minor\'|\'revision\'|\'patch\').* => \'(.*)\''
       }
     ]
   },
@@ -379,7 +411,7 @@ $SIGNATURES = {
       },
       '3.1' => {
         'minor' => '3.1',
-        'release' => '3.1.5'
+        'release' => '3.1.6'
       }
     },
     'update' => {
