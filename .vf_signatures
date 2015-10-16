@@ -90,7 +90,7 @@ $SIGNATURES = {
       },
       '7' => {
         'minor' => '7',
-        'release' => '7.39'
+        'release' => '7.40'
       }
     },
     'update' => {
@@ -210,7 +210,7 @@ $SIGNATURES = {
     },
     'update' => {
       'current' => {
-        'base' => '.download-releases .release-download .col1 strong',
+        'base' => '.download-releases .release-download .download_version strong',
         'major' => 2,
         'minor' => 2,
         'regex' => '^ver ([0-9]*\\.[0-9.]*)',
@@ -308,7 +308,7 @@ $SIGNATURES = {
       },
       '2.4' => {
         'minor' => '2.4',
-        'release' => '2.4.1'
+        'release' => '2.4.2'
       }
     },
     'update' => {
@@ -519,7 +519,7 @@ $SIGNATURES = {
     'releases' => {
       '3' => {
         'minor' => '3.2',
-        'release' => '3.2.1'
+        'release' => '3.2.2'
       }
     },
     'update' => {
@@ -590,7 +590,7 @@ $SIGNATURES = {
       },
       '6' => {
         'minor' => '6.1',
-        'release' => '6.1.0'
+        'release' => '6.1.1'
       }
     },
     'update' => {
