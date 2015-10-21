@@ -331,7 +331,7 @@ sub printUsage {
 	print <<EOF;
 Usage: $0 [OPTIONS] [--user usernames] [--directory directories]
 
-Scans server for known CMS versions and reports what is found
+Scans server for known CMS versions and reports what is found.
 
 	OPTIONS:
 	
@@ -345,10 +345,10 @@ Scans server for known CMS versions and reports what is found
 			Also scans cPanel's suspended accounts.
 		
 		--report <email>
-			Sends a report to a specific email or list of email addresses
+			Sends a report to a specific email or list of email addresses.
 			
 		--noemptyreport
-			Does not send a report if not results are returned
+			Does not send a report if no results are returned.
 		
 		--update
 			Forces an update of the script and signatures file.
@@ -368,7 +368,7 @@ Scans server for known CMS versions and reports what is found
 			Given a space seperated list, will scan each directory.
 		
 If --user or --directory options are not set, will attempt to find users for cPanel and Plesk.
-On systems without cPanel or Plesk, will attempt to scan /home and /var/www/html
+On systems without cPanel or Plesk, will attempt to scan /home and /var/www/html.
 
 EOF
 exit

@@ -262,15 +262,15 @@ $SIGNATURES = {
     'releases' => {
       '1.23' => {
         'minor' => '1.23',
-        'release' => '1.23.10'
+        'release' => '1.23.11'
       },
       '1.24' => {
         'minor' => '1.24',
-        'release' => '1.24.3'
+        'release' => '1.24.4'
       },
       '1.25' => {
         'minor' => '1.25',
-        'release' => '1.25.2'
+        'release' => '1.25.3'
       }
     },
     'update' => {
@@ -584,11 +584,15 @@ $SIGNATURES = {
       'all' => 'Due to potential security concerns, it is recommended to only run this on a server dedicated to WHMCS.'
     },
     'releases' => {
-      '5' => {
+      '5.3' => {
         'minor' => '5.3',
         'release' => '5.3.14'
       },
-      '6' => {
+      '6.0' => {
+        'minor' => '6.0',
+        'release' => '6.0.3'
+      },
+      '6.1' => {
         'minor' => '6.1',
         'release' => '6.1.1'
       }
@@ -596,7 +600,7 @@ $SIGNATURES = {
     'update' => {
       'current' => {
         'base' => '.patchsets .latestver',
-        'major' => 1,
+        'major' => 2,
         'minor' => 2,
         'regex' => '^V([0-9.]*)',
         'url' => 'https://download.whmcs.com/'
@@ -658,7 +662,7 @@ $SIGNATURES = {
       },
       '5' => {
         'minor' => '5.2',
-        'release' => '5.2.6'
+        'release' => '5.2.7'
       }
     },
     'update' => {
