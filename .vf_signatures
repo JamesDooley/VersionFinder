@@ -11,7 +11,7 @@ $SIGNATURES = {
     'releases' => {
       '5' => {
         'minor' => '5.2',
-        'release' => '5.2.13'
+        'release' => '5.2.14'
       }
     },
     'update' => {
@@ -83,6 +83,9 @@ $SIGNATURES = {
       }
     ],
     'name' => 'Drupal',
+    'notices' => {
+      '6' => 'Drupal 6 will reach end of life on February 24th 2016 and will no longer be supported.'
+    },
     'releases' => {
       '6' => {
         'minor' => '6',
@@ -91,14 +94,25 @@ $SIGNATURES = {
       '7' => {
         'minor' => '7',
         'release' => '7.41'
+      },
+      '8' => {
+        'minor' => '8',
+        'release' => '8.0.0'
       }
     },
     'update' => {
-      'current' => {
-        'base' => '.view-project-release-download-table > div.view-content td[data-th=Version] a',
+      'drupal 6' => {
+        'base' => '.pane-project-downloads-other .views-field h4',
         'major' => 1,
         'minor' => 1,
-        'regex' => '^([0-9]*\\.[0-9.]*)$',
+        'regex' => '([0-9]*\\.[0-9.]*)$',
+        'url' => 'https://www.drupal.org/project/drupal'
+      },
+      'recommended' => {
+        'base' => '.pane-project-downloads-recommended .views-field h4',
+        'major' => 1,
+        'minor' => 1,
+        'regex' => '([0-9]*\\.[0-9.]*)$',
         'url' => 'https://www.drupal.org/project/drupal'
       }
     },
@@ -205,10 +219,22 @@ $SIGNATURES = {
     'releases' => {
       '1.9' => {
         'minor' => '1.9',
-        'release' => '1.9.2.1'
+        'release' => '1.9.2.2'
+      },
+      '2.0' => {
+        'minor' => '2.0',
+        'release' => '2.0.0'
       }
     },
     'update' => {
+      '1.9' => {
+        'base' => '.download-panes li:nth-of-type(2) .download_version strong',
+        'major' => 2,
+        'minor' => 2,
+        'regex' => '^ver ([0-9]*\\.[0-9.]*)',
+        'single' => 1,
+        'url' => 'https://www.magentocommerce.com/download'
+      },
       'current' => {
         'base' => '.download-releases .release-download .download_version strong',
         'major' => 2,
@@ -486,15 +512,15 @@ $SIGNATURES = {
     'releases' => {
       '2.6' => {
         'minor' => '2.6',
-        'release' => '2.6.7'
+        'release' => '2.6.8'
       },
       '3.0' => {
         'minor' => '3.0',
-        'release' => '3.0.5'
+        'release' => '3.0.6'
       },
       '3.1' => {
         'minor' => '3.1',
-        'release' => '3.1.1'
+        'release' => '3.1.2'
       }
     },
     'update' => {
@@ -555,7 +581,7 @@ $SIGNATURES = {
     'releases' => {
       '5' => {
         'minor' => '5.1',
-        'release' => '5.1.9'
+        'release' => '5.1.9.3'
       }
     },
     'update' => {
@@ -663,11 +689,11 @@ $SIGNATURES = {
     'releases' => {
       '4' => {
         'minor' => '4.7',
-        'release' => '4.7.3'
+        'release' => '4.7.4'
       },
       '5' => {
         'minor' => '5.2',
-        'release' => '5.2.7'
+        'release' => '5.2.10'
       }
     },
     'update' => {
