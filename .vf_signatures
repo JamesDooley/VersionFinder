@@ -584,8 +584,8 @@ $SIGNATURES = {
     'name' => 'vBulletin',
     'releases' => {
       '5' => {
-        'minor' => '5.1',
-        'release' => '5.1.10'
+        'minor' => '5.2',
+        'release' => '5.2.0'
       }
     },
     'update' => {
