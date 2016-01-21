@@ -217,13 +217,9 @@ $SIGNATURES = {
     ],
     'name' => 'Magento',
     'releases' => {
-      '1.9' => {
-        'minor' => '1.9',
-        'release' => '1.9.2.2'
-      },
       '2.0' => {
         'minor' => '2.0',
-        'release' => '2.0.0'
+        'release' => '2.0.1'
       }
     },
     'update' => {
