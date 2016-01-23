@@ -217,6 +217,10 @@ $SIGNATURES = {
     ],
     'name' => 'Magento',
     'releases' => {
+      '1.9' => {
+        'minor' => '1.9',
+        'release' => '1.9.2.3'
+      },
       '2.0' => {
         'minor' => '2.0',
         'release' => '2.0.1'
@@ -224,15 +228,15 @@ $SIGNATURES = {
     },
     'update' => {
       '1.9' => {
-        'base' => '.download-panes li:nth-of-type(2) .download_version strong',
+        'base' => '.ProdVer .MyVariablesRelease',
         'major' => 2,
         'minor' => 2,
-        'regex' => '^ver ([0-9]*\\.[0-9.]*)',
+        'regex' => '^([0-9]*\\.[0-9.]*)',
         'single' => 1,
-        'url' => 'https://www.magentocommerce.com/download'
+        'url' => 'http://merch.docs.magento.com/ce/user_guide/magento/change-log.html'
       },
       'current' => {
-        'base' => '.download-releases .release-download .download_version strong',
+        'base' => '.download-panes li:nth-of-type(1) .download_version strong',
         'major' => 2,
         'minor' => 2,
         'regex' => '^ver ([0-9]*\\.[0-9.]*)',
