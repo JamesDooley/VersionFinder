@@ -84,30 +84,19 @@ $SIGNATURES = {
     ],
     'name' => 'Drupal',
     'notices' => {
-      '6' => 'Drupal 6 will reach end of life on February 24th 2016 and will no longer be supported.'
+      '6' => 'Drupal 6 reached end of life on February 24th 2016 and is no longer be supported.'
     },
     'releases' => {
-      '6' => {
-        'minor' => '6',
-        'release' => '6.37'
-      },
       '7' => {
         'minor' => '7',
-        'release' => '7.42'
+        'release' => '7.43'
       },
       '8' => {
         'minor' => '8',
-        'release' => '8.0.3'
+        'release' => '8.0.4'
       }
     },
     'update' => {
-      'drupal 6' => {
-        'base' => '.pane-project-downloads-other .views-field h4',
-        'major' => 1,
-        'minor' => 1,
-        'regex' => '([0-9]*\\.[0-9.]*)$',
-        'url' => 'https://www.drupal.org/project/drupal'
-      },
       'recommended' => {
         'base' => '.pane-project-downloads-recommended .views-field h4',
         'major' => 1,
@@ -219,7 +208,7 @@ $SIGNATURES = {
     'releases' => {
       '1.9' => {
         'minor' => '1.9',
-        'release' => '1.9.2.3'
+        'release' => '1.9.2.4'
       },
       '2.0' => {
         'minor' => '2.0',
@@ -441,7 +430,7 @@ $SIGNATURES = {
       },
       '3.1' => {
         'minor' => '3.1',
-        'release' => '3.1.7'
+        'release' => '3.1.8'
       }
     },
     'update' => {
