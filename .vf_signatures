@@ -469,8 +469,8 @@ $SIGNATURES = {
     'name' => 'Piwigo',
     'releases' => {
       '2' => {
-        'minor' => '2.7',
-        'release' => '2.7.4'
+        'minor' => '2.8',
+        'release' => '2.8.0'
       }
     },
     'update' => {
