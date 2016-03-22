@@ -166,8 +166,8 @@ $SIGNATURES = {
     'name' => 'Joomla!',
     'releases' => {
       '3' => {
-        'minor' => '3.4',
-        'release' => '3.4.8'
+        'minor' => '3.5',
+        'release' => '3.5.0'
       }
     },
     'update' => {
@@ -501,19 +501,15 @@ $SIGNATURES = {
     'releases' => {
       '2.6' => {
         'minor' => '2.6',
-        'release' => '2.6.9'
-      },
-      '3.0' => {
-        'minor' => '3.0',
-        'release' => '3.0.7'
+        'release' => '2.6.10'
       },
       '3.1' => {
         'minor' => '3.1',
-        'release' => '3.1.3'
+        'release' => '3.1.4'
       },
       '3.2' => {
         'minor' => '3.2',
-        'release' => '3.2.0'
+        'release' => '3.2.1'
       }
     },
     'update' => {
@@ -543,7 +539,7 @@ $SIGNATURES = {
     'releases' => {
       '3' => {
         'minor' => '3.2',
-        'release' => '3.2.3'
+        'release' => '3.2.4'
       }
     },
     'update' => {
@@ -758,7 +754,7 @@ $SIGNATURES = {
     'releases' => {
       '1' => {
         'minor' => '1.5',
-        'release' => '1.5.4'
+        'release' => '1.5.5'
       }
     },
     'update' => {
