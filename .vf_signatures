@@ -618,7 +618,7 @@ $SIGNATURES = {
       },
       '6.3' => {
         'minor' => '6.3',
-        'release' => '6.3.0'
+        'release' => '6.3.1'
       }
     },
     'update' => {
@@ -645,13 +645,16 @@ $SIGNATURES = {
     'fingerprints' => [
       {
         'file' => 'wp-config-sample.php'
+      },
+      {
+        'file' => 'wp-settings.php'
       }
     ],
     'name' => 'WordPress',
     'releases' => {
       '4' => {
-        'minor' => '4.4',
-        'release' => '4.4.2'
+        'minor' => '4.5',
+        'release' => '4.5'
       }
     },
     'update' => {
