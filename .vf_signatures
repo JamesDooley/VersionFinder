@@ -21,7 +21,7 @@ $SIGNATURES = {
         'minor' => 2,
         'regex' => '^PHPMailer ([0-9.]*)$',
         'single' => 1,
-        'url' => 'https://github.com/PHPMailer/PHPMailer/releases'
+        'url' => 'https://github.com/PHPMailer/PHPMailer/releases/latest'
       }
     },
     'versions' => [
@@ -93,7 +93,7 @@ $SIGNATURES = {
       },
       '8' => {
         'minor' => '8',
-        'release' => '8.1.0'
+        'release' => '8.1.1'
       }
     },
     'update' => {
@@ -212,7 +212,7 @@ $SIGNATURES = {
       },
       '2.0' => {
         'minor' => '2.0',
-        'release' => '2.0.4'
+        'release' => '2.0.5'
       }
     },
     'update' => {
@@ -470,7 +470,7 @@ $SIGNATURES = {
     'releases' => {
       '2' => {
         'minor' => '2.8',
-        'release' => '2.8.0'
+        'release' => '2.8.1'
       }
     },
     'update' => {
@@ -499,17 +499,13 @@ $SIGNATURES = {
     ],
     'name' => 'Redmine',
     'releases' => {
-      '2.6' => {
-        'minor' => '2.6',
-        'release' => '2.6.10'
-      },
       '3.1' => {
         'minor' => '3.1',
-        'release' => '3.1.4'
+        'release' => '3.1.5'
       },
       '3.2' => {
         'minor' => '3.2',
-        'release' => '3.2.1'
+        'release' => '3.2.2'
       }
     },
     'update' => {
@@ -654,7 +650,7 @@ $SIGNATURES = {
     'releases' => {
       '4' => {
         'minor' => '4.5',
-        'release' => '4.5.1'
+        'release' => '4.5.2'
       }
     },
     'update' => {
@@ -689,7 +685,7 @@ $SIGNATURES = {
       },
       '5' => {
         'minor' => '5.2',
-        'release' => '5.2.13'
+        'release' => '5.2.14'
       }
     },
     'update' => {
