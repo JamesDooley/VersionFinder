@@ -80,6 +80,7 @@ sub ScanDir {
 			my $signame = $sigfile->{$file};
 			_DEBUG("Signature file found in ". escdir($directory) ." for $signame");
 			checkcms($directory,$signame);
+			last;
 		}
 	}
 	
@@ -104,7 +105,7 @@ sub checkcms {
 	foreach my $fingerprint (@{$signature->{fingerprints}}) {
 		my $signaturefile = "$directory/" . $fingerprint->{file};
 		next unless (-e $signaturefile);
-		_DEBUG("Signature file found in " . escdir($directory) . " for $signame");
+		_DEBUG("Signature file (".$fingerprint->{file}.") found in " . escdir($directory) . " for $signame");
 		if ($fingerprint->{signature}) {
 			if (FileContains("$signaturefile", $fingerprint->{signature})) {
 				_DEBUG("Fingerprint match for $signame found in " . escdir($directory));
