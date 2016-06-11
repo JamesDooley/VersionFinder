@@ -74,13 +74,15 @@ sub ScanDir {
 	return if (-l "$directory");
 	
 	_DEBUG(2,"Scanning directory " . escdir($directory));
+	my $checked;
 	foreach my $sigfile (@SIGFILELIST) {
 		my $file = (keys %$sigfile)[0];
 		if (-e "$directory/$file") {
 			my $signame = $sigfile->{$file};
+			next if ($checked->{$signame});
+			$checked->{$signame} = 1;
 			_DEBUG("Signature file found in ". escdir($directory) ." for $signame");
 			checkcms($directory,$signame);
-			last;
 		}
 	}
 	
