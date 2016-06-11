@@ -640,9 +640,6 @@ $SIGNATURES = {
   'wordpress' => {
     'fingerprints' => [
       {
-        'file' => 'wp-config-sample.php'
-      },
-      {
         'file' => 'wp-settings.php'
       }
     ],
