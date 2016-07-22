@@ -93,7 +93,7 @@ $SIGNATURES = {
       },
       '8' => {
         'minor' => '8',
-        'release' => '8.1.5'
+        'release' => '8.1.7'
       }
     },
     'update' => {
@@ -166,8 +166,8 @@ $SIGNATURES = {
     'name' => 'Joomla!',
     'releases' => {
       '3' => {
-        'minor' => '3.5',
-        'release' => '3.5.1'
+        'minor' => '3.6',
+        'release' => '3.6'
       }
     },
     'update' => {
@@ -175,7 +175,7 @@ $SIGNATURES = {
         'base' => '.download .btn-primary',
         'major' => 1,
         'minor' => 2,
-        'regex' => '^Download Joomla ([0-9]*\\.[0-9.]*)',
+        'regex' => '^Download Joomla!? ([0-9]*\\.[0-9.]*)',
         'single' => 1,
         'url' => 'https://www.joomla.org/download.html'
       }
@@ -323,7 +323,7 @@ $SIGNATURES = {
       },
       '2.5' => {
         'minor' => '2.5',
-        'release' => '2.5.0'
+        'release' => '2.5.1'
       }
     },
     'update' => {
