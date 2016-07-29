@@ -686,7 +686,7 @@ $SIGNATURES = {
       },
       '5' => {
         'minor' => '5.3',
-        'release' => '5.3.0'
+        'release' => '5.3.1'
       }
     },
     'update' => {
@@ -699,7 +699,7 @@ $SIGNATURES = {
         'url' => 'http://help.x-cart.com/index.php?title=File:X-CART_CHANGELOG.txt'
       },
       '5' => {
-        'base' => '.child-display a',
+        'base' => '.sidebar a',
         'major' => 1,
         'minor' => 2,
         'regex' => '^([0-9.]*) -.*$',
