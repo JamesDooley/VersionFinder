@@ -93,7 +93,7 @@ $SIGNATURES = {
       },
       '8' => {
         'minor' => '8',
-        'release' => '8.1.7'
+        'release' => '8.1.8'
       }
     },
     'update' => {
@@ -167,7 +167,7 @@ $SIGNATURES = {
     'releases' => {
       '3' => {
         'minor' => '3.6',
-        'release' => '3.6'
+        'release' => '3.6.2'
       }
     },
     'update' => {
@@ -210,6 +210,10 @@ $SIGNATURES = {
         'minor' => '1.9',
         'release' => '1.9.2.4'
       },
+      '2.0' => {
+        'minor' => '2.0',
+        'release' => '2.0.8'
+      },
       '2.1' => {
         'minor' => '2.1',
         'release' => '2.1.0'
@@ -224,13 +228,21 @@ $SIGNATURES = {
         'single' => 1,
         'url' => 'http://merch.docs.magento.com/ce/user_guide/magento/change-log.html'
       },
-      'current' => {
-        'base' => '.download-panes li:nth-of-type(1) .download_version strong',
+      '2.0' => {
+        'base' => '.release-title a[href*=2.0]',
         'major' => 2,
         'minor' => 2,
-        'regex' => '^ver ([0-9]*\\.[0-9.]*)',
+        'regex' => '([0-9]*\\.[0-9.]*)',
         'single' => 1,
-        'url' => 'https://www.magentocommerce.com/download'
+        'url' => 'https://github.com/magento/magento2/releases'
+      },
+      '2.1' => {
+        'base' => '.release-title a[href*=2.1]',
+        'major' => 2,
+        'minor' => 2,
+        'regex' => '([0-9]*\\.[0-9.]*)',
+        'single' => 1,
+        'url' => 'https://github.com/magento/magento2/releases'
       }
     },
     'versions' => [
@@ -570,7 +582,7 @@ $SIGNATURES = {
     'releases' => {
       '5' => {
         'minor' => '5.2',
-        'release' => '5.2.2.1'
+        'release' => '5.2.3'
       }
     },
     'update' => {
@@ -686,7 +698,7 @@ $SIGNATURES = {
       },
       '5' => {
         'minor' => '5.3',
-        'release' => '5.3.1'
+        'release' => '5.3.1.1'
       }
     },
     'update' => {
