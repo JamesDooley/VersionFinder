@@ -212,7 +212,7 @@ $SIGNATURES = {
       },
       '2.0' => {
         'minor' => '2.0',
-        'release' => '2.0.8'
+        'release' => '2.0.9'
       },
       '2.1' => {
         'minor' => '2.1',
@@ -662,8 +662,8 @@ $SIGNATURES = {
     'name' => 'WordPress',
     'releases' => {
       '4' => {
-        'minor' => '4.5',
-        'release' => '4.5.3'
+        'minor' => '4.6',
+        'release' => '4.6'
       }
     },
     'update' => {
@@ -698,7 +698,7 @@ $SIGNATURES = {
       },
       '5' => {
         'minor' => '5.3',
-        'release' => '5.3.1.1'
+        'release' => '5.3.1.2'
       }
     },
     'update' => {
@@ -711,7 +711,7 @@ $SIGNATURES = {
         'url' => 'http://help.x-cart.com/index.php?title=File:X-CART_CHANGELOG.txt'
       },
       '5' => {
-        'base' => '.sidebar a',
+        'base' => '.sidebar #navigation-menu a',
         'major' => 1,
         'minor' => 2,
         'regex' => '^([0-9.]*) -.*$',
