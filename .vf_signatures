@@ -149,6 +149,38 @@ $SIGNATURES = {
       }
     ]
   },
+  'grav' => {
+    'fingerprints' => [
+      {
+        'file' => 'system/defines.php',
+        'regex' => 'grav'
+      }
+    ],
+    'name' => 'Grav',
+    'releases' => {
+      '1' => {
+        'minor' => '1',
+        'release' => '1.1.3'
+      }
+    },
+    'update' => {
+      '1' => {
+        'base' => '.version strong',
+        'major' => 1,
+        'minor' => 1,
+        'regex' => '([0-9.]*)',
+        'single' => 1,
+        'url' => 'https://getgrav.org/downloads'
+      }
+    },
+    'versions' => [
+      {
+        'file' => 'system/defines.php',
+        'multiline' => 1,
+        'regex' => 'define.*GRAV_VERSION\', \'(.*)\''
+      }
+    ]
+  },
   'joomla' => {
     'fingerprints' => [
       {
@@ -289,15 +321,15 @@ $SIGNATURES = {
     'releases' => {
       '1.23' => {
         'minor' => '1.23',
-        'release' => '1.23.14'
+        'release' => '1.23.15'
       },
       '1.26' => {
         'minor' => '1.26',
-        'release' => '1.26.3'
+        'release' => '1.26.4'
       },
       '1.27' => {
         'minor' => '1.27',
-        'release' => '1.27.0'
+        'release' => '1.27.1'
       }
     },
     'update' => {
