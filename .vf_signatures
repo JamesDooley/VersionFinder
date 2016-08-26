@@ -703,7 +703,7 @@ $SIGNATURES = {
         'base' => '#home-text .download-button',
         'major' => 1,
         'minor' => 2,
-        'regex' => 'Download WordPress ([0-9.]*)',
+        'regex' => 'Download(?:\\s|&nbsp;)WordPress(?:\\s|&nbsp;)([0-9.]*)',
         'single' => 1,
         'url' => 'https://wordpress.org/'
       }
