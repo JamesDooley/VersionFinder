@@ -69,6 +69,7 @@ our $SIGNATURES;
 sub ScanDir {
 	my $directory = shift;
 	$directory =~ s|/+$||;
+	return if ($directory eq "");
 	return if ($directory =~ /virtfs$/i);
 	return if ($directory =~ m#/home/\w+/(?:mail)#);
 	return if (-l "$directory");
