@@ -11,7 +11,7 @@ $SIGNATURES = {
     'releases' => {
       '5' => {
         'minor' => '5.2',
-        'release' => '5.2.16'
+        'release' => '5.2.22'
       }
     },
     'update' => {
@@ -89,11 +89,11 @@ $SIGNATURES = {
     'releases' => {
       '7' => {
         'minor' => '7',
-        'release' => '7.51'
+        'release' => '7.53'
       },
       '8' => {
         'minor' => '8',
-        'release' => '8.2.1'
+        'release' => '8.2.5'
       }
     },
     'update' => {
@@ -160,7 +160,7 @@ $SIGNATURES = {
     'releases' => {
       '1' => {
         'minor' => '1',
-        'release' => '1.1.5'
+        'release' => '1.1.12'
       }
     },
     'update' => {
@@ -199,17 +199,17 @@ $SIGNATURES = {
     'releases' => {
       '3' => {
         'minor' => '3.6',
-        'release' => '3.6.2'
+        'release' => '3.6.5'
       }
     },
     'update' => {
       'current' => {
-        'base' => '.download .btn-primary',
+        'base' => '#latest .title',
         'major' => 1,
         'minor' => 2,
-        'regex' => '^Download Joomla!? ([0-9]*\\.[0-9.]*)',
+        'regex' => '^Download Joomla! ([0-9]*\\.[0-9.]*)',
         'single' => 1,
-        'url' => 'https://www.joomla.org/download.html'
+        'url' => 'https://downloads.joomla.org/'
       }
     },
     'versions' => [
@@ -240,15 +240,15 @@ $SIGNATURES = {
     'releases' => {
       '1.9' => {
         'minor' => '1.9',
-        'release' => '1.9.3'
+        'release' => '1.9.3.1'
       },
       '2.0' => {
         'minor' => '2.0',
-        'release' => '2.0.10'
+        'release' => '2.0.11'
       },
       '2.1' => {
         'minor' => '2.1',
-        'release' => '2.1.2'
+        'release' => '2.1.3'
       }
     },
     'update' => {
@@ -323,13 +323,13 @@ $SIGNATURES = {
         'minor' => '1.23',
         'release' => '1.23.15'
       },
-      '1.26' => {
-        'minor' => '1.26',
-        'release' => '1.26.4'
-      },
       '1.27' => {
         'minor' => '1.27',
         'release' => '1.27.1'
+      },
+      '1.28' => {
+        'minor' => '1.28',
+        'release' => '1.28.0'
       }
     },
     'update' => {
@@ -361,29 +361,29 @@ $SIGNATURES = {
     ],
     'name' => 'MODx',
     'releases' => {
-      '1.1' => {
-        'minor' => '1.1',
-        'release' => '1.1.0'
+      '1.2' => {
+        'minor' => '1.2',
+        'release' => '1.2.0'
       },
       '2.5' => {
         'minor' => '2.5',
-        'release' => '2.5.1'
+        'release' => '2.5.4'
       }
     },
     'update' => {
       'evolution' => {
-        'base' => '.release_package h3',
+        'base' => 'h2',
         'major' => 2,
         'minor' => 2,
-        'regex' => 'MODX Evolution ([0-9.]*)',
+        'regex' => 'Current Version.* ([0-9.]*)',
         'single' => 1,
         'url' => 'http://modx.com/download/evolution/'
       },
       'revolution' => {
-        'base' => '.release_package h3',
+        'base' => 'h2',
         'major' => 2,
         'minor' => 2,
-        'regex' => 'MODX Revolution ([0-9.]*)',
+        'regex' => 'Current Version.* ([0-9.]*)',
         'single' => 1,
         'url' => 'http://modx.com/download/'
       }
@@ -468,13 +468,9 @@ $SIGNATURES = {
       '3.0' => 'End of Life Date: November 2015'
     },
     'releases' => {
-      '3.0' => {
-        'minor' => '3.0',
-        'release' => '3.0.14'
-      },
-      '3.1' => {
-        'minor' => '3.1',
-        'release' => '3.1.10'
+      '3.2' => {
+        'minor' => '3.2',
+        'release' => '3.2.0'
       }
     },
     'update' => {
@@ -514,7 +510,7 @@ $SIGNATURES = {
     'releases' => {
       '2' => {
         'minor' => '2.8',
-        'release' => '2.8.2'
+        'release' => '2.8.5'
       }
     },
     'update' => {
@@ -543,17 +539,13 @@ $SIGNATURES = {
     ],
     'name' => 'Redmine',
     'releases' => {
-      '3.1' => {
-        'minor' => '3.1',
-        'release' => '3.1.7'
-      },
       '3.2' => {
         'minor' => '3.2',
-        'release' => '3.2.4'
+        'release' => '3.2.5'
       },
       '3.3' => {
         'minor' => '3.3',
-        'release' => '3.3.1'
+        'release' => '3.3.2'
       }
     },
     'update' => {
@@ -614,7 +606,7 @@ $SIGNATURES = {
     'releases' => {
       '5' => {
         'minor' => '5.2',
-        'release' => '5.2.4.2'
+        'release' => '5.2.5'
       }
     },
     'update' => {
@@ -650,15 +642,19 @@ $SIGNATURES = {
     'releases' => {
       '6.2' => {
         'minor' => '6.2',
-        'release' => '6.2.2'
+        'release' => '6.2.3'
       },
       '6.3' => {
         'minor' => '6.3',
-        'release' => '6.3.1'
+        'release' => '6.3.2'
       },
       '7.0' => {
         'minor' => '7.0',
-        'release' => '7.0.1'
+        'release' => '7.0.3'
+      },
+      '7.1' => {
+        'minor' => '7.1',
+        'release' => '7.1.1'
       }
     },
     'update' => {
@@ -690,18 +686,18 @@ $SIGNATURES = {
     'name' => 'WordPress',
     'releases' => {
       '4' => {
-        'minor' => '4.6',
-        'release' => '4.6.1'
+        'minor' => '4.7',
+        'release' => '4.7'
       }
     },
     'update' => {
       'current' => {
-        'base' => '#home-text .download-button',
+        'base' => '.download-meta .download-button strong',
         'major' => 1,
         'minor' => 2,
         'regex' => 'Download(?:\\s|&nbsp;)WordPress(?:\\s|&nbsp;)([0-9.]*)',
         'single' => 1,
-        'url' => 'https://wordpress.org/'
+        'url' => 'https://wordpress.org/download/'
       }
     },
     'versions' => [
@@ -726,7 +722,7 @@ $SIGNATURES = {
       },
       '5' => {
         'minor' => '5.3',
-        'release' => '5.3.1.4'
+        'release' => '5.3.2.3'
       }
     },
     'update' => {
@@ -773,7 +769,7 @@ $SIGNATURES = {
     },
     'update' => {
       'current' => {
-        'base' => '#xoops-contents h2 font',
+        'base' => '.xcontent-wrapper h2 font',
         'major' => 1,
         'minor' => 2,
         'regex' => '^XOOPS ([0-9.]*).*$',
