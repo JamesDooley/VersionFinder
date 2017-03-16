@@ -11,7 +11,7 @@ $SIGNATURES = {
     'releases' => {
       '5' => {
         'minor' => '5.2',
-        'release' => '5.2.22'
+        'release' => '5.2.23'
       }
     },
     'update' => {
@@ -93,7 +93,7 @@ $SIGNATURES = {
       },
       '8' => {
         'minor' => '8',
-        'release' => '8.2.6'
+        'release' => '8.2.7'
       }
     },
     'update' => {
@@ -240,7 +240,7 @@ $SIGNATURES = {
     'releases' => {
       '1.9' => {
         'minor' => '1.9',
-        'release' => '1.9.'
+        'release' => '1.9.3.2'
       },
       '2.0' => {
         'minor' => '2.0',
@@ -253,12 +253,12 @@ $SIGNATURES = {
     },
     'update' => {
       '1.9' => {
-        'base' => '.ProdVer .MyVariablesRelease',
+        'base' => '.toc li a[href*=ce19-19]',
         'major' => 2,
         'minor' => 2,
-        'regex' => '^([0-9]*\\.[0-9.]*)',
+        'regex' => 'Magento CE ([0-9]*\\.[0-9.]*)',
         'single' => 1,
-        'url' => 'http://merch.docs.magento.com/ce/user_guide/magento/change-log.html'
+        'url' => 'http://devdocs.magento.com/guides/m1x/ce19-ee114/ce1.9_release-notes.html'
       },
       '2.0' => {
         'base' => '.release-title a[href*=2.0]',
@@ -425,7 +425,7 @@ $SIGNATURES = {
     },
     'update' => {
       '2' => {
-        'base' => '#maincontent > div.row > form option',
+        'base' => '#maincontent form option',
         'major' => 1,
         'minor' => 2,
         'regex' => '^v([0-9.]*).*$',
@@ -687,7 +687,7 @@ $SIGNATURES = {
     'releases' => {
       '4' => {
         'minor' => '4.7',
-        'release' => '4.7.2'
+        'release' => '4.7.3'
       }
     },
     'update' => {
