@@ -212,12 +212,17 @@ sub pullSingleVersion {
 		return 0;
 	}
 
-	my $section = $tx->res->dom->at($base);
-	if (!$section or $section eq 0) {
-		cPrint("CSS base did not provide a result ($base)","red");
-		$ERROR = 1;
-		return 0;
-	}
+    my $section;
+    if ($base) {
+	   $section = $tx->res->dom->at($base);
+	   if (!$section or $section eq 0) {
+		  cPrint("CSS base did not provide a result ($base)","red");
+		  $ERROR = 1;
+		  return 0;
+	   }
+    } else {
+       $section = $tx->res->dom;
+    }
 
 	my $line = $section->text;
 	unless ($line) {

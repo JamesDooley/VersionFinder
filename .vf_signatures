@@ -367,7 +367,7 @@ $SIGNATURES = {
       },
       '2.5' => {
         'minor' => '2.5',
-        'release' => '2.5.5'
+        'release' => '2.5.6'
       }
     },
     'update' => {
@@ -685,12 +685,23 @@ $SIGNATURES = {
     ],
     'name' => 'WordPress',
     'releases' => {
+      '3' => {
+        'minor' => '3.9',
+        'release' => '3.9.17'
+      },
       '4' => {
         'minor' => '4.7',
         'release' => '4.7.3'
       }
     },
     'update' => {
+      '3.x' => {
+        'major' => '1',
+        'minor' => '2',
+        'regex' => '"current":"(3.[0-9.]*)"',
+        'single' => 1,
+        'url' => 'https://api.wordpress.org/core/version-check/1.7/?version=3.9.8'
+      },
       'current' => {
         'base' => '.download-meta .download-button strong',
         'major' => 1,
