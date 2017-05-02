@@ -160,7 +160,7 @@ $SIGNATURES = {
     'releases' => {
       '1' => {
         'minor' => '1',
-        'release' => '1.2.3'
+        'release' => '1.2.4'
       }
     },
     'update' => {
@@ -198,8 +198,8 @@ $SIGNATURES = {
     'name' => 'Joomla!',
     'releases' => {
       '3' => {
-        'minor' => '3.6',
-        'release' => '3.6.5'
+        'minor' => '3.7',
+        'release' => '3.7.0'
       }
     },
     'update' => {
@@ -325,11 +325,11 @@ $SIGNATURES = {
       },
       '1.27' => {
         'minor' => '1.27',
-        'release' => '1.27.2'
+        'release' => '1.27.3'
       },
       '1.28' => {
         'minor' => '1.28',
-        'release' => '1.28.1'
+        'release' => '1.28.2'
       }
     },
     'update' => {
@@ -509,8 +509,8 @@ $SIGNATURES = {
     'name' => 'Piwigo',
     'releases' => {
       '2' => {
-        'minor' => '2.8',
-        'release' => '2.8.6'
+        'minor' => '2.9',
+        'release' => '2.9.0'
       }
     },
     'update' => {
