@@ -199,7 +199,7 @@ $SIGNATURES = {
     'releases' => {
       '3' => {
         'minor' => '3.7',
-        'release' => '3.7.0'
+        'release' => '3.7.2'
       }
     },
     'update' => {
@@ -240,15 +240,15 @@ $SIGNATURES = {
     'releases' => {
       '1.9' => {
         'minor' => '1.9',
-        'release' => '1.9.3.2'
+        'release' => '1.9.3.3'
       },
       '2.0' => {
         'minor' => '2.0',
-        'release' => '2.0.13'
+        'release' => '2.0.14'
       },
       '2.1' => {
         'minor' => '2.1',
-        'release' => '2.1.6'
+        'release' => '2.1.7'
       }
     },
     'update' => {
@@ -319,10 +319,6 @@ $SIGNATURES = {
     ],
     'name' => 'MediaWiki',
     'releases' => {
-      '1.23' => {
-        'minor' => '1.23',
-        'release' => '1.23.17'
-      },
       '1.27' => {
         'minor' => '1.27',
         'release' => '1.27.3'
@@ -575,7 +571,7 @@ $SIGNATURES = {
     'releases' => {
       '4' => {
         'minor' => '4.0',
-        'release' => '4.0.1'
+        'release' => '4.0.2'
       }
     },
     'update' => {
@@ -606,7 +602,7 @@ $SIGNATURES = {
     'releases' => {
       '5' => {
         'minor' => '5.3',
-        'release' => '5.3.0'
+        'release' => '5.3.1'
       }
     },
     'update' => {
@@ -640,14 +636,6 @@ $SIGNATURES = {
       'all' => 'Due to potential security concerns, it is recommended to only run this on a server dedicated to WHMCS.'
     },
     'releases' => {
-      '6.2' => {
-        'minor' => '6.2',
-        'release' => '6.2.3'
-      },
-      '6.3' => {
-        'minor' => '6.3',
-        'release' => '6.3.2'
-      },
       '7.0' => {
         'minor' => '7.0',
         'release' => '7.0.3'
@@ -655,6 +643,10 @@ $SIGNATURES = {
       '7.1' => {
         'minor' => '7.1',
         'release' => '7.1.2'
+      },
+      '7.2' => {
+        'minor' => '7.2',
+        'release' => '7.2.2'
       }
     },
     'update' => {
@@ -687,11 +679,11 @@ $SIGNATURES = {
     'releases' => {
       '3' => {
         'minor' => '3.9',
-        'release' => '3.9.18'
+        'release' => '3.9.19'
       },
       '4' => {
         'minor' => '4.7',
-        'release' => '4.7.4'
+        'release' => '4.7.5'
       }
     },
     'update' => {
@@ -733,7 +725,7 @@ $SIGNATURES = {
       },
       '5' => {
         'minor' => '5.3',
-        'release' => '5.3.2.9'
+        'release' => '5.3.3.0'
       }
     },
     'update' => {
