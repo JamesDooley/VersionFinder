@@ -89,11 +89,11 @@ $SIGNATURES = {
     'releases' => {
       '7' => {
         'minor' => '7',
-        'release' => '7.55'
+        'release' => '7.56'
       },
       '8' => {
         'minor' => '8',
-        'release' => '8.3.3'
+        'release' => '8.3.4'
       }
     },
     'update' => {
@@ -244,7 +244,7 @@ $SIGNATURES = {
       },
       '2.0' => {
         'minor' => '2.0',
-        'release' => '2.0.14'
+        'release' => '2.0.15'
       },
       '2.1' => {
         'minor' => '2.1',
@@ -632,7 +632,10 @@ $SIGNATURES = {
     ],
     'name' => 'WHMCS',
     'notices' => {
-      '5' => 'End of Life Date: 31 October 2015',
+      '6.3' => 'End of Life Date: 31st March 2017',
+      '7.0' => 'End of Life Date: 31st October 2017',
+      '7.1' => 'End of Life Date: 31st December 2017',
+      '7.2' => 'End of Life Date: 31st May 2018',
       'all' => 'Due to potential security concerns, it is recommended to only run this on a server dedicated to WHMCS.'
     },
     'releases' => {
@@ -650,13 +653,7 @@ $SIGNATURES = {
       }
     },
     'update' => {
-      'current' => {
-        'base' => '.patchsets .latestver',
-        'major' => 2,
-        'minor' => 2,
-        'regex' => '^V([0-9.]*)',
-        'url' => 'https://download.whmcs.com/'
-      }
+      'sub' => 'whmcs_json'
     },
     'versions' => [
       {

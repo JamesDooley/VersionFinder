@@ -291,6 +291,7 @@ sub pullMultipleVersions {
 }
 
 sub pullVersions {
+	no strict qw(refs);
 	foreach my $signame (@SIGLIST) {
 		my $signature = $SIGNATURES->{$signame};
 		my $release = {};
@@ -302,7 +303,10 @@ sub pullVersions {
 		}
 		foreach my $uname (keys %{$signature->{update}}) {
 			my $u = $signature->{update}->{$uname};
-			if ($u->{single}) {
+			if ($uname eq 'sub') {
+				eval(&$u);
+				$error=1;
+			} elsif ($u->{single}) {
 				if (my $ver = pullSingleVersion($u->{url}, $u->{base}, $u->{regex}, $u->{major}, $u->{minor})) {
 					$release->{$ver->{major}} = { minor => $ver->{minor}, release => $ver->{release}};
 				} else {
@@ -321,3 +325,45 @@ sub pullVersions {
 		$SIGNATURES->{$signame}->{releases} = $release unless $error;
 	}
 }
+
+sub whmcs_json {
+	my $tx = $ua->get('https://download.whmcs.com/assets/scripts/get-downloads.php');
+	unless ($tx->success) {
+                cPrint("Unable to connect to https://download.whmcs.com/assets/scripts/get-downloads.php","magenta");
+                $ERROR = 1;
+                return 0;
+        }
+	my $release = {};
+	my $versioninfo = $tx->res->json;
+	my $ver = processVersion($versioninfo->{latestVersion}->{version},2,2);
+	if ($ver) {
+		cPrint("Maj: $ver->{major} Min: $ver->{minor} ($versioninfo->{latestVersion}->{version})",'green');
+		$release->{$ver->{major}} = {minor => $ver->{minor}, release => $ver->{release}};
+	} else {
+		say "Unable to pull releases for whmcs";
+		$ERROR = 1;
+		return 0;
+	}
+
+	foreach my $lts (@{$versioninfo->{ltsReleases}}) {
+		my $ver = processVersion($lts->{version},2,2);
+		if ($ver) {
+			cPrint("Maj: $ver->{major} Min: $ver->{minor} ($versioninfo->{latestVersion}->{version})",'green');
+			$release->{$ver->{major}} = {minor => $ver->{minor}, release => $ver->{release}};
+	        } else {
+        	        say "Unable to pull releases for whmcs";
+                	$ERROR = 1;
+	                return 0;
+        	}
+	};
+	$SIGNATURES->{whmcs}->{releases} = $release;
+	
+	my $eols = {
+		'all' => 'Due to potential security concerns, it is recommended to only run this on a server dedicated to WHMCS.'
+	};
+	foreach my $ver (keys %{$versioninfo->{patchSets}}) {
+		$eols->{$ver} = "End of Life Date: ". $versioninfo->{patchSets}->{$ver}->{eolDate};
+	}
+	$SIGNATURES->{whmcs}->{notices} = $eols;
+}
+
