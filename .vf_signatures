@@ -129,13 +129,31 @@ $SIGNATURES = {
       'all' => 'e107 is currently stuck between old legacy software and a beta release.'
     },
     'releases' => {
-      '1' => {
+      '1.0' => {
         'minor' => '1.0',
         'release' => '1.0.4'
       },
-      '2' => {
-        'minor' => '2.0',
-        'release' => '2.0.0'
+      '2.1' => {
+        'minor' => '2.1',
+        'release' => '2.1.5'
+      }
+    },
+    'update' => {
+      'current' => {
+        'base' => '#latest li a',
+        'major' => 2,
+        'minor' => 2,
+        'regex' => '([0-9]*\\.[0-9.]*)[_ ]',
+        'single' => 1,
+        'url' => 'http://e107.org/get-started'
+      },
+      'legacy' => {
+        'base' => '#old li a',
+        'major' => 2,
+        'minor' => 2,
+        'regex' => '([0-9]*\\.[0-9.]*)',
+        'single' => 1,
+        'url' => 'http://e107.org/get-started'
       }
     },
     'versions' => [
