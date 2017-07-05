@@ -93,7 +93,7 @@ $SIGNATURES = {
       },
       '8' => {
         'minor' => '8',
-        'release' => '8.3.4'
+        'release' => '8.3.5'
       }
     },
     'update' => {
@@ -217,7 +217,7 @@ $SIGNATURES = {
     'releases' => {
       '3' => {
         'minor' => '3.7',
-        'release' => '3.7.2'
+        'release' => '3.7.3'
       }
     },
     'update' => {
@@ -244,6 +244,10 @@ $SIGNATURES = {
         'file' => 'libraries/cms/version/version.php',
         'multiline' => 1,
         'regex' => '(?:\\$RELEASE|\\$DEV_LEVEL) = \'(.*)\''
+      },
+      {
+        'file' => 'administrator/manifests/files/joomla.xml',
+        'regex' => '<version>(.*)</version>'
       }
     ]
   },
@@ -555,11 +559,15 @@ $SIGNATURES = {
     'releases' => {
       '3.2' => {
         'minor' => '3.2',
-        'release' => '3.2.6'
+        'release' => '3.2.7'
       },
       '3.3' => {
         'minor' => '3.3',
-        'release' => '3.3.3'
+        'release' => '3.3.4'
+      },
+      '3.4' => {
+        'minor' => '3.4',
+        'release' => '3.4.0'
       }
     },
     'update' => {
@@ -740,7 +748,7 @@ $SIGNATURES = {
       },
       '5' => {
         'minor' => '5.3',
-        'release' => '5.3.3.0'
+        'release' => '5.3.3.1'
       }
     },
     'update' => {
