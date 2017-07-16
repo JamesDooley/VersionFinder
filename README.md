@@ -17,18 +17,18 @@ e107                      1.0.4           1
 Joomla 1.5.x              1.5.999         1.5
 Joomla 1.7.x              1.7.999         1.7
 Joomla 2.5.x              2.5.28          2.5
-Joomla 3.4.x              3.4.0           3.4
+Joomla 3.7.x              3.7.3           3.7
 Mambo                     4.6.999         4.6
 MediaWiki                 1.24.1          1.24
 OpenX / Revive            3.0.6           3.0
 osCommerce 2.x            2.3.4           2.4
 osCommerce 3.x (Devel)    3.0.2           3.0
-phpBB3                    3.1.3           3.1
+phpBB3                    3.2.1           3.2
 Piwigo                    2.7.4           2.7
 Redmine                   2.6.3           2.6
 vBulletin 4.x             4.2.2           4.2
 WHMCS                     5.3.12          5.3
-WordPress                 4.1.1           4.1
+WordPress                 4.8             4.8
 X-Cart 4.x                4.6.6           4.6
 X-Cart 5.x                5.1.11          5.1
 XOOPS                     2.5.7.1         2.5
