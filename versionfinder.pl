@@ -382,10 +382,12 @@ sub getUserDir {
 	if (ref $user) {
 		print "getUserDir called with a reference:" . Dumper($user);
 		return;
-	}
+	};
+	_DEBUG("getUserDir called with: " . Dumper($user));
 	if (-d "/var/cpanel") {
 		my $userpasswd;
 		if (qx(which getent)) {
+			_DEBUG("Running: getent passwd $user");
 			$userpasswd = qx(getent passwd $user);
 			chomp $userpasswd;
 		} else {
