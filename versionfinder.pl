@@ -25,7 +25,7 @@ our $RESULTS;
 
 #Automated Updates
 our $REPO = "https://raw.githubusercontent.com/JamesDooley/VersionFinder/master";
-our $UpdateCheckTime = 86400; # 24 hours
+our $UpdateCheckTime = 43200; # 12 hours
 
 our @OARGV = @ARGV;
 
@@ -647,6 +647,7 @@ sub GenSigFileList {
 }
 
 sub printSignatures {
+	require "$RealBin/.vf_signatures" unless ($SIGNATURES);
 	printf $resultformat, "Signature Name", "Minor Release", "Current Release";
 	foreach my $signame (sort {$a cmp $b} keys %$SIGNATURES) {
 		my $signature = $SIGNATURES->{$signame};
@@ -664,8 +665,6 @@ unless (-e "$RealBin/.vf_signatures") {
 	updateFile(".vf_signatures");
 	die "Signatures file is not found and could not be downloaded, please manually install from the github repo." unless (-e "$RealBin/.vf_signatures");
 }
-
-require "$RealBin/.vf_signatures";
 
 our @scandirs;
 
@@ -766,6 +765,8 @@ unless (@scandirs) {
 
 die "Unable to find any directories to scan" unless (@scandirs);
 checkUpdate;
+
+require "$RealBin/.vf_signatures";
 
 GenSigFileList;
 
