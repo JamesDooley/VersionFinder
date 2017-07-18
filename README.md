@@ -6,33 +6,50 @@ VersionFinder is a script that has the ability to scan multiple websites, normal
 Current Signatures
 =============
 
+This list is not automatically updated and may show outdated versions, for the latest signatures run versionfinder --signatures:
 ```
-Signature Name            Current Ver     Major Ver
-PHPMailer                 5.2.9           5.2
-CRE Loaded6               6.999           6
-CRE Loaded7               7.2.4.2         7.2
-Drupal 6.x                6.34            6
-Drupal 7.x                7.34            7
-e107                      1.0.4           1
-Joomla 1.5.x              1.5.999         1.5
-Joomla 1.7.x              1.7.999         1.7
-Joomla 2.5.x              2.5.28          2.5
-Joomla 3.7.x              3.7.3           3.7
-Mambo                     4.6.999         4.6
-MediaWiki                 1.24.1          1.24
-OpenX / Revive            3.0.6           3.0
-osCommerce 2.x            2.3.4           2.4
-osCommerce 3.x (Devel)    3.0.2           3.0
-phpBB3                    3.2.1           3.2
-Piwigo                    2.7.4           2.7
-Redmine                   2.6.3           2.6
-vBulletin 4.x             4.2.2           4.2
-WHMCS                     5.3.12          5.3
+Signature Name            Minor Release   Current Release
+PHPMailer                 5.2             5.2.23
+CRE Loaded                7.003           7.003.4.2
+Drupal                    7               7.56
+Drupal                    8               8.3.5
+e107                      1.0             1.0.4
+e107                      2.1             2.1.5
+ - e107 is currently stuck between old legacy software and a beta release.
+Grav                      1               1.3.0
+Joomla!                   3.7             3.7.3
+Magento                   1.9             1.9.3.4
+Magento                   2.1             2.1.7
+Magento                   2.2             2.2.0
+Mambo                     4.6             4.6.5
+ - The Mambo project has been completely abandoned, there will be no future updates.
+MediaWiki                 1.27            1.27.3
+MediaWiki                 1.28            1.28.2
+MediaWiki                 1.29            1.29.0
+MODx                      1.2             1.2.1
+MODx                      2.5             2.5.7
+osCommerce                2.3             2.3.4
+osCommerce                3.0             3.0.2
+phpBB3                    3.2             3.2.1
+Piwigo                    2.9             2.9.1
+Redmine                   3.2             3.2.7
+Redmine                   3.3             3.3.4
+Redmine                   3.4             3.4.2
+OpenX / Revive            4.0             4.0.2
+vBulletin                 5.3             5.3.1
+WHMCS                     7.0             7.0.3
+ - End of Life Date: 31st October 2017
+WHMCS                     7.1             7.1.2
+ - End of Life Date: 31st December 2017
+WHMCS                     7.2             7.2.3
+ - End of Life Date: 31st May 2018
+ - Due to potential security concerns, it is recommended to only run this on a server dedicated to WHMCS.
+WordPress                 3.9             3.9.19
 WordPress                 4.8             4.8
-X-Cart 4.x                4.6.6           4.6
-X-Cart 5.x                5.1.11          5.1
-XOOPS                     2.5.7.1         2.5
-ZenCart                   1.5.4           1.5
+X-Cart                    4.7             4.7.8
+X-Cart                    5.3             5.3.3.1
+XOOPS                     2.5             2.5.8
+ZenCart                   1.5             1.5.5
 ```
 
 Usage
@@ -40,34 +57,46 @@ Usage
 
 
 ```
-Usage: /root/bin/versionfinder [OPTIONS] [--user usernames] [--directory directories]
+Usage: ./versionfinder.pl [OPTIONS] [--user usernames] [--directory directories]
 
-Scans server for known CMS versions and reports what is found
+Scans server for known CMS versions and reports what is found.
 
-	OPTIONS:
-	
-		--outdated
-			Only prints outdated CMS installs.
-			
-		--signatures
-			Prints the current signature versions and exits.
-			
-		--suspended
-			Also scans cPanel's suspended accounts.
-			
-		--update
-			Forces an update of the script and signatures file.
-			
-	Adding Directories Manually:
-	
-		--user <usernames>
-			Given a space seperated list, will scan the homedir for each linux user.
-			
-		--directory <directories>
-			Given a space seperated list, will scan each directory.
-		
+    OPTIONS:
+    
+        --outdated
+            Only prints outdated CMS installs.
+            
+        --signatures
+            Prints the current signature versions and exits.
+            
+        --suspended
+            Also scans cPanel's suspended accounts.
+        
+        --report <email>
+            Sends a report to a specific email or list of email addresses.
+            
+        --noemptyreport
+            Does not send a report if no results are returned.
+        
+        --update
+            Forces an update of the script and signatures file.
+            
+        --grip [<email>]
+            Sends a list and count of all version numbers.
+            This will help show the distribution of installed CMS' on a system.
+            By default this sends the grip list to james@jamesdooley.us, but can be changed by providing an email address.
+            The only identifiable information in the report is the hostname.
+            
+    Adding Directories Manually:
+    
+        --user <usernames>
+            Given a space separated list, will scan the homedir for each linux user.
+            
+        --directory <directories>
+            Given a space separated list, will scan each directory.
+        
 If --user or --directory options are not set, will attempt to find users for cPanel and Plesk.
-On systems without cPanel or Plesk, will attempt to scan /home and /var/www/html
+On systems without cPanel or Plesk, will attempt to scan /home and /var/www/html.
 ```
 
 Quick installation

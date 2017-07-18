@@ -359,17 +359,17 @@ Scans server for known CMS versions and reports what is found.
 			
 		--grip [<email>]
 			Sends a list and count of all version numbers.
-			This will help show the distributation of installed CMS' on a system.
+			This will help show the distribution of installed CMS' on a system.
 			By default this sends the grip list to james\@jamesdooley.us, but can be changed by providing an email address.
 			The only identifiable information in the report is the hostname.
 			
 	Adding Directories Manually:
 	
 		--user <usernames>
-			Given a space seperated list, will scan the homedir for each linux user.
+			Given a space separated list, will scan the homedir for each linux user.
 			
 		--directory <directories>
-			Given a space seperated list, will scan each directory.
+			Given a space separated list, will scan each directory.
 		
 If --user or --directory options are not set, will attempt to find users for cPanel and Plesk.
 On systems without cPanel or Plesk, will attempt to scan /home and /var/www/html.
