@@ -164,7 +164,7 @@ sub checkcms {
 			_DEBUG("Attempting to pull version using subroutine");
 			$ver = &$version->{sub}($verfile);
 		} elsif ($version->{flatfile}) {
-			_DEBUG("Attempting to pull vresion using flat file");
+			_DEBUG("Attempting to pull version using flat file");
 			my $versionfile = do{local $/ = undef; open my $fh, "<", $verfile; <$fh>;};
 			my @matches = ($versionfile =~ m/^(.*)$/g);
 			if (scalar @matches > 2) {
@@ -379,6 +379,10 @@ exit
 }
 sub getUserDir {
 	my ($user) = @_;
+	if (ref $user) {
+		print "getUserDir called with a reference:" . Dumper($user);
+		return;
+	}
 	if (-d "/var/cpanel") {
 		my $userpasswd;
 		if (qx(which getent)) {
