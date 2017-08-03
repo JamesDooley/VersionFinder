@@ -710,7 +710,7 @@ $SIGNATURES = {
       },
       '4' => {
         'minor' => '4.8',
-        'release' => '4.8'
+        'release' => '4.8.1'
       }
     },
     'update' => {
