@@ -45,7 +45,7 @@ WHMCS                     7.2             7.2.3
  - End of Life Date: 31st May 2018
  - Due to potential security concerns, it is recommended to only run this on a server dedicated to WHMCS.
 WordPress                 3.9             3.9.19
-WordPress                 4.8             4.8
+WordPress                 4.8.1           4.8.1
 X-Cart                    4.7             4.7.8
 X-Cart                    5.3             5.3.3.1
 XOOPS                     2.5             2.5.8
