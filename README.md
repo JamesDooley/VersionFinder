@@ -17,7 +17,7 @@ e107                      1.0             1.0.4
 e107                      2.1             2.1.5
  - e107 is currently stuck between old legacy software and a beta release.
 Grav                      1               1.3.0
-Joomla!                   3.7             3.7.3
+Joomla!                   3.7             3.7.5
 Magento                   1.9             1.9.3.4
 Magento                   2.1             2.1.7
 Magento                   2.2             2.2.0
