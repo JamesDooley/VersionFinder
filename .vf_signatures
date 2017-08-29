@@ -9,9 +9,9 @@ $SIGNATURES = {
     ],
     'name' => 'PHPMailer',
     'releases' => {
-      '5' => {
-        'minor' => '5.2',
-        'release' => '5.2.24'
+      '6' => {
+        'minor' => '6.0',
+        'release' => '6.0.0'
       }
     },
     'update' => {
