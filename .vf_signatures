@@ -216,8 +216,8 @@ $SIGNATURES = {
     'name' => 'Joomla!',
     'releases' => {
       '3' => {
-        'minor' => '3.7',
-        'release' => '3.7.5'
+        'minor' => '3.8',
+        'release' => '3.8.0'
       }
     },
     'update' => {
@@ -262,7 +262,7 @@ $SIGNATURES = {
     'releases' => {
       '1.9' => {
         'minor' => '1.9',
-        'release' => '1.9.3.5'
+        'release' => '1.9.3.6'
       },
       '2.1' => {
         'minor' => '2.1',
@@ -356,10 +356,10 @@ $SIGNATURES = {
     },
     'update' => {
       'current' => {
-        'base' => '.ambox-notice span',
+        'base' => 'table.plainlinks li',
         'major' => 2,
         'minor' => 2,
-        'regex' => '^MediaWiki ([0-9.]*).*$',
+        'regex' => 'MediaWiki ([0-9.]*).*$',
         'url' => 'https://www.mediawiki.org/wiki/Download'
       }
     },
@@ -706,11 +706,11 @@ $SIGNATURES = {
     'releases' => {
       '3' => {
         'minor' => '3.9',
-        'release' => '3.9.19'
+        'release' => '3.9.20'
       },
       '4' => {
         'minor' => '4.8',
-        'release' => '4.8.1'
+        'release' => '4.8.2'
       }
     },
     'update' => {
@@ -752,7 +752,7 @@ $SIGNATURES = {
       },
       '5' => {
         'minor' => '5.3',
-        'release' => '5.3.3.3'
+        'release' => '5.3.3.4'
       }
     },
     'update' => {
