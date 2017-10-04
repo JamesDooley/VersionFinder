@@ -344,20 +344,21 @@ sub whmcs_json {
 		$ERROR = 1;
 		return 0;
 	}
-
-	foreach my $lts (@{$versioninfo->{ltsReleases}}) {
-		my $ver = processVersion($lts->{version},2,2);
-		if ($ver) {
-			cPrint("Maj: $ver->{major} Min: $ver->{minor} ($versioninfo->{latestVersion}->{version})",'green');
-			$release->{$ver->{major}} = {minor => $ver->{minor}, release => $ver->{release}};
-	        } else {
-        	        say "Unable to pull releases for whmcs";
-                	$ERROR = 1;
-	                return 0;
-        	}
+	if ($versioninfo->{ltsReleases} && ref $versioninfo->{ltsReleases} eq 'ARRAY' ) {
+		foreach my $lts (@{$versioninfo->{ltsReleases}}) {
+			my $ver = processVersion($lts->{version},2,2);
+			if ($ver) {
+				cPrint("Maj: $ver->{major} Min: $ver->{minor} ($versioninfo->{latestVersion}->{version})",'green');
+				$release->{$ver->{major}} = {minor => $ver->{minor}, release => $ver->{release}};
+		        } else {
+        		        say "Unable to pull releases for whmcs";
+                		$ERROR = 1;
+		                return 0;
+        		}
+		};
 	};
 	$SIGNATURES->{whmcs}->{releases} = $release;
-	
+
 	my $eols = {
 		'all' => 'Due to potential security concerns, it is recommended to only run this on a server dedicated to WHMCS.'
 	};
