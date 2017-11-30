@@ -9,9 +9,9 @@ $SIGNATURES = {
     ],
     'name' => 'PHPMailer',
     'releases' => {
-      '5' => {
-        'minor' => '5.2',
-        'release' => '5.2.26'
+      '6' => {
+        'minor' => '6.0',
+        'release' => '6.0.2'
       }
     },
     'update' => {
@@ -347,7 +347,7 @@ $SIGNATURES = {
       },
       '1.28' => {
         'minor' => '1.28',
-        'release' => '1.28.3'
+        'release' => '1.28.2'
       },
       '1.29' => {
         'minor' => '1.29',
@@ -710,11 +710,11 @@ $SIGNATURES = {
     'releases' => {
       '3' => {
         'minor' => '3.9',
-        'release' => '3.9.21'
+        'release' => '3.9.22'
       },
       '4' => {
         'minor' => '4.9',
-        'release' => '4.9'
+        'release' => '4.9.1'
       }
     },
     'update' => {
@@ -756,7 +756,7 @@ $SIGNATURES = {
       },
       '5' => {
         'minor' => '5.3',
-        'release' => '5.3.4.3'
+        'release' => '5.3.4.4'
       }
     },
     'update' => {
