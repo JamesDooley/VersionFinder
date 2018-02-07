@@ -537,10 +537,10 @@ $SIGNATURES = {
     },
     'update' => {
       'current' => {
-        'base' => '#downloadBlock a',
+        'base' => '.pwg-release-date',
         'major' => 1,
         'minor' => 2,
-        'regex' => 'Download Piwigo ([0-9.]*)',
+        'regex' => 'v([0-9.]*),',
         'single' => 1,
         'url' => 'http://piwigo.org/'
       }
@@ -713,7 +713,7 @@ $SIGNATURES = {
       },
       '4' => {
         'minor' => '4.9',
-        'release' => '4.9.3'
+        'release' => '4.9.4'
       }
     },
     'update' => {
