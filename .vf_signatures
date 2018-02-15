@@ -706,6 +706,9 @@ $SIGNATURES = {
       }
     ],
     'name' => 'WordPress',
+    'notices' => {
+      '4.9.3' => 'Automated updates are broken with WordPress 4.9.3, you will need to manually update'
+    },
     'releases' => {
       '3' => {
         'minor' => '3.9',

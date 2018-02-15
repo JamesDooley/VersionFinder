@@ -210,7 +210,18 @@ sub checkcms {
 			_DEBUG("Matched Major $major");
 			$matched = 1;
 			my $release = $signature->{releases}->{$major};
-			push(@{$result->{notice}}, $signature->{notices}->{$major}) if ($signature->{notices}->{$major});
+			
+			# Check all parts of the version for a matching notice
+			if ($signature->{notices}) {
+				my @verpart = split('\.',$ver);
+				while (@verpart) {
+					my $nver = join('.',@verpart);
+					my $notice = $signature->{notices}->{$nver} || '';
+					_DEBUG("Version Notice - $nver: ".($notice || 'None'));
+					push(@{$result->{notice}}, $notice) if ($notice);
+					pop @verpart;
+				}
+			}
 			if ($release->{eol}) {
 				_DEBUG("$signame found matching EOL product in " . escdir($directory));
 				push(@{$HITS->{eol}}, $result);
