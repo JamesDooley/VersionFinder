@@ -124,9 +124,7 @@ $SIGNATURES = {
     ],
     'name' => 'e107',
     'notices' => {
-      '1' => 'This version of e107 has not been updated since March 14, 2013.',
-      '2' => 'This is a beta release and may not be stable.',
-      'all' => 'e107 is currently stuck between old legacy software and a beta release.'
+      '1' => 'This version of e107 has not been updated since March 14, 2013.'
     },
     'releases' => {
       '1.0' => {
