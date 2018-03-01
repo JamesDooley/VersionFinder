@@ -262,15 +262,15 @@ $SIGNATURES = {
     'releases' => {
       '1.9' => {
         'minor' => '1.9',
-        'release' => '1.9.3.7'
+        'release' => '1.9.3.8'
       },
       '2.0' => {
         'minor' => '2.0',
-        'release' => '2.0.17'
+        'release' => '2.0.18'
       },
       '2.1' => {
         'minor' => '2.1',
-        'release' => '2.1.11'
+        'release' => '2.1.12'
       }
     },
     'update' => {
