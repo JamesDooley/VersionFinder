@@ -204,6 +204,28 @@ sub checkcms {
 	};
 	push(@{$result->{notice}}, $signature->{notices}->{all}) if ($signature->{notices}->{all});
 	$matched = "";
+    if ($signature->{CVE}) {
+        foreach my $id (keys %{$signature->{CVE}}) {
+            my $cve = $signature->{CVE}->{$id};
+            foreach my $version (@{$cve->{versions}}) {
+                _DEBUG("Checking CVE $id with $version ($ver)");
+                if ($version =~ /^(.*) - (.*)$/) {
+                    my $min = $1;
+                    my $max = $2;
+                    _DEBUG("Min: $min (".vercomp($ver, $min).") -  Max: $max (".vercomp($ver,$max).")");
+                    
+                    next if (vercomp($ver, $min) == 2); # Installed version is less that minimum 
+                    next if (vercomp($ver, $max) == 1); # Installed version is greater than maximum
+                    _DEBUG("Appears to be vulnerable");
+                    if (! $HITS->{CVE}->{$id}) {
+                        $HITS->{CVE}->{$id} = $cve;
+                    }
+                    push(@{$HITS->{CVE}->{$id}->{found}}, $result);
+                    next;
+                }
+            }
+        }
+    }
 	foreach my $major (keys %{$signature->{releases}}) {
 		_DEBUG("Checking $ver against $major");
 		if ($ver =~ /^$major/) {
@@ -222,11 +244,12 @@ sub checkcms {
 					pop @verpart;
 				}
 			}
-			if ($release->{eol}) {
-				_DEBUG("$signame found matching EOL product in " . escdir($directory));
-				push(@{$HITS->{eol}}, $result);
-				return
-			}
+			
+            if ($release->{eol}) {
+                _DEBUG("$signame found matching EOL product in " . escdir($directory));
+                push(@{$HITS->{eol}}, $result);
+                return
+            }
 			_DEBUG("Comp: $ver <=> $release->{release}");
 			my $vercomp = vercomp($ver, $release->{release});
 			_DEBUG(" - : $vercomp");
@@ -507,6 +530,29 @@ sub generateResults {
 			reportPrint($hit, 'yellow');
 		}
 		reportPrint("These accounts were not scanned, to scan them include the --suspended flag.",'',"%s\n\n");
+	}
+	if ($HITS->{CVE}) {
+		$display = 1;
+		foreach my $id (keys %{$HITS->{CVE}}) {
+			my $cve = $HITS->{CVE}->{$id};
+			
+			my $header = "CVE: $id";
+			if ($cve->{level}) {
+				$header .= " ($cve->{level})";
+			};
+			reportPrint("==== $header ====",'',"\n%s\n");
+			if ($cve->{url}) {
+				reportPrint("Url: $cve->{url}")
+			}
+			if ($cve->{description}) {
+				reportPrint($cve->{description}."");
+			}
+			foreach my $hit (@{$cve->{found}}) {
+				_DEBUG(Dumper($hit));
+				reportPrint($hit, 'red');
+			}
+			reportPrint("EOL software may never receive an official patch to fix this CVE.",'',"%s\n\n");
+		}
 	}
 	unless ($display) {
 		if ($OUTDATED && $HITS->{current}) {

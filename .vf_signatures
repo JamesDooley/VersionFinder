@@ -11,7 +11,7 @@ $SIGNATURES = {
     'releases' => {
       '6' => {
         'minor' => '6.0',
-        'release' => '6.0.4'
+        'release' => '6.0.5'
       }
     },
     'update' => {
@@ -72,6 +72,24 @@ $SIGNATURES = {
     ]
   },
   'drupal' => {
+    'CVE' => {
+      'CVE-2018-7600' => {
+        'description' => 'Highly Critical - Remote Code Execution',
+        'level' => 'critical',
+        'url' => 'https://www.drupal.org/sa-core-2018-002',
+        'versions' => [
+          '1 - 1.999',
+          '2 - 2.999',
+          '3 - 3.999',
+          '5 - 4.999',
+          '6 - 6.999',
+          '7 - 7.57',
+          '8.3.0 - 8.3.8',
+          '8.4.0 - 8.4.5',
+          '8.5.0 - 8.5.0'
+        ]
+      }
+    },
     'fingerprints' => [
       {
         'file' => 'authorize.php',
@@ -89,11 +107,11 @@ $SIGNATURES = {
     'releases' => {
       '7' => {
         'minor' => '7',
-        'release' => '7.57'
+        'release' => '7.58'
       },
       '8' => {
         'minor' => '8',
-        'release' => '8.5.0'
+        'release' => '8.5.1'
       }
     },
     'update' => {
@@ -113,6 +131,10 @@ $SIGNATURES = {
       {
         'file' => 'CHANGELOG.txt',
         'regex' => 'Drupal (.*),'
+      },
+      {
+        'file' => 'lib/Drupal.php',
+        'regex' => 'const VERSION = \'(.*)\';'
       }
     ]
   },
