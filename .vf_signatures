@@ -409,7 +409,7 @@ $SIGNATURES = {
       },
       '2.6' => {
         'minor' => '2.6',
-        'release' => '2.6.1'
+        'release' => '2.6.2'
       }
     },
     'update' => {
@@ -652,7 +652,7 @@ $SIGNATURES = {
     'releases' => {
       '5' => {
         'minor' => '5.4',
-        'release' => '5.4.0'
+        'release' => '5.4.1'
       }
     },
     'update' => {
@@ -688,10 +688,6 @@ $SIGNATURES = {
       'all' => 'Due to potential security concerns, it is recommended to only run this on a server dedicated to WHMCS.'
     },
     'releases' => {
-      '7.1' => {
-        'minor' => '7.1',
-        'release' => '7.1.2'
-      },
       '7.2' => {
         'minor' => '7.2',
         'release' => '7.2.3'
@@ -703,6 +699,10 @@ $SIGNATURES = {
       '7.4' => {
         'minor' => '7.4',
         'release' => '7.4.2'
+      },
+      '7.5' => {
+        'minor' => '7.5',
+        'release' => '7.5.0'
       }
     },
     'update' => {
@@ -778,7 +778,7 @@ $SIGNATURES = {
       },
       '5' => {
         'minor' => '5.3',
-        'release' => '5.3.4.5'
+        'release' => '5.3.5.0'
       }
     },
     'update' => {
