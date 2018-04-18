@@ -231,6 +231,10 @@ $SIGNATURES = {
       {
         'file' => 'libraries/cms/version/version.php',
         'signature' => 'Joomla.(Libraries|Site)'
+      },
+      {
+      	'file' => 'includes/defines.php',
+      	'signature' => 'Joomla.Site'
       }
     ],
     'name' => 'Joomla!',
