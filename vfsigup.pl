@@ -42,7 +42,7 @@ our $COLORS = {
 
 our $ua = Mojo::UserAgent->new();
 
-$ua->transactor->name("VersionFinder");
+$ua->transactor->name("VersionFinder https://github.com/JamesDooley/VersionFinder");
 $ua->max_redirects(5);
 
 our ($SIGNATURES, @SIGLIST, $SIGFILE, $UPDATE, $CHECK, $ERROR, $NOERROR);
