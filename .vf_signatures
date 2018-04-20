@@ -111,7 +111,7 @@ $SIGNATURES = {
       },
       '8' => {
         'minor' => '8',
-        'release' => '8.5.1'
+        'release' => '8.5.2'
       }
     },
     'update' => {
@@ -233,8 +233,8 @@ $SIGNATURES = {
         'signature' => 'Joomla.(Libraries|Site)'
       },
       {
-      	'file' => 'includes/defines.php',
-      	'signature' => 'Joomla.Site'
+        'file' => 'includes/defines.php',
+        'signature' => 'Joomla.Site'
       }
     ],
     'name' => 'Joomla!',
@@ -413,7 +413,7 @@ $SIGNATURES = {
       },
       '2.6' => {
         'minor' => '2.6',
-        'release' => '2.6.2'
+        'release' => '2.6.3'
       }
     },
     'update' => {
