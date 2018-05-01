@@ -107,11 +107,11 @@ $SIGNATURES = {
     'releases' => {
       '7' => {
         'minor' => '7',
-        'release' => '7.58'
+        'release' => '7.59'
       },
       '8' => {
         'minor' => '8',
-        'release' => '8.5.2'
+        'release' => '8.5.3'
       }
     },
     'update' => {
@@ -783,7 +783,7 @@ $SIGNATURES = {
       },
       '5' => {
         'minor' => '5.3',
-        'release' => '5.3.5.1'
+        'release' => '5.3.5.2'
       }
     },
     'update' => {
