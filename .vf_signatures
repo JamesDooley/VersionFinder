@@ -656,7 +656,7 @@ $SIGNATURES = {
     'releases' => {
       '5' => {
         'minor' => '5.4',
-        'release' => '5.4.1'
+        'release' => '5.4.2'
       }
     },
     'update' => {
@@ -682,6 +682,9 @@ $SIGNATURES = {
       {
         'file' => 'includes/classes/WHMCS/Admin.php',
         'signature' => 'WHMCS'
+      },
+      {
+        'file' => 'vendor/whmcs/whmcs-foundation/lib/Admin.php'
       }
     ],
     'name' => 'WHMCS',
