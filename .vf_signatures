@@ -111,7 +111,7 @@ $SIGNATURES = {
       },
       '8' => {
         'minor' => '8',
-        'release' => '8.5.3'
+        'release' => '8.5.4'
       }
     },
     'update' => {
@@ -369,13 +369,13 @@ $SIGNATURES = {
         'minor' => '1.27',
         'release' => '1.27.4'
       },
-      '1.29' => {
-        'minor' => '1.29',
-        'release' => '1.29.2'
-      },
       '1.30' => {
         'minor' => '1.30',
         'release' => '1.30.0'
+      },
+      '1.31' => {
+        'minor' => '1.31',
+        'release' => '1.31.0'
       }
     },
     'update' => {
@@ -413,7 +413,7 @@ $SIGNATURES = {
       },
       '2.6' => {
         'minor' => '2.6',
-        'release' => '2.6.3'
+        'release' => '2.6.4'
       }
     },
     'update' => {
@@ -591,11 +591,11 @@ $SIGNATURES = {
       },
       '3.3' => {
         'minor' => '3.3',
-        'release' => '3.3.7'
+        'release' => '3.3.8'
       },
       '3.4' => {
         'minor' => '3.4',
-        'release' => '3.4.5'
+        'release' => '3.4.6'
       }
     },
     'update' => {
