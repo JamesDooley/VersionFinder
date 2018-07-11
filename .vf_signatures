@@ -756,7 +756,7 @@ $SIGNATURES = {
         'url' => 'https://api.wordpress.org/core/version-check/1.7/?version=3.9.8'
       },
       'current' => {
-        'base' => '.download-meta .download-button strong',
+        'base' => '.download .button span',
         'major' => 1,
         'minor' => 2,
         'regex' => 'Download(?:\\s|&nbsp;)WordPress(?:\\s|&nbsp;)([0-9.]*)',
@@ -786,7 +786,7 @@ $SIGNATURES = {
       },
       '5' => {
         'minor' => '5.3',
-        'release' => '5.3.5.4'
+        'release' => '5.3.5.5'
       }
     },
     'update' => {
