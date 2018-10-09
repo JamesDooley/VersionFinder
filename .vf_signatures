@@ -16,10 +16,10 @@ $SIGNATURES = {
     },
     'update' => {
       'current' => {
-        'base' => '.release-title a',
+        'base' => '.release.label-latest a span',
         'major' => 1,
         'minor' => 2,
-        'regex' => '^PHPMailer ([0-9.]*)$',
+        'regex' => '([0-9.]*)$',
         'single' => 1,
         'url' => 'https://github.com/PHPMailer/PHPMailer/releases/latest'
       }
@@ -51,7 +51,7 @@ $SIGNATURES = {
     },
     'update' => {
       'current' => {
-        'base' => '.release-title a',
+        'base' => '.release.label-latest a span',
         'major' => 1,
         'minor' => 2,
         'regex' => '([0-9]*\\.[0-9.]*)',
@@ -155,7 +155,7 @@ $SIGNATURES = {
       },
       '2.1' => {
         'minor' => '2.1',
-        'release' => '2.1.8'
+        'release' => '2.1.9'
       }
     },
     'update' => {
@@ -241,7 +241,7 @@ $SIGNATURES = {
     'releases' => {
       '3' => {
         'minor' => '3.8',
-        'release' => '3.8.11'
+        'release' => '3.8.12'
       }
     },
     'update' => {
@@ -286,7 +286,7 @@ $SIGNATURES = {
     'releases' => {
       '1.9' => {
         'minor' => '1.9',
-        'release' => '1.9.3.9'
+        'release' => '1.9.3.10'
       },
       '2.0' => {
         'minor' => '2.0',
@@ -294,7 +294,11 @@ $SIGNATURES = {
       },
       '2.1' => {
         'minor' => '2.1',
-        'release' => '2.1.14'
+        'release' => '2.1.15'
+      },
+      '2.2' => {
+        'minor' => '2.2',
+        'release' => '2.2.6'
       }
     },
     'update' => {
@@ -307,7 +311,7 @@ $SIGNATURES = {
         'url' => 'http://devdocs.magento.com/guides/m1x/ce19-ee114/ce1.9_release-notes.html'
       },
       '2.0' => {
-        'base' => '.release-title a[href*=2.0]',
+        'base' => '.release a[href*=2.0] span',
         'major' => 2,
         'minor' => 2,
         'regex' => '([0-9]*\\.[0-9.]*)',
@@ -315,7 +319,15 @@ $SIGNATURES = {
         'url' => 'https://github.com/magento/magento2/releases'
       },
       '2.1' => {
-        'base' => '.release-title a[href*=2.1]',
+        'base' => '.release a[href*=2.1] span',
+        'major' => 2,
+        'minor' => 2,
+        'regex' => '([0-9]*\\.[0-9.]*)',
+        'single' => 1,
+        'url' => 'https://github.com/magento/magento2/releases'
+      },
+      '2.2' => {
+        'base' => '.release a[href*=2.2] span',
         'major' => 2,
         'minor' => 2,
         'regex' => '([0-9]*\\.[0-9.]*)',
@@ -367,15 +379,15 @@ $SIGNATURES = {
     'releases' => {
       '1.27' => {
         'minor' => '1.27',
-        'release' => '1.27.4'
+        'release' => '1.27.5'
       },
       '1.30' => {
         'minor' => '1.30',
-        'release' => '1.30.0'
+        'release' => '1.30.1'
       },
       '1.31' => {
         'minor' => '1.31',
-        'release' => '1.31.0'
+        'release' => '1.31.1'
       }
     },
     'update' => {
@@ -479,10 +491,10 @@ $SIGNATURES = {
         'url' => 'http://www.oscommerce.com/Products'
       },
       '3' => {
-        'base' => '.release-timeline-tags .commit a span',
+        'base' => '.release-timeline-tags .commit a',
         'major' => 1,
         'minor' => 2,
-        'regex' => '^v([0-9.]*).*$',
+        'regex' => 'v([0-9.]*)',
         'single' => 1,
         'url' => 'https://github.com/osCommerce/oscommerce/releases'
       }
@@ -516,7 +528,7 @@ $SIGNATURES = {
     'releases' => {
       '3.2' => {
         'minor' => '3.2',
-        'release' => '3.2.2'
+        'release' => '3.2.3'
       }
     },
     'update' => {
@@ -630,10 +642,10 @@ $SIGNATURES = {
     },
     'update' => {
       'current' => {
-        'base' => '#primary .entry_content h2',
+        'base' => '#primary .entry_content > a',
         'major' => 1,
         'minor' => 2,
-        'regex' => '^Revive.*version ([0-9.]+)',
+        'regex' => 'Revive.*v([0-9.]+)',
         'single' => 1,
         'url' => 'http://www.revive-adserver.com/download/'
       }
@@ -656,7 +668,7 @@ $SIGNATURES = {
     'releases' => {
       '5' => {
         'minor' => '5.4',
-        'release' => '5.4.3'
+        'release' => '5.4.4'
       }
     },
     'update' => {
@@ -692,6 +704,7 @@ $SIGNATURES = {
       '7.3' => 'End of Life Date: 31st October 2018',
       '7.4' => 'End of Life Date: 30th November 2018',
       '7.5' => 'End of Life Date: 30th April 2019',
+      '7.6' => 'End of Life Date: 31st July 2019',
       'all' => 'Due to potential security concerns, it is recommended to only run this on a server dedicated to WHMCS.'
     },
     'releases' => {
@@ -709,7 +722,7 @@ $SIGNATURES = {
       },
       '7.6' => {
         'minor' => '7.6',
-        'release' => '7.6.0'
+        'release' => '7.6.1'
       }
     },
     'update' => {
