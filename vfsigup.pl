@@ -206,7 +206,7 @@ sub processVersion {
 sub pullSingleVersion {
 	my ($url, $base, $verreg, $majcnt, $mincnt) = @_;
 	my $tx = $ua->get($url);
-	unless ($tx->success) {
+	if ($tx->error) {
 		cPrint("Unable to connect to $url","magenta");
 		$ERROR = 1;
 		return 0;
@@ -256,7 +256,7 @@ sub pullSingleVersion {
 sub pullMultipleVersions {
 	my ($url, $base, $verreg, $majcnt, $mincnt) = @_;
 	my $tx = $ua->get($url);
-	unless ($tx->success) {
+	if ($tx->error) {
 		cPrint("Unable to connect to $url","magenta");
 		$ERROR = 1;
 		return 0;
@@ -328,7 +328,7 @@ sub pullVersions {
 
 sub whmcs_json {
 	my $tx = $ua->get('https://download.whmcs.com/assets/scripts/get-downloads.php');
-	unless ($tx->success) {
+	if ($tx->error) {
                 cPrint("Unable to connect to https://download.whmcs.com/assets/scripts/get-downloads.php","magenta");
                 $ERROR = 1;
                 return 0;

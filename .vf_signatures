@@ -11,7 +11,7 @@ $SIGNATURES = {
     'releases' => {
       '6' => {
         'minor' => '6.0',
-        'release' => '6.0.5'
+        'release' => '6.0.6'
       }
     },
     'update' => {
@@ -107,11 +107,11 @@ $SIGNATURES = {
     'releases' => {
       '7' => {
         'minor' => '7',
-        'release' => '7.59'
+        'release' => '7.61'
       },
       '8' => {
         'minor' => '8',
-        'release' => '8.5.6'
+        'release' => '8.6.4'
       }
     },
     'update' => {
@@ -198,7 +198,7 @@ $SIGNATURES = {
     'releases' => {
       '1' => {
         'minor' => '1',
-        'release' => '1.5.3'
+        'release' => '1.5.6'
       }
     },
     'update' => {
@@ -240,8 +240,8 @@ $SIGNATURES = {
     'name' => 'Joomla!',
     'releases' => {
       '3' => {
-        'minor' => '3.8',
-        'release' => '3.8.13'
+        'minor' => '3.9',
+        'release' => '3.9.1'
       }
     },
     'update' => {
@@ -286,19 +286,19 @@ $SIGNATURES = {
     'releases' => {
       '1.9' => {
         'minor' => '1.9',
-        'release' => '1.9.3.10'
-      },
-      '2.0' => {
-        'minor' => '2.0',
-        'release' => '2.0.18'
+        'release' => '1.9.4.0'
       },
       '2.1' => {
         'minor' => '2.1',
-        'release' => '2.1.15'
+        'release' => '2.1.16'
       },
       '2.2' => {
         'minor' => '2.2',
-        'release' => '2.2.6'
+        'release' => '2.2.7'
+      },
+      '2.3' => {
+        'minor' => '2.3',
+        'release' => '2.3.0'
       }
     },
     'update' => {
@@ -310,14 +310,6 @@ $SIGNATURES = {
         'single' => 1,
         'url' => 'http://devdocs.magento.com/guides/m1x/ce19-ee114/ce1.9_release-notes.html'
       },
-      '2.0' => {
-        'base' => '.release a[href*=2.0] span',
-        'major' => 2,
-        'minor' => 2,
-        'regex' => '([0-9]*\\.[0-9.]*)',
-        'single' => 1,
-        'url' => 'https://github.com/magento/magento2/releases'
-      },
       '2.1' => {
         'base' => '.release a[href*=2.1] span',
         'major' => 2,
@@ -328,6 +320,14 @@ $SIGNATURES = {
       },
       '2.2' => {
         'base' => '.release a[href*=2.2] span',
+        'major' => 2,
+        'minor' => 2,
+        'regex' => '([0-9]*\\.[0-9.]*)',
+        'single' => 1,
+        'url' => 'https://github.com/magento/magento2/releases'
+      },
+      '2.3' => {
+        'base' => '.release a[href*=2.3] span',
         'major' => 2,
         'minor' => 2,
         'regex' => '([0-9]*\\.[0-9.]*)',
@@ -423,9 +423,9 @@ $SIGNATURES = {
         'minor' => '1.2',
         'release' => '1.2.1'
       },
-      '2.6' => {
-        'minor' => '2.6',
-        'release' => '2.6.5'
+      '2.7' => {
+        'minor' => '2.7',
+        'release' => '2.7.0'
       }
     },
     'update' => {
@@ -528,7 +528,7 @@ $SIGNATURES = {
     'releases' => {
       '3.2' => {
         'minor' => '3.2',
-        'release' => '3.2.3'
+        'release' => '3.2.4'
       }
     },
     'update' => {
@@ -597,17 +597,17 @@ $SIGNATURES = {
     ],
     'name' => 'Redmine',
     'releases' => {
-      '3.2' => {
-        'minor' => '3.2',
-        'release' => '3.2.9'
-      },
       '3.3' => {
         'minor' => '3.3',
-        'release' => '3.3.8'
+        'release' => '3.3.9'
       },
       '3.4' => {
         'minor' => '3.4',
-        'release' => '3.4.6'
+        'release' => '3.4.7'
+      },
+      '4.0' => {
+        'minor' => '4.0',
+        'release' => '4.0.0'
       }
     },
     'update' => {
@@ -642,7 +642,7 @@ $SIGNATURES = {
     },
     'update' => {
       'current' => {
-        'base' => '#primary .entry_content > a',
+        'base' => '#primary .entry_content > a[href$=".zip"]',
         'major' => 1,
         'minor' => 2,
         'regex' => 'Revive.*v([0-9.]+)',
@@ -668,7 +668,7 @@ $SIGNATURES = {
     'releases' => {
       '5' => {
         'minor' => '5.4',
-        'release' => '5.4.4'
+        'release' => '5.4.5'
       }
     },
     'update' => {
@@ -752,11 +752,11 @@ $SIGNATURES = {
     'releases' => {
       '3' => {
         'minor' => '3.9',
-        'release' => '3.9.25'
+        'release' => '3.9.26'
       },
-      '4' => {
-        'minor' => '4.9',
-        'release' => '4.9.8'
+      '5' => {
+        'minor' => '5.0',
+        'release' => '5.0.1'
       }
     },
     'update' => {
@@ -794,11 +794,11 @@ $SIGNATURES = {
     'releases' => {
       '4' => {
         'minor' => '4.7',
-        'release' => '4.7.9'
+        'release' => '4.7.10'
       },
       '5' => {
         'minor' => '5.3',
-        'release' => '5.3.5.5'
+        'release' => '5.3.6.0'
       }
     },
     'update' => {
@@ -870,7 +870,7 @@ $SIGNATURES = {
     'releases' => {
       '1' => {
         'minor' => '1.5',
-        'release' => '1.5.5'
+        'release' => '1.5.6'
       }
     },
     'update' => {
