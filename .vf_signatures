@@ -11,7 +11,7 @@ $SIGNATURES = {
     'releases' => {
       '6' => {
         'minor' => '6.0',
-        'release' => '6.0.6'
+        'release' => '6.0.7'
       }
     },
     'update' => {
