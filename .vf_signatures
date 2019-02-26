@@ -107,11 +107,11 @@ $SIGNATURES = {
     'releases' => {
       '7' => {
         'minor' => '7',
-        'release' => '7.63'
+        'release' => '7.64'
       },
       '8' => {
         'minor' => '8',
-        'release' => '8.6.7'
+        'release' => '8.6.10'
       }
     },
     'update' => {
@@ -198,7 +198,7 @@ $SIGNATURES = {
     'releases' => {
       '1' => {
         'minor' => '1',
-        'release' => '1.5.7'
+        'release' => '1.5.8'
       }
     },
     'update' => {
@@ -241,7 +241,7 @@ $SIGNATURES = {
     'releases' => {
       '3' => {
         'minor' => '3.9',
-        'release' => '3.9.2'
+        'release' => '3.9.3'
       }
     },
     'update' => {
@@ -421,7 +421,7 @@ $SIGNATURES = {
       },
       '2.7' => {
         'minor' => '2.7',
-        'release' => '2.7.0'
+        'release' => '2.7.1'
       }
     },
     'update' => {
@@ -595,11 +595,11 @@ $SIGNATURES = {
     'releases' => {
       '3.4' => {
         'minor' => '3.4',
-        'release' => '3.4.8'
+        'release' => '3.4.9'
       },
       '4.0' => {
         'minor' => '4.0',
-        'release' => '4.0.1'
+        'release' => '4.0.2'
       }
     },
     'update' => {
@@ -697,6 +697,7 @@ $SIGNATURES = {
       '7.4' => 'End of Life Date: 30th November 2018',
       '7.5' => 'End of Life Date: 30th April 2019',
       '7.6' => 'End of Life Date: 31st July 2019',
+      '7.7' => 'End of Life Date: 31st January 2020',
       'all' => 'Due to potential security concerns, it is recommended to only run this on a server dedicated to WHMCS.'
     },
     'releases' => {
@@ -710,7 +711,7 @@ $SIGNATURES = {
       },
       '7.7' => {
         'minor' => '7.7',
-        'release' => '7.7.0'
+        'release' => '7.7.1'
       }
     },
     'update' => {
@@ -743,8 +744,8 @@ $SIGNATURES = {
         'release' => '3.9.26'
       },
       '5' => {
-        'minor' => '5.0',
-        'release' => '5.0.3'
+        'minor' => '5.1',
+        'release' => '5.1'
       }
     },
     'update' => {
