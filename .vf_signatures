@@ -107,11 +107,11 @@ $SIGNATURES = {
     'releases' => {
       '7' => {
         'minor' => '7',
-        'release' => '7.64'
+        'release' => '7.65'
       },
       '8' => {
         'minor' => '8',
-        'release' => '8.6.12'
+        'release' => '8.6.13'
       }
     },
     'update' => {
@@ -187,6 +187,57 @@ $SIGNATURES = {
       }
     ]
   },
+  'evolution' => {
+    'fingerprints' => [
+      {
+        'file' => 'manager/includes/version.inc.php',
+        'regex' => 'Evolution'
+      },
+      {
+        'file' => 'core/factory/version.php',
+        'regex' => 'Evolution CMS'
+      }
+    ],
+    'name' => 'Evo CMS (ModX Evolution)',
+    'releases' => {
+      '1.4' => {
+        'minor' => '1.4',
+        'release' => '1.4.8'
+      },
+      '2.0' => {
+        'minor' => '2.0',
+        'release' => '2.0.0'
+      }
+    },
+    'update' => {
+      '1.x' => {
+        'base' => '.release-header a[href*=tag/1.]',
+        'major' => 2,
+        'minor' => 2,
+        'regex' => '([0-9]*\\.[0-9.]*)',
+        'single' => 1,
+        'url' => 'https://github.com/evolution-cms/evolution/releases'
+      },
+      '2.x' => {
+        'base' => '.release-header a[href*=tag/2.]',
+        'major' => 2,
+        'minor' => 2,
+        'regex' => '([0-9]*\\.[0-9.]*)',
+        'single' => 1,
+        'url' => 'https://github.com/evolution-cms/evolution/releases'
+      }
+    },
+    'versions' => [
+      {
+        'file' => 'manager/includes/version.inc.php',
+        'regex' => '_version.*\'(.*)\''
+      },
+      {
+        'file' => 'core/factory/version.php',
+        'regex' => 'version.*=>.*\'(.*)\''
+      }
+    ]
+  },
   'grav' => {
     'fingerprints' => [
       {
@@ -198,7 +249,7 @@ $SIGNATURES = {
     'releases' => {
       '1' => {
         'minor' => '1',
-        'release' => '1.5.8'
+        'release' => '1.5.10'
       }
     },
     'update' => {
@@ -286,19 +337,19 @@ $SIGNATURES = {
     'releases' => {
       '1.9' => {
         'minor' => '1.9',
-        'release' => '1.9.4.0'
+        'release' => '1.9.4.1'
       },
       '2.1' => {
         'minor' => '2.1',
-        'release' => '2.1.16'
+        'release' => '2.1.17'
       },
       '2.2' => {
         'minor' => '2.2',
-        'release' => '2.2.7'
+        'release' => '2.2.8'
       },
       '2.3' => {
         'minor' => '2.3',
-        'release' => '2.3.0'
+        'release' => '2.3.1'
       }
     },
     'update' => {
@@ -405,34 +456,24 @@ $SIGNATURES = {
   'modx' => {
     'fingerprints' => [
       {
+        'exclude' => '(?:Evolution|EVO_CORE_PATH)',
         'file' => 'manager/includes/version.inc.php',
         'regex' => 'modx'
       },
       {
+        'exclude' => 'evolution',
         'file' => 'core/docs/version.inc.php',
         'regex' => 'MODX'
       }
     ],
     'name' => 'MODx',
     'releases' => {
-      '1.2' => {
-        'minor' => '1.2',
-        'release' => '1.2.1'
-      },
       '2.7' => {
         'minor' => '2.7',
         'release' => '2.7.1'
       }
     },
     'update' => {
-      'evolution' => {
-        'base' => 'h2',
-        'major' => 2,
-        'minor' => 2,
-        'regex' => 'Current Version.* ([0-9.]*)',
-        'single' => 1,
-        'url' => 'http://modx.com/download/evolution/'
-      },
       'revolution' => {
         'base' => 'h2',
         'major' => 2,
@@ -595,11 +636,11 @@ $SIGNATURES = {
     'releases' => {
       '3.4' => {
         'minor' => '3.4',
-        'release' => '3.4.9'
+        'release' => '3.4.10'
       },
       '4.0' => {
         'minor' => '4.0',
-        'release' => '4.0.2'
+        'release' => '4.0.3'
       }
     },
     'update' => {
@@ -634,10 +675,10 @@ $SIGNATURES = {
     },
     'update' => {
       'current' => {
-        'base' => '#primary .entry_content > a[href$=".zip"]',
+        'base' => '.et_pb_blurb .et_pb_blurb_container h4',
         'major' => 1,
         'minor' => 2,
-        'regex' => 'Revive.*v([0-9.]+)',
+        'regex' => 'Revive.*version ([0-9.]+)',
         'single' => 1,
         'url' => 'http://www.revive-adserver.com/download/'
       }
@@ -741,7 +782,7 @@ $SIGNATURES = {
     'releases' => {
       '3' => {
         'minor' => '3.9',
-        'release' => '3.9.26'
+        'release' => '3.9.27'
       },
       '5' => {
         'minor' => '5.1',
