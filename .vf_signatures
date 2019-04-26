@@ -107,11 +107,11 @@ $SIGNATURES = {
     'releases' => {
       '7' => {
         'minor' => '7',
-        'release' => '7.65'
+        'release' => '7.66'
       },
       '8' => {
         'minor' => '8',
-        'release' => '8.6.14'
+        'release' => '8.6.15'
       }
     },
     'update' => {
@@ -249,7 +249,7 @@ $SIGNATURES = {
     'releases' => {
       '1' => {
         'minor' => '1',
-        'release' => '1.6.3'
+        'release' => '1.6.8'
       }
     },
     'update' => {
@@ -669,8 +669,8 @@ $SIGNATURES = {
     'name' => 'OpenX / Revive',
     'releases' => {
       '4' => {
-        'minor' => '4.1',
-        'release' => '4.1.4'
+        'minor' => '4.2',
+        'release' => '4.2.0'
       }
     },
     'update' => {
@@ -824,7 +824,7 @@ $SIGNATURES = {
     'releases' => {
       '4' => {
         'minor' => '4.7',
-        'release' => '4.7.10'
+        'release' => '4.7.11'
       },
       '5' => {
         'minor' => '5.4',
