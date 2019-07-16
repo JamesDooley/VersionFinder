@@ -249,7 +249,7 @@ $SIGNATURES = {
     'releases' => {
       '1' => {
         'minor' => '1',
-        'release' => '1.6.9'
+        'release' => '1.6.11'
       }
     },
     'update' => {
@@ -292,7 +292,7 @@ $SIGNATURES = {
     'releases' => {
       '3' => {
         'minor' => '3.9',
-        'release' => '3.9.8'
+        'release' => '3.9.10'
       }
     },
     'update' => {
@@ -337,19 +337,19 @@ $SIGNATURES = {
     'releases' => {
       '1.9' => {
         'minor' => '1.9',
-        'release' => '1.9.4.1'
+        'release' => '1.9.4.2'
       },
       '2.1' => {
         'minor' => '2.1',
-        'release' => '2.1.17'
+        'release' => '2.1.18'
       },
       '2.2' => {
         'minor' => '2.2',
-        'release' => '2.2.8'
+        'release' => '2.2.9'
       },
       '2.3' => {
         'minor' => '2.3',
-        'release' => '2.3.1'
+        'release' => '2.3.2'
       }
     },
     'update' => {
@@ -430,11 +430,11 @@ $SIGNATURES = {
     'releases' => {
       '1.31' => {
         'minor' => '1.31',
-        'release' => '1.31.2'
+        'release' => '1.31.3'
       },
-      '1.32' => {
-        'minor' => '1.32',
-        'release' => '1.32.2'
+      '1.33' => {
+        'minor' => '1.33',
+        'release' => '1.33.0'
       }
     },
     'update' => {
@@ -511,7 +511,7 @@ $SIGNATURES = {
     'releases' => {
       '2' => {
         'minor' => '2.3',
-        'release' => '2.3.4.1'
+        'release' => '2.3.4'
       },
       '3' => {
         'minor' => '3.0',
@@ -701,7 +701,7 @@ $SIGNATURES = {
     'releases' => {
       '5' => {
         'minor' => '5.5',
-        'release' => '5.5.2'
+        'release' => '5.5.3'
       }
     },
     'update' => {
@@ -786,7 +786,7 @@ $SIGNATURES = {
       },
       '5' => {
         'minor' => '5.2',
-        'release' => '5.2.1'
+        'release' => '5.2.2'
       }
     },
     'update' => {
@@ -827,8 +827,8 @@ $SIGNATURES = {
         'release' => '4.7.11'
       },
       '5' => {
-        'minor' => '5.4',
-        'release' => '5.4.0.3'
+        'minor' => '5.3',
+        'release' => '5.3.6.2'
       }
     },
     'update' => {
