@@ -10,8 +10,8 @@ $SIGNATURES = {
     'name' => 'PHPMailer',
     'releases' => {
       '6' => {
-        'minor' => '6.0',
-        'release' => '6.0.7'
+        'minor' => '6.1',
+        'release' => '6.1.1'
       }
     },
     'update' => {
@@ -111,7 +111,7 @@ $SIGNATURES = {
       },
       '8' => {
         'minor' => '8',
-        'release' => '8.7.3'
+        'release' => '8.7.7'
       }
     },
     'update' => {
@@ -206,7 +206,7 @@ $SIGNATURES = {
       },
       '2.0' => {
         'minor' => '2.0',
-        'release' => '2.0.0'
+        'release' => '2.0'
       }
     },
     'update' => {
@@ -249,7 +249,7 @@ $SIGNATURES = {
     'releases' => {
       '1' => {
         'minor' => '1',
-        'release' => '1.6.15'
+        'release' => '1.6.16'
       }
     },
     'update' => {
@@ -292,7 +292,7 @@ $SIGNATURES = {
     'releases' => {
       '3' => {
         'minor' => '3.9',
-        'release' => '3.9.11'
+        'release' => '3.9.12'
       }
     },
     'update' => {
@@ -470,7 +470,7 @@ $SIGNATURES = {
     'releases' => {
       '2.7' => {
         'minor' => '2.7',
-        'release' => '2.7.1'
+        'release' => '2.7.2'
       }
     },
     'update' => {
@@ -563,25 +563,29 @@ $SIGNATURES = {
       '3.0' => 'End of Life Date: November 2015'
     },
     'releases' => {
+      '3.1' => {
+        'minor' => '3.1',
+        'release' => '3.1.12'
+      },
       '3.2' => {
         'minor' => '3.2',
-        'release' => '3.2.7'
+        'release' => '3.2.8'
       }
     },
     'update' => {
-      '3.0' => {
-        'base' => '#full-package .download dd a',
-        'major' => 2,
-        'minor' => 2,
-        'regex' => 'Latest.*phpBB: ([0-9.]*).*',
-        'single' => 1,
-        'url' => 'https://www.phpbb.com/downloads/3.0/'
-      },
       '3.1' => {
-        'base' => '#full-package .download dd a',
+        'base' => '.download-container .download dd a',
         'major' => 2,
         'minor' => 2,
-        'regex' => 'Latest.*phpBB: ([0-9.]*).*',
+        'regex' => '([0-9.]+)',
+        'single' => 1,
+        'url' => 'https://www.phpbb.com/downloads/3.1/install'
+      },
+      'latest' => {
+        'base' => '.download-container dd a',
+        'major' => 2,
+        'minor' => 2,
+        'regex' => '([0-9.]+)',
         'single' => 1,
         'url' => 'https://www.phpbb.com/downloads/'
       }
@@ -668,14 +672,14 @@ $SIGNATURES = {
     ],
     'name' => 'OpenX / Revive',
     'releases' => {
-      '4' => {
-        'minor' => '4.2',
-        'release' => '4.2.1'
+      '5' => {
+        'minor' => '5.0',
+        'release' => '5.0.0'
       }
     },
     'update' => {
       'current' => {
-        'base' => '.et_pb_blurb .et_pb_blurb_container h4',
+        'base' => '.et_pb_column_0 .et_pb_blurb_container h4 span',
         'major' => 1,
         'minor' => 2,
         'regex' => 'Revive.*version ([0-9.]+)',
@@ -701,7 +705,7 @@ $SIGNATURES = {
     'releases' => {
       '5' => {
         'minor' => '5.5',
-        'release' => '5.5.4'
+        'release' => '5.5.4.1'
       }
     },
     'update' => {
@@ -751,7 +755,7 @@ $SIGNATURES = {
       },
       '7.8' => {
         'minor' => '7.8',
-        'release' => '7.8.2'
+        'release' => '7.8.3'
       }
     },
     'update' => {
@@ -826,8 +830,8 @@ $SIGNATURES = {
         'release' => '4.7.11'
       },
       '5' => {
-        'minor' => '5.3',
-        'release' => '5.3.6.3'
+        'minor' => '5.4',
+        'release' => '5.4.0.5'
       }
     },
     'update' => {
