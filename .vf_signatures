@@ -11,7 +11,7 @@ $SIGNATURES = {
     'releases' => {
       '6' => {
         'minor' => '6.1',
-        'release' => '6.1.1'
+        'release' => '6.1.2'
       }
     },
     'update' => {
@@ -111,7 +111,7 @@ $SIGNATURES = {
       },
       '8' => {
         'minor' => '8',
-        'release' => '8.7.7'
+        'release' => '8.7.10'
       }
     },
     'update' => {
@@ -202,7 +202,7 @@ $SIGNATURES = {
     'releases' => {
       '1.4' => {
         'minor' => '1.4',
-        'release' => '1.4.9'
+        'release' => '1.4.10'
       },
       '2.0' => {
         'minor' => '2.0',
@@ -249,7 +249,7 @@ $SIGNATURES = {
     'releases' => {
       '1' => {
         'minor' => '1',
-        'release' => '1.6.16'
+        'release' => '1.6.17'
       }
     },
     'update' => {
@@ -292,7 +292,7 @@ $SIGNATURES = {
     'releases' => {
       '3' => {
         'minor' => '3.9',
-        'release' => '3.9.12'
+        'release' => '3.9.13'
       }
     },
     'update' => {
@@ -337,19 +337,15 @@ $SIGNATURES = {
     'releases' => {
       '1.9' => {
         'minor' => '1.9',
-        'release' => '1.9.4.2'
-      },
-      '2.1' => {
-        'minor' => '2.1',
-        'release' => '2.1.18'
+        'release' => '1.9.4.3'
       },
       '2.2' => {
         'minor' => '2.2',
-        'release' => '2.2.9'
+        'release' => '2.2.10'
       },
       '2.3' => {
         'minor' => '2.3',
-        'release' => '2.3.2'
+        'release' => '2.3.3'
       }
     },
     'update' => {
@@ -430,11 +426,11 @@ $SIGNATURES = {
     'releases' => {
       '1.31' => {
         'minor' => '1.31',
-        'release' => '1.31.3'
+        'release' => '1.31.5'
       },
       '1.33' => {
         'minor' => '1.33',
-        'release' => '1.33.0'
+        'release' => '1.33.1'
       }
     },
     'update' => {
@@ -608,8 +604,8 @@ $SIGNATURES = {
     'name' => 'Piwigo',
     'releases' => {
       '2' => {
-        'minor' => '2.9',
-        'release' => '2.9.5'
+        'minor' => '2.10',
+        'release' => '2.10.1'
       }
     },
     'update' => {
@@ -638,13 +634,17 @@ $SIGNATURES = {
     ],
     'name' => 'Redmine',
     'releases' => {
+      '3.3' => {
+        'minor' => '3.3',
+        'release' => '3.3.10'
+      },
       '3.4' => {
         'minor' => '3.4',
-        'release' => '3.4.11'
+        'release' => '3.4.12'
       },
       '4.0' => {
         'minor' => '4.0',
-        'release' => '4.0.4'
+        'release' => '4.0.5'
       }
     },
     'update' => {
@@ -674,7 +674,7 @@ $SIGNATURES = {
     'releases' => {
       '5' => {
         'minor' => '5.0',
-        'release' => '5.0.0'
+        'release' => '5.0.1'
       }
     },
     'update' => {
@@ -705,7 +705,7 @@ $SIGNATURES = {
     'releases' => {
       '5' => {
         'minor' => '5.5',
-        'release' => '5.5.4.1'
+        'release' => '5.5.5'
       }
     },
     'update' => {
@@ -785,11 +785,11 @@ $SIGNATURES = {
     'releases' => {
       '3' => {
         'minor' => '3.9',
-        'release' => '3.9.28'
+        'release' => '3.9.29'
       },
       '5' => {
-        'minor' => '5.2',
-        'release' => '5.2.3'
+        'minor' => '5.3',
+        'release' => '5.3'
       }
     },
     'update' => {
@@ -831,7 +831,7 @@ $SIGNATURES = {
       },
       '5' => {
         'minor' => '5.4',
-        'release' => '5.4.0.5'
+        'release' => '5.4.0.6'
       }
     },
     'update' => {
