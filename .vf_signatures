@@ -331,6 +331,10 @@ $SIGNATURES = {
       {
         'file' => 'app/Mage.php',
         'signature' => 'magentocommerce'
+      },
+      {
+        'file' => 'vendor/magento/magento2-base/composer.json',
+        'signature' => 'magento/magento2-base'
       }
     ],
     'name' => 'Magento',
@@ -387,6 +391,11 @@ $SIGNATURES = {
         'file' => 'app/Mage.php',
         'multiline' => 1,
         'regex' => '(?:\'major\'|\'minor\'|\'revision\'|\'patch\').* => \'(.*)\''
+      },
+      {
+        'file' => 'vendor/magento/magento2-base/composer.json',
+        'single' => 1,
+        'regex' => '(?:\"version\").*: "(.*)"'
       }
     ]
   },
@@ -921,6 +930,49 @@ $SIGNATURES = {
         'file' => 'includes/version.php',
         'multiline' => 1,
         'regex' => 'PROJECT_VERSION_(?:MAJOR|MINOR)\', \'(.*)\''
+      }
+    ]
+  },
+ 'yiiframework' => {
+    'fingerprints' => [
+      {
+        'file' => 'yiiframework/YiiBase.php'
+      }
+    ],
+    'name' => 'YiiFramework',
+    'releases' => {
+      '1' => {
+        'minor' => '1.1',
+        'release' => '1.1.21'
+      } ,
+      '2' => {
+        'minor' => '2.0',
+        'release' => '2.0.31'
+       }
+    },
+    'update' => {
+      '1.1' => {
+        'base' => '.release a[href*=2.1] span',
+        'major' => 1,
+        'minor' => 1,
+        'regex' => 'Version ([0-9]*\\.[0-9.]*)',
+        'single' => 1,
+        'url' => 'https://github.com/yiisoft/yii/releases'
+      },
+      '2.0' => {
+        'base' => '.release a[href*=2.1] span',
+        'major' => 2,
+        'minor' => 0,
+        'regex' => '([0-9]*\\.[0-9.]*)',
+        'single' => 1,
+        'url' => 'https://github.com/yiisoft/yii2/releases'
+      }
+    },
+    'versions' => [
+      {
+        'file' => 'yiiframework/YiiBase.php',
+        'multiline' => 1,
+        'regex' => 'getVersion\(\)\s+.*\s+return \'(.*)\''
       }
     ]
   }
