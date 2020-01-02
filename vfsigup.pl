@@ -79,9 +79,11 @@ unless ($SIGFILE) {
 		$SIGFILE = '.vf_signatures';
 	} elsif (-e $RealBin.'/.vf_signatures') {
 		$SIGFILE = $RealBin.'/.vf_signatures';
+	} elsif (-e '/home/jamie/VersionFinder/.vf_signatures') {
+		$SIGFILE = '/home/jamie/VersionFinder/.vf_signatures';
 	} elsif (-e '/root/bin/.vf_signatures') {
-		$SIGFILE = '/root/bin/.vf_signatures';
-	}
+                $SIGFILE = '/root/bin/.vf_signatures';
+        }
 }
 
 unless (-e $SIGFILE) {
@@ -103,7 +105,7 @@ unless (@SIGLIST) {
 pullVersions();
 
 if ($ERROR &&  ! $NOERROR) {
-	say "Error encountered pulling updates, not continueing without --noerrors";
+	say "Error encountered pulling updates, not continuing without --noerrors";
 	exit 2;
 }
 my $dd = Data::Dumper->new([$SIGNATURES], [qw($SIGNATURES)]);
