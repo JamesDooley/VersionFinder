@@ -79,8 +79,6 @@ unless ($SIGFILE) {
 		$SIGFILE = '.vf_signatures';
 	} elsif (-e $RealBin.'/.vf_signatures') {
 		$SIGFILE = $RealBin.'/.vf_signatures';
-	} elsif (-e '/home/jamie/VersionFinder/.vf_signatures') {
-		$SIGFILE = '/home/jamie/VersionFinder/.vf_signatures';
 	} elsif (-e '/root/bin/.vf_signatures') {
                 $SIGFILE = '/root/bin/.vf_signatures';
         }
