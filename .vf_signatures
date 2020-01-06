@@ -326,6 +326,36 @@ $SIGNATURES = {
       }
     ]
   },
+  'laravel' => {
+    'fingerprints' => [
+      {
+        'file' => 'vendor/laravel/framework/src/Illuminate/Foundation/Application.php'
+      }
+    ],
+    'name' => 'Laravel',
+    'releases' => {
+      '6' => {
+        'minor' => '6.9',
+        'release' => '6.9.0'
+      }
+    },
+    'update' => {
+      '6' => {
+        'base' => '.release.label-latest a span',
+        'major' => 1,
+        'minor' => 2,
+        'regex' => 'v([0-9.]*)',
+        'single' => 1,
+        'url' => 'https://github.com/laravel/framework/releases'
+      }
+    },
+    'versions' => [
+      {
+        'file' => 'vendor/laravel/framework/src/Illuminate/Foundation/Application.php',
+        'regex' => 'const VERSION = \'([0-9]*\\.[0-9]*)\''
+      }
+    ]
+  },
   'magento' => {
     'fingerprints' => [
       {
