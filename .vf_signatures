@@ -330,12 +330,12 @@ $SIGNATURES = {
     'fingerprints' => [
       {
         'file' => 'vendor/laravel/framework/src/Illuminate/Foundation/Application.php'
-      },
-	notices' => {
-       'all' => 'The current branch is 6.X, 5.5 LTS EOL is Aug 30,2020. All otherversions are EOL.'
-     }
+      }
     ],
     'name' => 'Laravel',
+    'notices' => {
+       'all' => 'The current branch is 6.X, 5.5 LTS EOL is Aug 30,2020. All otherversions are EOL.'
+     },
     'releases' => {
       '6' => {
         'minor' => '6.9',
