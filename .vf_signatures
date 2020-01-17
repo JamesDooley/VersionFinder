@@ -135,6 +135,10 @@ $SIGNATURES = {
       {
         'file' => 'lib/Drupal.php',
         'regex' => 'const VERSION = \'(.*)\';'
+      },
+      {
+        'file' => 'modules/system/system.module',
+        'regex' => 'define.*VERSION\', \'(.*)\''
       }
     ]
   },
