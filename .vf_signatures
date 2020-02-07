@@ -11,7 +11,7 @@ $SIGNATURES = {
     'releases' => {
       '6' => {
         'minor' => '6.1',
-        'release' => '6.1.2'
+        'release' => '6.1.4'
       }
     },
     'update' => {
@@ -81,7 +81,8 @@ $SIGNATURES = {
           '1 - 1.999',
           '2 - 2.999',
           '3 - 3.999',
-          '5 - 4.999',
+          '4 - 4.999',
+          '5 - 5.999',
           '6 - 6.999',
           '7 - 7.57',
           '8.3.0 - 8.3.8',
@@ -107,11 +108,11 @@ $SIGNATURES = {
     'releases' => {
       '7' => {
         'minor' => '7',
-        'release' => '7.67'
+        'release' => '7.69'
       },
       '8' => {
         'minor' => '8',
-        'release' => '8.7.10'
+        'release' => '8.8.1'
       }
     },
     'update' => {
@@ -135,6 +136,10 @@ $SIGNATURES = {
       {
         'file' => 'lib/Drupal.php',
         'regex' => 'const VERSION = \'(.*)\';'
+      },
+      {
+        'file' => 'modules/system/system.module',
+        'regex' => 'define.*VERSION\', \'(.*)\''
       }
     ]
   },
@@ -206,7 +211,7 @@ $SIGNATURES = {
       },
       '2.0' => {
         'minor' => '2.0',
-        'release' => '2.0'
+        'release' => '2.0.1'
       }
     },
     'update' => {
@@ -249,7 +254,7 @@ $SIGNATURES = {
     'releases' => {
       '1' => {
         'minor' => '1',
-        'release' => '1.6.17'
+        'release' => '1.6.19'
       }
     },
     'update' => {
@@ -292,7 +297,7 @@ $SIGNATURES = {
     'releases' => {
       '3' => {
         'minor' => '3.9',
-        'release' => '3.9.13'
+        'release' => '3.9.14'
       }
     },
     'update' => {
@@ -326,11 +331,48 @@ $SIGNATURES = {
       }
     ]
   },
+  'laravel' => {
+    'fingerprints' => [
+      {
+        'file' => 'vendor/laravel/framework/src/Illuminate/Foundation/Application.php'
+      }
+    ],
+    'name' => 'Laravel',
+    'notices' => {
+       'all' => 'The current branch is 6.X, 5.5 LTS EOL is Aug 30,2020. All otherversions are EOL.'
+     },
+    'releases' => {
+      '6' => {
+        'minor' => '6.9',
+        'release' => '6.9.0'
+      }
+    },
+    'update' => {
+      '6' => {
+        'base' => '.release.label-latest a span',
+        'major' => 1,
+        'minor' => 2,
+        'regex' => 'v([0-9.]*)',
+        'single' => 1,
+        'url' => 'https://github.com/laravel/framework/releases'
+      }
+    },
+    'versions' => [
+      {
+        'file' => 'vendor/laravel/framework/src/Illuminate/Foundation/Application.php',
+        'regex' => 'const VERSION = \'([0-9]*\\.[0-9.]*)\''
+      }
+    ]
+  },
   'magento' => {
     'fingerprints' => [
       {
         'file' => 'app/Mage.php',
         'signature' => 'magentocommerce'
+      },
+      {
+        'file' => 'vendor/magento/magento2-base/composer.json',
+        'signature' => 'magento/magento2-base'
       }
     ],
     'name' => 'Magento',
@@ -338,6 +380,10 @@ $SIGNATURES = {
       '1.9' => {
         'minor' => '1.9',
         'release' => '1.9.4.3'
+      },
+      '2.1' => {
+        'minor' => '2.1',
+        'release' => '2.1.18'
       },
       '2.2' => {
         'minor' => '2.2',
@@ -358,7 +404,7 @@ $SIGNATURES = {
         'url' => 'http://devdocs.magento.com/guides/m1x/ce19-ee114/ce1.9_release-notes.html'
       },
       '2.1' => {
-        'base' => '.release a[href*=2.1] span',
+        'base' => '.release a[href*=2.1.] span',
         'major' => 2,
         'minor' => 2,
         'regex' => '([0-9]*\\.[0-9.]*)',
@@ -387,6 +433,11 @@ $SIGNATURES = {
         'file' => 'app/Mage.php',
         'multiline' => 1,
         'regex' => '(?:\'major\'|\'minor\'|\'revision\'|\'patch\').* => \'(.*)\''
+      },
+      {
+        'file' => 'vendor/magento/magento2-base/composer.json',
+        'regex' => '(?:\\"version\\").*: "(.*)"',
+        'single' => 1
       }
     ]
   },
@@ -426,11 +477,15 @@ $SIGNATURES = {
     'releases' => {
       '1.31' => {
         'minor' => '1.31',
-        'release' => '1.31.5'
+        'release' => '1.31.6'
       },
       '1.33' => {
         'minor' => '1.33',
-        'release' => '1.33.1'
+        'release' => '1.33.2'
+      },
+      '1.34' => {
+        'minor' => '1.34',
+        'release' => '1.34.0'
       }
     },
     'update' => {
@@ -610,10 +665,10 @@ $SIGNATURES = {
     },
     'update' => {
       'current' => {
-        'base' => '.pwg-release-date',
+        'base' => 'p[class^="pwg-release-date"]',
         'major' => 1,
         'minor' => 2,
-        'regex' => 'v([0-9.]*),',
+        'regex' => 'version ([0-9.]*)',
         'single' => 1,
         'url' => 'http://piwigo.org/'
       }
@@ -640,11 +695,15 @@ $SIGNATURES = {
       },
       '3.4' => {
         'minor' => '3.4',
-        'release' => '3.4.12'
+        'release' => '3.4.13'
       },
       '4.0' => {
         'minor' => '4.0',
-        'release' => '4.0.5'
+        'release' => '4.0.6'
+      },
+      '4.1' => {
+        'minor' => '4.1',
+        'release' => '4.1.0'
       }
     },
     'update' => {
@@ -674,7 +733,7 @@ $SIGNATURES = {
     'releases' => {
       '5' => {
         'minor' => '5.0',
-        'release' => '5.0.1'
+        'release' => '5.0.2'
       }
     },
     'update' => {
@@ -785,11 +844,11 @@ $SIGNATURES = {
     'releases' => {
       '3' => {
         'minor' => '3.9',
-        'release' => '3.9.29'
+        'release' => '3.9.30'
       },
       '5' => {
         'minor' => '5.3',
-        'release' => '5.3'
+        'release' => '5.3.2'
       }
     },
     'update' => {
@@ -831,7 +890,7 @@ $SIGNATURES = {
       },
       '5' => {
         'minor' => '5.4',
-        'release' => '5.4.0.6'
+        'release' => '5.4.0.8'
       }
     },
     'update' => {
@@ -889,6 +948,49 @@ $SIGNATURES = {
       {
         'file' => 'include/version.php',
         'regex' => 'XOOPS_VERSION.*XOOPS (.*)\''
+      }
+    ]
+  },
+  'yiiframework' => {
+    'fingerprints' => [
+      {
+        'file' => 'yiiframework/YiiBase.php'
+      }
+    ],
+    'name' => 'YiiFramework',
+    'releases' => {
+      '1' => {
+        'minor' => '1.1',
+        'release' => '1.1.21'
+      },
+      '2' => {
+        'minor' => '2.0',
+        'release' => '2.0.31'
+      }
+    },
+    'update' => {
+      '1.1' => {
+        'base' => '.release.label-latest a span',
+        'major' => 1,
+        'minor' => 2,
+        'regex' => '([0-9]*\\.[0-9.]*)',
+        'single' => 1,
+        'url' => 'https://github.com/yiisoft/yii/releases'
+      },
+      '2.0' => {
+        'base' => '.release.label-latest a span',
+        'major' => 1,
+        'minor' => 2,
+        'regex' => '([0-9]*\\.[0-9.]*)',
+        'single' => 1,
+        'url' => 'https://github.com/yiisoft/yii2/releases'
+      }
+    },
+    'versions' => [
+      {
+        'file' => 'yiiframework/YiiBase.php',
+        'multiline' => 1,
+        'regex' => 'getVersion\\(\\)\\s+.*\\s+return \'(.*)\''
       }
     ]
   },
