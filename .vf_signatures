@@ -112,7 +112,7 @@ $SIGNATURES = {
       },
       '8' => {
         'minor' => '8',
-        'release' => '8.8.1'
+        'release' => '8.8.2'
       }
     },
     'update' => {
@@ -254,7 +254,7 @@ $SIGNATURES = {
     'releases' => {
       '1' => {
         'minor' => '1',
-        'release' => '1.6.19'
+        'release' => '1.6.20'
       }
     },
     'update' => {
@@ -297,7 +297,7 @@ $SIGNATURES = {
     'releases' => {
       '3' => {
         'minor' => '3.9',
-        'release' => '3.9.14'
+        'release' => '3.9.15'
       }
     },
     'update' => {
@@ -339,12 +339,12 @@ $SIGNATURES = {
     ],
     'name' => 'Laravel',
     'notices' => {
-       'all' => 'The current branch is 6.X, 5.5 LTS EOL is Aug 30,2020. All otherversions are EOL.'
-     },
+      '5' => '5.5 LTS goes EOL on Aug 30, 2020'
+    },
     'releases' => {
       '6' => {
-        'minor' => '6.9',
-        'release' => '6.9.0'
+        'minor' => '6.14',
+        'release' => '6.14.0'
       }
     },
     'update' => {
@@ -379,7 +379,7 @@ $SIGNATURES = {
     'releases' => {
       '1.9' => {
         'minor' => '1.9',
-        'release' => '1.9.4.3'
+        'release' => '1.9.4.4'
       },
       '2.1' => {
         'minor' => '2.1',
@@ -387,7 +387,7 @@ $SIGNATURES = {
       },
       '2.2' => {
         'minor' => '2.2',
-        'release' => '2.2.10'
+        'release' => '2.2.11'
       },
       '2.3' => {
         'minor' => '2.3',
@@ -618,9 +618,9 @@ $SIGNATURES = {
         'minor' => '3.1',
         'release' => '3.1.12'
       },
-      '3.2' => {
-        'minor' => '3.2',
-        'release' => '3.2.8'
+      '3.3' => {
+        'minor' => '3.3',
+        'release' => '3.3.0'
       }
     },
     'update' => {
@@ -733,7 +733,7 @@ $SIGNATURES = {
     'releases' => {
       '5' => {
         'minor' => '5.0',
-        'release' => '5.0.2'
+        'release' => '5.0.4'
       }
     },
     'update' => {
@@ -764,7 +764,7 @@ $SIGNATURES = {
     'releases' => {
       '5' => {
         'minor' => '5.5',
-        'release' => '5.5.5'
+        'release' => '5.5.6'
       }
     },
     'update' => {
@@ -798,16 +798,12 @@ $SIGNATURES = {
     'name' => 'WHMCS',
     'notices' => {
       '7.5' => 'End of Life Date: 30th April 2019',
-      '7.6' => 'End of Life Date: 31st July 2019',
       '7.7' => 'End of Life Date: 31st January 2020',
       '7.8' => 'End of Life Date: 31st August 2020',
+      '7.9' => 'End of Life Date: 31st December 2020',
       'all' => 'Due to potential security concerns, it is recommended to only run this on a server dedicated to WHMCS.'
     },
     'releases' => {
-      '7.6' => {
-        'minor' => '7.6',
-        'release' => '7.6.2'
-      },
       '7.7' => {
         'minor' => '7.7',
         'release' => '7.7.1'
@@ -815,6 +811,10 @@ $SIGNATURES = {
       '7.8' => {
         'minor' => '7.8',
         'release' => '7.8.3'
+      },
+      '7.9' => {
+        'minor' => '7.9',
+        'release' => '7.9.1'
       }
     },
     'update' => {
@@ -890,7 +890,7 @@ $SIGNATURES = {
       },
       '5' => {
         'minor' => '5.4',
-        'release' => '5.4.0.8'
+        'release' => '5.4.0.9'
       }
     },
     'update' => {
@@ -961,11 +961,11 @@ $SIGNATURES = {
     'releases' => {
       '1' => {
         'minor' => '1.1',
-        'release' => '1.1.21'
+        'release' => '1.1.22'
       },
       '2' => {
         'minor' => '2.0',
-        'release' => '2.0.31'
+        'release' => '2.0.32'
       }
     },
     'update' => {
