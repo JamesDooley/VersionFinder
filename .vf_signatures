@@ -112,7 +112,7 @@ $SIGNATURES = {
       },
       '8' => {
         'minor' => '8',
-        'release' => '8.8.2'
+        'release' => '8.8.3'
       }
     },
     'update' => {
@@ -342,9 +342,9 @@ $SIGNATURES = {
       '5' => '5.5 LTS goes EOL on Aug 30, 2020'
     },
     'releases' => {
-      '6' => {
-        'minor' => '6.17',
-        'release' => '6.17.0'
+      '7' => {
+        'minor' => '7.0',
+        'release' => '7.0.3'
       }
     },
     'update' => {
@@ -521,7 +521,7 @@ $SIGNATURES = {
     'releases' => {
       '2.7' => {
         'minor' => '2.7',
-        'release' => '2.7.2'
+        'release' => '2.7.3'
       }
     },
     'update' => {
@@ -763,8 +763,8 @@ $SIGNATURES = {
     'name' => 'vBulletin',
     'releases' => {
       '5' => {
-        'minor' => '5.5',
-        'release' => '5.5.6'
+        'minor' => '5.6',
+        'release' => '5.6.0'
       }
     },
     'update' => {
