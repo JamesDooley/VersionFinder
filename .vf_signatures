@@ -11,7 +11,7 @@ $SIGNATURES = {
     'releases' => {
       '6' => {
         'minor' => '6.1',
-        'release' => '6.1.4'
+        'release' => '6.1.7'
       }
     },
     'update' => {
@@ -108,16 +108,20 @@ $SIGNATURES = {
     'releases' => {
       '7' => {
         'minor' => '7',
-        'release' => '7.69'
+        'release' => '7.72'
       },
       '8' => {
         'minor' => '8',
-        'release' => '8.8.3'
+        'release' => '8.9.2'
+      },
+      '9' => {
+        'minor' => '9',
+        'release' => '9.0.2'
       }
     },
     'update' => {
       'recommended' => {
-        'base' => '.pane-project-downloads-recommended .views-field h4',
+        'base' => '.view-project-downloads .views-field h4',
         'major' => 1,
         'minor' => 1,
         'regex' => '([0-9]*\\.[0-9.]*)$',
@@ -158,9 +162,9 @@ $SIGNATURES = {
         'minor' => '1.0',
         'release' => '1.0.4'
       },
-      '2.2' => {
-        'minor' => '2.2',
-        'release' => '2.2.1'
+      '2.3' => {
+        'minor' => '2.3',
+        'release' => '2.3.0-rc1'
       }
     },
     'update' => {
@@ -168,9 +172,9 @@ $SIGNATURES = {
         'base' => '#latest li a',
         'major' => 2,
         'minor' => 2,
-        'regex' => '([0-9]*\\.[0-9.]*)[_ ]',
+        'regex' => '([0-9]*\\.[0-9.]*(?:-rc[0-9]+))[_ ]',
         'single' => 1,
-        'url' => 'http://e107.org/get-started'
+        'url' => 'http://e107.org/download'
       },
       'legacy' => {
         'base' => '#old li a',
@@ -178,7 +182,7 @@ $SIGNATURES = {
         'minor' => 2,
         'regex' => '([0-9]*\\.[0-9.]*)',
         'single' => 1,
-        'url' => 'http://e107.org/get-started'
+        'url' => 'http://e107.org/download'
       }
     },
     'versions' => [
@@ -207,11 +211,11 @@ $SIGNATURES = {
     'releases' => {
       '1.4' => {
         'minor' => '1.4',
-        'release' => '1.4.10'
+        'release' => '1.4.11'
       },
       '2.0' => {
         'minor' => '2.0',
-        'release' => '2.0.1'
+        'release' => '2.0.2'
       }
     },
     'update' => {
@@ -254,7 +258,7 @@ $SIGNATURES = {
     'releases' => {
       '1' => {
         'minor' => '1',
-        'release' => '1.6.22'
+        'release' => '1.6.26'
       }
     },
     'update' => {
@@ -297,7 +301,7 @@ $SIGNATURES = {
     'releases' => {
       '3' => {
         'minor' => '3.9',
-        'release' => '3.9.16'
+        'release' => '3.9.20'
       }
     },
     'update' => {
@@ -343,8 +347,8 @@ $SIGNATURES = {
     },
     'releases' => {
       '7' => {
-        'minor' => '7.1',
-        'release' => '7.1.0'
+        'minor' => '7.22',
+        'release' => '7.22.4'
       }
     },
     'update' => {
@@ -376,51 +380,33 @@ $SIGNATURES = {
       }
     ],
     'name' => 'Magento',
+    'notices' => {
+      '1' => 'Magento 1.x went EOL June 30, 2020',
+      '2.0' => 'Magento 2.0 went EOL March 2018',
+      '2.1' => 'Magento 2.1 went EOL June 2019',
+      '2.2' => 'Magento 2.2 went EOL Dec 2019'
+    },
     'releases' => {
-      '1.9' => {
-        'minor' => '1.9',
-        'release' => '1.9.4.4'
-      },
-      '2.1' => {
-        'minor' => '2.1',
-        'release' => '2.1.18'
-      },
-      '2.2' => {
-        'minor' => '2.2',
-        'release' => '2.2.11'
-      },
       '2.3' => {
         'minor' => '2.3',
-        'release' => '2.3.3'
+        'release' => '2.3.5'
+      },
+      '2.4' => {
+        'minor' => '2.4',
+        'release' => '2.4.0'
       }
     },
     'update' => {
-      '1.9' => {
-        'base' => '.toc li a[href*=ce19-19]',
-        'major' => 2,
-        'minor' => 2,
-        'regex' => 'Magento Open Source ([0-9]*\\.[0-9.]*)',
-        'single' => 1,
-        'url' => 'http://devdocs.magento.com/guides/m1x/ce19-ee114/ce1.9_release-notes.html'
-      },
-      '2.1' => {
-        'base' => '.release a[href*=2.1.] span',
-        'major' => 2,
-        'minor' => 2,
-        'regex' => '([0-9]*\\.[0-9.]*)',
-        'single' => 1,
-        'url' => 'https://github.com/magento/magento2/releases'
-      },
-      '2.2' => {
-        'base' => '.release a[href*=2.2] span',
-        'major' => 2,
-        'minor' => 2,
-        'regex' => '([0-9]*\\.[0-9.]*)',
-        'single' => 1,
-        'url' => 'https://github.com/magento/magento2/releases'
-      },
       '2.3' => {
-        'base' => '.release a[href*=2.3] span',
+        'base' => '.release-header a[href*=2.3.]',
+        'major' => 2,
+        'minor' => 2,
+        'regex' => '([0-9]*\\.[0-9.]*)',
+        'single' => 1,
+        'url' => 'https://github.com/magento/magento2/releases'
+      },
+      '2.4' => {
+        'base' => '.release-header a[href*=2.4.]',
         'major' => 2,
         'minor' => 2,
         'regex' => '([0-9]*\\.[0-9.]*)',
@@ -477,15 +463,15 @@ $SIGNATURES = {
     'releases' => {
       '1.31' => {
         'minor' => '1.31',
-        'release' => '1.31.6'
+        'release' => '1.31.8'
       },
       '1.33' => {
         'minor' => '1.33',
-        'release' => '1.33.2'
+        'release' => '1.33.4'
       },
       '1.34' => {
         'minor' => '1.34',
-        'release' => '1.34.0'
+        'release' => '1.34.2'
       }
     },
     'update' => {
@@ -526,12 +512,12 @@ $SIGNATURES = {
     },
     'update' => {
       'revolution' => {
-        'base' => 'h2',
+        'base' => '.release-entry h4 a',
         'major' => 2,
         'minor' => 2,
-        'regex' => 'Current Version.* ([0-9.]*)',
+        'regex' => 'v([0-9.]*)',
         'single' => 1,
-        'url' => 'http://modx.com/download/'
+        'url' => 'https://github.com/modxcms/revolution/releases'
       }
     },
     'versions' => [
@@ -660,7 +646,7 @@ $SIGNATURES = {
     'releases' => {
       '2' => {
         'minor' => '2.10',
-        'release' => '2.10.1'
+        'release' => '2.10.2'
       }
     },
     'update' => {
@@ -689,21 +675,13 @@ $SIGNATURES = {
     ],
     'name' => 'Redmine',
     'releases' => {
-      '3.3' => {
-        'minor' => '3.3',
-        'release' => '3.3.10'
-      },
-      '3.4' => {
-        'minor' => '3.4',
-        'release' => '3.4.13'
-      },
       '4.0' => {
         'minor' => '4.0',
-        'release' => '4.0.6'
+        'release' => '4.0.7'
       },
       '4.1' => {
         'minor' => '4.1',
-        'release' => '4.1.0'
+        'release' => '4.1.1'
       }
     },
     'update' => {
@@ -764,7 +742,7 @@ $SIGNATURES = {
     'releases' => {
       '5' => {
         'minor' => '5.6',
-        'release' => '5.6.0'
+        'release' => '5.6.2'
       }
     },
     'update' => {
@@ -797,15 +775,15 @@ $SIGNATURES = {
     ],
     'name' => 'WHMCS',
     'notices' => {
-      '7.7' => 'End of Life Date: 31st January 2020',
+      '7.10' => 'End of Life Date: 30th April 2021',
       '7.8' => 'End of Life Date: 31st August 2020',
       '7.9' => 'End of Life Date: 31st December 2020',
       'all' => 'Due to potential security concerns, it is recommended to only run this on a server dedicated to WHMCS.'
     },
     'releases' => {
-      '7.7' => {
-        'minor' => '7.7',
-        'release' => '7.7.1'
+      '7.10' => {
+        'minor' => '7.10',
+        'release' => '7.10.2'
       },
       '7.8' => {
         'minor' => '7.8',
@@ -846,11 +824,11 @@ $SIGNATURES = {
     'releases' => {
       '3' => {
         'minor' => '3.9',
-        'release' => '3.9.30'
+        'release' => '3.9.32'
       },
       '5' => {
-        'minor' => '5.3',
-        'release' => '5.3.2'
+        'minor' => '5.4',
+        'release' => '5.4.2'
       }
     },
     'update' => {
@@ -892,7 +870,7 @@ $SIGNATURES = {
       },
       '5' => {
         'minor' => '5.4',
-        'release' => '5.4.0.10'
+        'release' => '5.4.1.9'
       }
     },
     'update' => {
@@ -967,7 +945,7 @@ $SIGNATURES = {
       },
       '2' => {
         'minor' => '2.0',
-        'release' => '2.0.32'
+        'release' => '2.0.36'
       }
     },
     'update' => {
@@ -1007,7 +985,7 @@ $SIGNATURES = {
     'releases' => {
       '1' => {
         'minor' => '1.5',
-        'release' => '1.5.6'
+        'release' => '1.5.7'
       }
     },
     'update' => {
