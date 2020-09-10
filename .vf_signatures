@@ -135,7 +135,7 @@ $SIGNATURES = {
       },
       {
         'file' => 'CHANGELOG.txt',
-        'regex' => 'Drupal (.*),'
+        'regex' => 'Drupal ([0-9]*\\.[0-9.]*),'
       },
       {
         'file' => 'lib/Drupal.php',
